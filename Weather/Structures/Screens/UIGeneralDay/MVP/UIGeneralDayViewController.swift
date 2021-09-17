@@ -1,0 +1,197 @@
+import UIKit
+import MapKit
+
+protocol GeneralDayPresenterProtocol: AnyObject {
+    
+    func updateDataByUser()
+    func onTapOpenMapButton()
+    func onTapThemeButton()
+    func onTapCityListButton()
+    func onTapLocationButton()
+    func onTapBackButton()
+    func onApplyNewCityName(_ cityName:String)
+    func onTapAnnotation(lat: Double, lon: Double)
+    func mapViewDidFinishLoadingMap(centerLon: Double, centerLat: Double, lonA: Double, latA: Double)
+    func showDayDetails(_ dayIndex: Int)
+    
+}
+
+class UIGeneralDayViewController: UICustomViewController {
+    
+    var presenter: GeneralDayPresenterProtocol!
+    
+    var contentView: UIGeneralDayView!
+    var contentMapView: UIMapView!
+    
+    private unowned var dataSource: DataSource!
+    private var geonamesDataSource: WeatherInGeoNamesProtocol!
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        setupUI()
+        presenter.updateDataByUser()
+    }
+    
+    private func setupUI(){
+        
+        contentView = UIGeneralDayView(presenter: presenter)
+        view = contentView
+        ThemeManager.setLastTheme(sender: self)
+        contentView.tableView.delegate = self
+        contentView.tableView.dataSource = self
+    }
+
+}
+
+extension UIGeneralDayViewController: UITableViewDelegate{
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.showDayDetails(indexPath.row)
+    }
+    
+}
+
+extension UIGeneralDayViewController: UITableViewDataSource{
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let dataSource = dataSource {
+            return dataSource.getDaysCount() - 1
+        }else{
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.row > 0{
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UIWeatherDayCell", for: indexPath) as? UIWeatherDayCell else {
+                assertionFailure()
+                return UITableViewCell()
+            }
+            cell.setupCell()
+            if let dataSource = dataSource {
+                cell.refresh(dataSource.getDayData(indexPath.row))
+            }
+            return cell
+            
+        }else{
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITodayWeatherCell", for: indexPath) as? UITodayWeatherCell else {
+                assertionFailure()
+                return UITableViewCell()
+            }
+            cell.setupCell()
+            if let dataSource = dataSource {
+                cell.refresh(dataSource.getDayData(indexPath.row))
+            }
+            return cell
+            
+        }
+    }
+}
+
+extension UIGeneralDayViewController: GeneralDayViewProtocol{
+    
+    func switchTheme() {
+        
+        ThemeManager.switchTheme(sender: self)
+    }
+    
+    func updateCityName(_ name: String) {
+        
+        self.contentView.header.title.text = name
+    }
+    
+    func refreshData(_ dataSource: DataSource){
+        
+        self.dataSource = dataSource
+        self.contentView.tableView.reloadData()
+        self.contentView.tableView.refreshControl?.endRefreshing()
+    }
+    
+    func updateCells() {
+        
+        contentView.tableView.refreshControl?.beginRefreshing()
+        contentView.tableView.reloadData()
+        contentView.tableView.refreshControl?.endRefreshing()
+    }
+    
+    func openMap(cityName: String) {
+        
+        contentMapView = UIMapView(presenter: presenter)
+        contentMapView.mapView.delegate = self
+        contentMapView.mapView.showsCompass = false
+        contentMapView.mapView.showsScale = false
+        
+        contentMapView.header.title.text = cityName
+        
+        contentMapView.mapView.setRegion(
+            MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: dataSource.getCoordinates().lat,
+                    longitude: dataSource.getCoordinates().lon
+                ),
+                latitudinalMeters: CLLocationDistance.init(100000),
+                longitudinalMeters: CLLocationDistance.init(100000)
+            ),
+            animated: true
+        )
+        
+        contentMapView.mapView.mapType = .standard
+        view = contentMapView
+    }
+    
+    func closeMap() {
+        
+        contentMapView = UIMapView(presenter: presenter)
+        view = contentView
+    }
+    
+    func refreshCitiesOnMap(_ dataSource: WeatherInGeoNamesProtocol) {
+        
+        contentMapView.loadAnnotationsFromDataSource(dataSource)
+        geonamesDataSource = dataSource
+    }
+    
+    func updateLocationOnMap(lat: Double, lon: Double) {
+        contentMapView.mapView.setCenter(CLLocationCoordinate2D(latitude: lat, longitude: lon), animated: true)
+    }
+    
+}
+
+extension UIGeneralDayViewController: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        if let annotation = view.annotation {
+            presenter.onTapAnnotation(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude)
+        }
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
+        mapView.removeAnnotations(mapView.annotations)
+        
+        presenter.mapViewDidFinishLoadingMap(centerLon: mapView.region.center.longitude, centerLat: mapView.region.center.latitude, lonA: mapView.region.span.longitudeDelta, latA: mapView.region.span.latitudeDelta)
+        
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "UIAnnotationView") as! UIAnnotationView
+        
+        if let geonamesDataSource = geonamesDataSource {
+            if let data = geonamesDataSource.getItemByLocation(lat: annotation.coordinate.latitude, lon: annotation.coordinate.longitude){
+                
+                annotationView.setValues(icon: ImageManager.getIconByCode(data.icon), temp: Int(data.temp), feelsLike: Int(data.tempFeelsLike))
+            }
+        }
+        return annotationView
+    }
+    
+}

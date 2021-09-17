@@ -1,0 +1,141 @@
+import UIKit
+import CoreData
+
+protocol SearchPresenterProtocolForModel: AnyObject {
+    func didCityLastUseUpdate(_ cityName: String)
+    func cityListUpdated(_ dataSource: CityListItemDataSourceProtocol)
+}
+
+class SearchModel: Model, SearchModelProtocol{
+    
+    private var dataSource = CityListItemDataSource()
+    unowned var presenter: SearchPresenterProtocolForModel!
+    
+    private let lang: String = "ru"
+    private let units: String = "metric"
+    private let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    func didCityListUpdate() {
+        presenter.cityListUpdated(dataSource)
+    }
+    
+    func updateWeatherInCity(_ city: Cities) {
+        
+        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(city.name!)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
+            print("Cannot covert string to URL")
+            return
+        }
+        getCurrentDataFromAPI(url){ result in
+            DispatchQueue.main.async {
+                self.dataSource.data.append(result)
+                self.didCityListUpdate()
+            }
+        }
+    }
+    
+    func updateWeatherInCity(_ name: String) {
+        
+        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(name)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
+            print("Cannot covert string to URL")
+            return
+        }
+        getCurrentDataFromAPI(url){ result in
+            DispatchQueue.main.async {
+                self.dataSource.data.append(result)
+                self.didCityListUpdate()
+            }
+        }
+    }
+    
+    func updateCityList(){
+        dataSource = CityListItemDataSource()
+        do {
+            if var cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
+                cities.sort(by: { $0.lastUse! > $1.lastUse! })
+                for item in cities {
+                    print(item.lastUse!)
+                    updateWeatherInCity(item)
+                }
+            }
+        }catch{
+            // error
+        }
+    }
+    
+    func insertCityInCitiesList(name: String){
+        let city = Cities(context: context)
+        city.name = name
+        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(name)&appid=\(APIKey)").encodeUrl) else{
+            print("Cannot covert string to URL")
+            return
+        }
+        getCurrentDataFromAPI(url){ result in
+            DispatchQueue.main.async {
+                city.lat = result.lat
+                city.lon = result.lon
+            }
+        }
+        
+        city.lastUse = Date()
+        do {
+            DispatchQueue.main.async {
+                self.updateWeatherInCity(name)
+            }
+            try context.save()
+        }catch{
+            // error
+        }
+    }
+    
+    func insertCityInCitiesList(lat: Double, lon: Double){
+        let city = Cities(context: context)
+        city.lat = lat
+        city.lon = lon
+        city.lastUse = Date()
+        
+        do {
+            try context.save()
+        }catch{
+            // error
+        }
+    }
+    
+    func deleteCityFromCitiesList(id: Int32){
+        
+        do {
+            try context.save()
+        }catch{
+            // error
+        }
+    }
+    func updateCityLastUse(_ name: String){
+        do {
+            if let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
+                let city = cities.filter({ $0.name == name }).first
+                city?.lastUse = Date()
+                try context.save()
+                DispatchQueue.main.async {
+                    self.presenter.didCityLastUseUpdate(name)
+                }
+            }
+        }catch{
+            // error
+        }
+    }
+    
+    func clearCoreData() {
+        do {
+            let cities = try context.fetch(Cities.fetchRequest())
+            for item in cities {
+                let city = item as! Cities
+                context.delete(city)
+                try context.save()
+            }
+        }catch{
+            
+        }
+    }
+    
+}
