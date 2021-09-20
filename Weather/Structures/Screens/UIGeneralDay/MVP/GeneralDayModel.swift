@@ -107,7 +107,7 @@ extension GeneralDayModel: GeneralDayModelProtocol {
     func updateCurrentDataInGeoNames(_ geonames: GeoNames) {
         
         for geoname in geonames.geonames {
-            guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?lat=\(geoname.lat)&lon=\(geoname.lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
+            guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?lat=\(geoname.lat!)&lon=\(geoname.lon!)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
                 print("Cannot covert string to URL")
                 return
             }
