@@ -16,7 +16,7 @@ protocol GeneralDayPresenterProtocol: AnyObject {
     
 }
 
-class UIGeneralDayViewController: UICustomViewController {
+class UIGeneralDayViewController: UIViewController {
     
     var presenter: GeneralDayPresenterProtocol!
     

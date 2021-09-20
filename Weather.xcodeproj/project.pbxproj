@@ -42,7 +42,6 @@
 		54480D2F26E0E9D8001698C3 /* UICustomAlertCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D2E26E0E9D8001698C3 /* UICustomAlertCollectionViewCell.swift */; };
 		54480D3226E10002001698C3 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3126E10002001698C3 /* Builder.swift */; };
 		54480D3526E10735001698C3 /* UISearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3426E10735001698C3 /* UISearchViewController.swift */; };
-		54480D3726E109BE001698C3 /* UICustomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3626E109BE001698C3 /* UICustomViewController.swift */; };
 		54480D3D26E11250001698C3 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3C26E11250001698C3 /* SearchPresenter.swift */; };
 		54480D3F26E113ED001698C3 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3E26E113ED001698C3 /* SearchModel.swift */; };
 		54480D4126E11F8F001698C3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D4026E11F8F001698C3 /* Router.swift */; };
@@ -112,7 +111,6 @@
 		54480D2E26E0E9D8001698C3 /* UICustomAlertCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomAlertCollectionViewCell.swift; sourceTree = "<group>"; };
 		54480D3126E10002001698C3 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		54480D3426E10735001698C3 /* UISearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISearchViewController.swift; sourceTree = "<group>"; };
-		54480D3626E109BE001698C3 /* UICustomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomViewController.swift; sourceTree = "<group>"; };
 		54480D3C26E11250001698C3 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchPresenter.swift; path = Weather/Structures/Screens/UISearch/MVP/SearchPresenter.swift; sourceTree = SOURCE_ROOT; };
 		54480D3E26E113ED001698C3 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchModel.swift; path = Weather/Structures/Screens/UISearch/MVP/SearchModel.swift; sourceTree = SOURCE_ROOT; };
 		54480D4026E11F8F001698C3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
@@ -363,7 +361,6 @@
 			children = (
 				54480D1326DFB3DC001698C3 /* UIHeader.swift */,
 				542FD2CD26CBD6C300AC4077 /* UIHeaderButton.swift */,
-				54480D3626E109BE001698C3 /* UICustomViewController.swift */,
 				5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */,
 			);
 			path = UI;
@@ -611,7 +608,6 @@
 				5466261E26EB5AA80024E38B /* Cities+CoreDataProperties.swift in Sources */,
 				5466261D26EB5AA80024E38B /* Cities+CoreDataClass.swift in Sources */,
 				54183E6726E64115002E135E /* UIDayDetailsHeader.swift in Sources */,
-				54480D3726E109BE001698C3 /* UICustomViewController.swift in Sources */,
 				54480D4126E11F8F001698C3 /* Router.swift in Sources */,
 				54FAECF926DE255C00431E54 /* UICustomTextField.swift in Sources */,
 				54183E6226E6340A002E135E /* DayDetailsPresenter.swift in Sources */,

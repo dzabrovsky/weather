@@ -10,7 +10,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func onRowSelected(_ cityName: String)
 }
 
-class UISearchViewController: UICustomViewController {
+class UISearchViewController: UIViewController {
     
     var dataSource: CityListItemDataSourceProtocol!
     
