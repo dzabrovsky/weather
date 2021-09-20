@@ -1,29 +1,14 @@
 import UIKit
 
-protocol CityListItemDataSourceProtocol {
-    func getCityList() -> [CityListItem]
-    func getCityListByIndexInArray(_ index: Int) -> CityListItem
-}
-class CityListItemDataSource: CityListItemDataSourceProtocol {
-    var data: [CityListItem] = []
-    
-    func getCityList() -> [CityListItem] {
-        return data
-    }
-    func getCityListByIndexInArray(_ index: Int) -> CityListItem {
-        return data[index]
-    }
-}
-
 struct CityListItem {
-    var name: String
-    var lat: Double
-    var lon: Double
-    var lastUse: Date
+    var name: String = ""
+    var lat: Double = 0
+    var lon: Double = 0
+    var lastUse: Date = Date()
     
-    var icon: String
-    var temp: Float
-    var tempFeelsLike: Float
+    var icon: String = ""
+    var temp: Float = 0
+    var tempFeelsLike: Float = 0
     
     init(name: String, lat: Double, lon: Double, lastUse: Date, icon: String, temp: Float, tempFeelsLike: Float) {
         self.name = name

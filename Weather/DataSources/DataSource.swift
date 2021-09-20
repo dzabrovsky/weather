@@ -1,10 +1,3 @@
-//
-//  DataSource.swift
-//  Weather
-//
-//  Created by Denis Zabrovsky on 01.09.2021.
-//
-
 import Foundation
 
 protocol DataSource: AnyObject {
