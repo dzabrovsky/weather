@@ -6,7 +6,7 @@ protocol GeneralDayViewProtocol: AnyObject {
     func refreshCitiesOnMap(_ dataSorce: WeatherInGeoNamesProtocol)
     func updateCityName(_ name: String)
     func switchTheme()
-    func openMap(cityName: String)
+    func openMap()
     func closeMap()
     func updateLocationOnMap(lat: Double, lon: Double)
     
@@ -19,15 +19,18 @@ protocol GeneralDayModelProtocol: AnyObject {
     func updateDataByLocation(lat: Double, lon: Double)
     
     func updateGeoNames(east: Double, west: Double, north: Double, south: Double)
-    func getCurrentData() -> WeatherData
-    func getCurrentCityName() -> String
     
-    func updateCurrentDataInGeoNames()
+    func updateCurrentDataInGeoNames(_ geonames: GeoNames)
+}
+
+protocol GeneralDayRouterProtocol {
+    func showDayDetails(_ dataSource: DataSourceDay)
+    func showSearchView()
 }
 
 class GeneralDayPresenter{
 
-    var router: RouterProtocol?
+    var router: GeneralDayRouterProtocol!
     var model: GeneralDayModelProtocol!
     var view: GeneralDayViewProtocol!
     
@@ -35,8 +38,8 @@ class GeneralDayPresenter{
 
 extension GeneralDayPresenter: GeneralDayPresenterProtocolForModel {
     
-    func didGeoNamesUpdated() {
-        model.updateCurrentDataInGeoNames()
+    func didGeoNamesUpdated(_ geonames: GeoNames) {
+        model.updateCurrentDataInGeoNames(geonames)
     }
     
     func didGeoNamesWeatherUpdated(_ dataSource: WeatherInGeoNamesProtocol) {
@@ -51,14 +54,13 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocolForModel {
         view.updateLocationOnMap(lat: lat, lon: lon)
     }
     
-    func didDataUpdated() {
-        self.view.refreshData(model.getCurrentData())
-        self.view.updateCityName(model.getCurrentCityName())
+    func didDataUpdated(_ data: WeatherData) {
+        self.view.refreshData(data)
     }
     
-    func didDataByLocationUpdated(){
+    func didDataByLocationUpdated(_ data: WeatherData){
         self.view.closeMap()
-        self.didDataUpdated()
+        self.didDataUpdated(data)
     }
     
 }
@@ -70,7 +72,7 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     }
     
     func onTapOpenMapButton() {
-        view.openMap(cityName: model.getCurrentCityName())
+        view.openMap()
     }
     
     func onTapLocationButton() {
@@ -97,8 +99,8 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
         model.updateGeoNames(east: centerLon + lonA/2, west: centerLon - lonA/2, north: centerLat - latA/2, south: centerLat + latA/2)
     }
     
-    func showDayDetails(_ dayIndex: Int) {
-        router?.showDayDetails(model.getCurrentData().getDayData(dayIndex))
+    func showDayDetails(_ dataSource: DataSourceDay) {
+        router?.showDayDetails(dataSource)
     }
     
 }

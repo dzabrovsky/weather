@@ -1,10 +1,3 @@
-//
-//  DayDetailsPresenter.swift
-//  Weather
-//
-//  Created by Denis Zabrovsky on 06.09.2021.
-//
-
 import Foundation
 
 protocol UIDayDetailsViewControllerProtocol: AnyObject {
@@ -16,10 +9,10 @@ class DayDetailsPresenter: DayDetailsPresenterProtocol {
 
     unowned var view: UIDayDetailsViewControllerProtocol!
     var model: GeneralDayModelProtocol!
-    var router: RouterProtocol?
+    var router: AnotherRouterProtocol!
     
     func onTapBackButton() {
-        router?.popToRoot()
+        router.popToRoot()
     }
     
     func onTapThemeButton() {

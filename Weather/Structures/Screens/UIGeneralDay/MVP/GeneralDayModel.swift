@@ -9,9 +9,9 @@ import Alamofire
 
 protocol GeneralDayPresenterProtocolForModel: AnyObject {
     
-    func didDataUpdated()
-    func didDataByLocationUpdated()
-    func didGeoNamesUpdated()
+    func didDataUpdated(_ data: WeatherData)
+    func didDataByLocationUpdated(_ data: WeatherData)
+    func didGeoNamesUpdated(_ geonames: GeoNames)
     func didGeoNamesWeatherUpdated(_ dataSource: WeatherInGeoNamesProtocol)
     func didLocationUpdated(lat: Double, lon: Double)
     
@@ -27,21 +27,19 @@ class GeneralDayModel: Model {
     private var cityName:String = "Tambov"
     private let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
     
-    private var data = WeatherData()
-    private var geonames: GeoNames!
     private var dataGeoNames = WeatherInGeoNames()
     
     private var locationManager: CLLocationManager = CLLocationManager()
     
-    func didDataUpdated() {
-        presenter.didDataUpdated()
+    func didDataUpdated(_ data: WeatherData) {
+        presenter.didDataUpdated(data)
     }
-    func didDataByLocationUpdated() {
-        presenter.didDataByLocationUpdated()
+    func didDataByLocationUpdated(_ data: WeatherData) {
+        presenter.didDataByLocationUpdated(data)
     }
     
-    func didGeoNamesUpdated() {
-        presenter.didGeoNamesUpdated()
+    func didGeoNamesUpdated(_ data: GeoNames) {
+        presenter.didGeoNamesUpdated(data)
     }
     
     func getGeoNames (_ url:URL, completion: @escaping (GeoNames) -> Void) {
@@ -71,8 +69,7 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         
         getDataFromAPI(url){ result in
             DispatchQueue.main.async {
-                self.data = result
-                self.didDataUpdated()
+                self.didDataUpdated(result)
             }
         }
     }
@@ -101,28 +98,25 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         
         getGeoNames(url){ result in
             DispatchQueue.main.async {
-                self.geonames = result
-                self.didGeoNamesUpdated()
+                self.didGeoNamesUpdated(result)
             }
         }
         
     }
     
-    func updateCurrentDataInGeoNames() {
+    func updateCurrentDataInGeoNames(_ geonames: GeoNames) {
         
-        if let geonamesData = geonames.geonames {
-            for geoname in geonamesData {
-                guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?lat=\(geoname.lat)&lon=\(geoname.lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
-                    print("Cannot covert string to URL")
-                    return
-                }
-                
-                getCurrentDataFromAPI(url){ result in
-                    DispatchQueue.main.async {
-                        self.dataGeoNames.data.append(result)
-                        
-                        self.presenter.didGeoNamesWeatherUpdated(self.dataGeoNames)
-                    }
+        for geoname in geonames.geonames {
+            guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?lat=\(geoname.lat)&lon=\(geoname.lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
+                print("Cannot covert string to URL")
+                return
+            }
+            
+            getCurrentDataFromAPI(url){ result in
+                DispatchQueue.main.async {
+                    self.dataGeoNames.data.append(result)
+                    
+                    self.presenter.didGeoNamesWeatherUpdated(self.dataGeoNames)
                 }
             }
         }
@@ -137,18 +131,9 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         
         getDataFromAPI(url){ result in
             DispatchQueue.main.async {
-                self.data = result
-                self.didDataByLocationUpdated()
+                self.didDataByLocationUpdated(result)
             }
         }
-    }
-    
-    func getCurrentData() -> WeatherData {
-        return self.data
-    }
-    
-    func getCurrentCityName() -> String {
-        return data.cityName
     }
 }
 

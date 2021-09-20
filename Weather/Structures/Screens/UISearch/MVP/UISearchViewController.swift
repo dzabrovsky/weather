@@ -19,25 +19,58 @@ class UISearchViewController: UICustomViewController {
     var contentView: UISearchView!
     
     override func viewDidLoad(){
-        contentView = UISearchView(presenter: presenter)
+        contentView = UISearchView()
         view = contentView
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
         
         setup()
+        setActions()
+    }
+    
+    @objc private func onTapThemeButton(sender: UIHeaderButton!){
+        presenter.onTapThemeButton()
+    }
+    
+    @objc private func onTapAddCity(sender: UIHeaderButton!){
+        presenter.onTapAddCity()
+    }
+    @objc private func onTapBack(sender: UIHeaderButton!){
+        presenter.onTapBack()
     }
     
     func setup(){
         presenter.updateDataSource()
     }
     
+    private func setActions(){
+        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton(sender:)), for: .touchDown)
+        contentView.header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchDown)
+        contentView.addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchDown)
+    }
+    
 }
 extension UISearchViewController: SearchViewProtocol{
     
+    func showAlertCityDoesNotExists() {
+        let alert = UIAlertController(title: "Что-то пошло не так...", message: "Город с таким названием не найден!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil ))
+        self.present(alert, animated: true, completion: nil )
+    }
+    
+    func showAlertCityAlreadyExists() {
+        let alert = UIAlertController(title: "Что-то пошло не так...", message: "Вы уже добавили этот город в список городов!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil ))
+        self.present(alert, animated: true, completion: nil )
+    }
+    
     func openAddCityAlert() {
 
-        let inputCity = UIInputCityName()
-        inputCity.presenter = presenter
+        let inputCity = UIInputCityName(completion: { cityName in
+            DispatchQueue.main.async {
+                self.presenter.inputCityName(cityName)
+            }
+        })
         inputCity.modalPresentationStyle = .overCurrentContext
         inputCity.modalTransitionStyle = .crossDissolve
         

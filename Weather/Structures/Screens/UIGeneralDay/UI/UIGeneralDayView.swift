@@ -9,25 +9,6 @@ import UIKit
 
 class UIGeneralDayView: UIView {
     
-    var presenter: GeneralDayPresenterProtocol
-    
-    //Actions
-    @objc private func onTapOpenMapButton(sender: UIHeaderButton!){
-        presenter.onTapOpenMapButton()
-    }
-    
-    @objc private func onTapThemeButton(sender: UIHeaderButton!){
-        presenter.onTapThemeButton()
-    }
-    
-    @objc private func onTapCityListButton(sender: UIHeaderButton!){
-        presenter.onTapCityListButton()
-    }
-    
-    @objc private func pullToRefresh(sender: UIRefreshControl){
-        presenter.updateDataByUser()
-    }
-    
     let header: UIGeneralDayHeader = {
         let header = UIGeneralDayHeader()
         header.title.text = "Тамбов"
@@ -49,8 +30,7 @@ class UIGeneralDayView: UIView {
     
     var todayView = UITodayWeatherCell()
     
-    init(presenter: GeneralDayPresenterProtocol){
-        self.presenter = presenter
+    init(){
         super.init(frame: CGRect())
         
         setup()
@@ -78,16 +58,6 @@ class UIGeneralDayView: UIView {
             tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
             tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
-        
-        setActions()
-    }
-    
-    private func setActions(){
-        
-        header.themeButton.addTarget(self, action: #selector(onTapThemeButton), for: .touchDown)
-        header.openMapButton.addTarget(self, action: #selector(onTapOpenMapButton(sender:)), for: .touchDown )
-        header.cityListButton.addTarget(self, action: #selector(onTapCityListButton(sender:)), for: .touchDown)
-        tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
     }
     
 }

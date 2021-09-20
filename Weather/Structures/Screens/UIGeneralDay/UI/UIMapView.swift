@@ -10,16 +10,6 @@ import MapKit
 
 class UIMapView: UIView {
     
-    var presenter: GeneralDayPresenterProtocol
-    
-    //Actions
-    @objc private func onTapBackButton(sender: UIHeaderButton!){
-        presenter.onTapBackButton()
-    }
-    @objc private func onTapGetLocationButton(sender: UIHeaderButton!){
-        presenter.onTapLocationButton()
-    }
-    
     let mapView: MKMapView = {
         let mapView = MKMapView()
         mapView.translatesAutoresizingMaskIntoConstraints = false
@@ -37,8 +27,7 @@ class UIMapView: UIView {
         return header
     }()
     
-    init(presenter: GeneralDayPresenterProtocol) {
-        self.presenter = presenter
+    init() {
         super.init(frame: CGRect())
         
         setup()
@@ -64,12 +53,6 @@ class UIMapView: UIView {
             mapView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
-        setActions()
-    }
-    
-    private func setActions(){
-        header.locationButton.addTarget(self, action: #selector(onTapGetLocationButton(sender:)), for: .touchDown)
-        header.backButton.addTarget(self, action: #selector(onTapBackButton(sender:)), for: .touchDown)
     }
     
     func loadAnnotationsFromDataSource(_ dataSource: WeatherInGeoNamesProtocol) {

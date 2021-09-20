@@ -9,7 +9,6 @@ import UIKit
 
 class UIGeneralDayTable: UITableView {
     
-    
     public func setup(){
         refreshControl = UIRefreshControl()
         register(UIWeatherDayCell.self, forCellReuseIdentifier: "UIWeatherDayCell")

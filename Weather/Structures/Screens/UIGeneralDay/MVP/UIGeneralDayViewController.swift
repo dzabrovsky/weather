@@ -12,7 +12,7 @@ protocol GeneralDayPresenterProtocol: AnyObject {
     func onApplyNewCityName(_ cityName:String)
     func onTapAnnotation(lat: Double, lon: Double)
     func mapViewDidFinishLoadingMap(centerLon: Double, centerLat: Double, lonA: Double, latA: Double)
-    func showDayDetails(_ dayIndex: Int)
+    func showDayDetails(_ dataSource: DataSourceDay)
     
 }
 
@@ -20,35 +20,83 @@ class UIGeneralDayViewController: UICustomViewController {
     
     var presenter: GeneralDayPresenterProtocol!
     
-    var contentView: UIGeneralDayView!
-    var contentMapView: UIMapView!
+    var contentView: UIGeneralDayView = UIGeneralDayView()
+    var contentMapView: UIMapView = {
+        let mapView = UIMapView()
+        mapView.mapView.showsCompass = false
+        mapView.mapView.showsScale = false
+        
+        return mapView
+    }()
     
-    private unowned var dataSource: DataSource!
-    private var geonamesDataSource: WeatherInGeoNamesProtocol!
+    private var dataSource: DataSource?
+    private var geonamesDataSource: WeatherInGeoNamesProtocol?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         setupUI()
+        setActions()
         presenter.updateDataByUser()
     }
     
+    //Actions
+    @objc private func onTapBackButton(sender: UIHeaderButton!){
+        presenter.onTapBackButton()
+    }
+    
+    @objc private func onTapGetLocationButton(sender: UIHeaderButton!){
+        presenter.onTapLocationButton()
+    }
+    
+    @objc private func onTapOpenMapButton(sender: UIHeaderButton!){
+        presenter.onTapOpenMapButton()
+    }
+    
+    @objc private func onTapThemeButton(sender: UIHeaderButton!){
+        presenter.onTapThemeButton()
+    }
+    
+    @objc private func onTapCityListButton(sender: UIHeaderButton!){
+        presenter.onTapCityListButton()
+    }
+    
+    @objc private func pullToRefresh(sender: UIRefreshControl){
+        presenter.updateDataByUser()
+    }
+    
+    //Methods
     private func setupUI(){
         
-        contentView = UIGeneralDayView(presenter: presenter)
-        view = contentView
-        ThemeManager.setLastTheme(sender: self)
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
+        
+        contentMapView.mapView.delegate = self
+        
+        view = contentView
+        ThemeManager.setLastTheme(sender: self)
     }
-
+    
+    private func setActions(){
+        contentMapView.header.locationButton.addTarget(self, action: #selector(onTapGetLocationButton(sender:)), for: .touchUpInside)
+        contentMapView.header.backButton.addTarget(self, action: #selector(onTapBackButton(sender:)), for: .touchUpInside)
+        
+        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton), for: .touchUpInside)
+        contentView.header.openMapButton.addTarget(self, action: #selector(onTapOpenMapButton(sender:)), for: .touchUpInside )
+        contentView.header.cityListButton.addTarget(self, action: #selector(onTapCityListButton(sender:)), for: .touchUpInside)
+        contentView.tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
+        
+    }
+    
 }
 
 extension UIGeneralDayViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showDayDetails(indexPath.row)
+        if let dataSource = dataSource {
+            presenter.showDayDetails(dataSource.getDayData(indexPath.row))
+        }
     }
     
 }
@@ -97,7 +145,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
     }
 }
 
-extension UIGeneralDayViewController: GeneralDayViewProtocol{
+extension UIGeneralDayViewController: GeneralDayViewProtocol {
     
     func switchTheme() {
         
@@ -105,7 +153,6 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol{
     }
     
     func updateCityName(_ name: String) {
-        
         self.contentView.header.title.text = name
     }
     
@@ -114,6 +161,7 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol{
         self.dataSource = dataSource
         self.contentView.tableView.reloadData()
         self.contentView.tableView.refreshControl?.endRefreshing()
+        self.updateCityName(dataSource.getCityName())
     }
     
     func updateCells() {
@@ -123,34 +171,30 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol{
         contentView.tableView.refreshControl?.endRefreshing()
     }
     
-    func openMap(cityName: String) {
+    func openMap() {
         
-        contentMapView = UIMapView(presenter: presenter)
-        contentMapView.mapView.delegate = self
-        contentMapView.mapView.showsCompass = false
-        contentMapView.mapView.showsScale = false
-        
-        contentMapView.header.title.text = cityName
-        
-        contentMapView.mapView.setRegion(
-            MKCoordinateRegion(
-                center: CLLocationCoordinate2D(
-                    latitude: dataSource.getCoordinates().lat,
-                    longitude: dataSource.getCoordinates().lon
+        if let dataSource = dataSource {
+            contentMapView.header.title.text = dataSource.getCityName()
+            
+            contentMapView.mapView.setRegion(
+                MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(
+                        latitude: dataSource.getCoordinates().lat,
+                        longitude: dataSource.getCoordinates().lon
+                    ),
+                    latitudinalMeters: CLLocationDistance.init(100000),
+                    longitudinalMeters: CLLocationDistance.init(100000)
                 ),
-                latitudinalMeters: CLLocationDistance.init(100000),
-                longitudinalMeters: CLLocationDistance.init(100000)
-            ),
-            animated: true
-        )
-        
-        contentMapView.mapView.mapType = .standard
-        view = contentMapView
+                animated: true
+            )
+            
+            contentMapView.mapView.mapType = .standard
+            view = contentMapView
+        }
     }
-    
     func closeMap() {
         
-        contentMapView = UIMapView(presenter: presenter)
+        contentMapView = UIMapView()
         view = contentView
     }
     

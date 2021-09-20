@@ -3,9 +3,9 @@ import Alamofire
 
 class Model: NSObject {
     
-    func getCurrentDataFromAPI(_ url:URL, completion: @escaping (CityListItem) -> Void) {
-
-        print("---===",url,"===---")
+    func getCurrentDataFromAPI(_ url: URL, completion: @escaping (CityListItem) -> Void) {
+        
+        print("Log: request to \(url)\"")
         var result = CityListItem()
         
         AF.request(url)

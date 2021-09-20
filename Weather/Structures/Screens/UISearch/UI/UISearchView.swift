@@ -11,8 +11,6 @@ class UISearchView: UIView {
     
     private static let k: CGFloat = UIScreen.main.bounds.width / 375
     
-    var presenter: SearchPresenterProtocol
-    
     let header: UISearchHeader = {
         let header = UISearchHeader()
         header.title.text = "Мои города"
@@ -67,8 +65,7 @@ class UISearchView: UIView {
         return button
     }()
     
-    init(presenter: SearchPresenterProtocol) {
-        self.presenter = presenter
+    init() {
         super.init(frame: CGRect())
         
         setupUI()
@@ -140,25 +137,6 @@ class UISearchView: UIView {
             getLocationButton.widthAnchor.constraint(equalTo: viewContainer.heightAnchor)
         ])
         
-        setActions()
-        
-    }
-    
-    @objc private func onTapThemeButton(sender: UIHeaderButton!){
-        presenter.onTapThemeButton()
-    }
-    
-    @objc private func onTapAddCity(sender: UIHeaderButton!){
-        presenter.onTapAddCity()
-    }
-    @objc private func onTapBack(sender: UIHeaderButton!){
-        presenter.onTapBack()
-    }
-    
-    private func setActions(){
-        header.themeButton.addTarget(self, action: #selector(onTapThemeButton(sender:)), for: .touchDown)
-        header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchDown)
-        addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchDown)
     }
     
 }

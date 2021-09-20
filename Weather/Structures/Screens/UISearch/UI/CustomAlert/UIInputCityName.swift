@@ -3,7 +3,8 @@ import UIKit
 class UIInputCityName: UIViewController {
     
     private let k: CGFloat = UIScreen.main.bounds.width / 375
-    public weak var presenter: SearchPresenterProtocol!
+    
+    let completion: (String) -> Void
     
     let alert: UICustomAlert = {
         let alert = UICustomAlert()
@@ -12,11 +13,27 @@ class UIInputCityName: UIViewController {
         return alert
     }()
     
+    init(completion: @escaping (String) -> Void) {
+        self.completion = completion
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setup()
+        setActions()
+        addObservers()
+        
+        alert.inputCityName.becomeFirstResponder()
+    }
+    
     @objc private func apply(sender: UIButton!){
-        self.dismiss(animated: true, completion: {
-            let cityName: String = self.alert.inputCityName.text ?? ""
-            self.presenter.inputCityName(cityName)
-        })
+        self.dismiss(animated: true, completion: { self.completion(self.alert.inputCityName.text ?? "") })
     }
     
     @objc private func cancel(sender: UIButton!){
@@ -36,23 +53,8 @@ class UIInputCityName: UIViewController {
         }
     }
     
-    @objc func onKeyBoardHide(notification: NSNotification) {
-        
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setup()
-        setActions()
-        addObservers()
-        
-        alert.inputCityName.becomeFirstResponder()
-    }
-    
     private func addObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.onKeyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onKeyBoardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func setActions() {
