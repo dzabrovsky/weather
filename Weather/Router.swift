@@ -1,67 +1,52 @@
 import UIKit
 
-protocol RouterMain {
-    var navigationController: UINavigationController? { get set }
-    var builder: BuilderProtocol? { get set }
+protocol BuilderProtocol {
+    func buildGeneralDayScreen(_ router: RouterProtocol ) -> UIViewController
+    func buildSearchScreen(_ router: RouterProtocol ) -> UIViewController
+    func buildDayDetailsScreen(_ router: RouterProtocol, dataSource: DataSourceDay ) -> UIViewController
 }
 
-protocol RouterProtocol: RouterMain {
-    func initialGeneralDayView()
-    func showSearchView()
-    func showDayDetails(_ dataSource: DataSourceDay)
+protocol AnotherRouterProtocol {
     func popToRoot()
-    func popToRootWithSelectedCity(_ cityName: String)
+}
+
+protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol {
+    func initialGeneralDayView()
 }
 
 class Router: RouterProtocol {
     
-    var navigationController: UINavigationController?
-    var builder: BuilderProtocol?
-    
-    func initialGeneralDayView() {
-        if let navigationController = navigationController {
-            guard let mainViewController = builder?.buildGeneralDayScreen(self) else {
-                return
-            }
-            navigationController.viewControllers = [mainViewController]
-        }
-    }
-    
-    func showSearchView() {
-        if let navigationController = navigationController {
-            guard let searchViewController = builder?.buildSearchScreen(self) else {
-                return
-            }
-            navigationController.pushViewController(searchViewController, animated: true)
-        }
-    }
-    
-    func showDayDetails(_ dataSource: DataSourceDay) {
-        if let navigationController = navigationController {
-            guard let searchViewController = builder?.buildDayDetailsScreen(self, dataSource: dataSource) else {
-                return
-            }
-            navigationController.pushViewController(searchViewController, animated: true)
-        }
-    }
-    
-    func popToRoot() {
-        if let navigationController = navigationController {
-            navigationController.popToRootViewController(animated: true)
-        }
-    }
-    
-    func popToRootWithSelectedCity(_ cityName: String) {
-        if let navigationController = navigationController {
-            navigationController.popToRootViewController(animated: true)
-            let generalDay = navigationController.viewControllers[0] as! UIGeneralDayViewController
-            generalDay.presenter.onApplyNewCityName(cityName)
-        }
-    }
+    private let navigationController: UINavigationController
+    private let builder: BuilderProtocol
     
     init(navigationController: UINavigationController, builder: BuilderProtocol) {
         self.builder = builder
         self.navigationController = navigationController
+    }
+    
+    func initialGeneralDayView() {
+        let mainViewController = builder.buildGeneralDayScreen(self)
+        navigationController.viewControllers = [mainViewController]
+    }
+    
+    func showSearchView() {
+        let searchViewController = builder.buildSearchScreen(self)
+        navigationController.pushViewController(searchViewController, animated: true)
+    }
+    
+    func showDayDetails(_ dataSource: DataSourceDay) {
+        let searchViewController = builder.buildDayDetailsScreen(self, dataSource: dataSource)
+        navigationController.pushViewController(searchViewController, animated: true)
+    }
+    
+    func popToRoot() {
+        navigationController.popToRootViewController(animated: true)
+    }
+    
+    func popToRootWithSelectedCity(_ cityName: String) {
+        navigationController.popToRootViewController(animated: true)
+        let generalDay = navigationController.viewControllers[0] as! UIGeneralDayViewController
+        generalDay.presenter.onApplyNewCityName(cityName)
     }
     
 }
