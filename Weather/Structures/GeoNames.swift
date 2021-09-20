@@ -8,15 +8,15 @@
 import Foundation
 import Alamofire
 
-class GeoNames: Codable {
-    var geonames: [GeoName]?
+struct GeoNames: Codable {
+    var geonames: [GeoName]
 }
 
 struct GeoName: Codable {
-    let lon: Double
-    let name: String
-    let lat: Double
-    let population: Int
+    let lon: Double?
+    let name: String?
+    let lat: Double?
+    let population: Int?
     
     enum CodingKeys: String, CodingKey {
         case lon = "lng"

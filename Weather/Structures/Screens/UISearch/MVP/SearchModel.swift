@@ -4,6 +4,8 @@ import CoreData
 protocol SearchPresenterProtocolForModel: AnyObject {
     func didCityLastUseUpdate(_ cityName: String)
     func cityListUpdated(_ dataSource: CityListItemDataSourceProtocol)
+    func cityAlreadyExists()
+    func cityDoesNotExists()
 }
 
 class SearchModel: Model, SearchModelProtocol{
@@ -64,6 +66,35 @@ class SearchModel: Model, SearchModelProtocol{
         }
     }
     
+    func checkCity(_ name: String) {
+        do {
+            if let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
+                if let _ = cities.first(where: { $0.name == name } ) {
+                    presenter.cityAlreadyExists()
+                }else{
+                    guard let url = URL(string: ("http://api.geonames.org/searchJSON?q=\(name)&username=ivan&style=MEDIUM&lang=ru").encodeUrl) else {
+                        print("Cannot covert string to URL")
+                        return
+                    }
+                    
+                    searchCity(url) { (result) in
+                        DispatchQueue.main.async {
+                            if result.geonames.count > 0 {
+                                if result.geonames.contains(where: { $0.name == name}) {
+                                    self.insertCityInCitiesList(name: name)
+                                }
+                            }else{
+                                self.presenter.cityDoesNotExists()
+                            }
+                        }
+                    }
+                }
+            }
+        }catch{
+            
+        }
+    }
+    
     func insertCityInCitiesList(name: String){
         let city = Cities(context: context)
         city.name = name
@@ -83,19 +114,6 @@ class SearchModel: Model, SearchModelProtocol{
             DispatchQueue.main.async {
                 self.updateWeatherInCity(name)
             }
-            try context.save()
-        }catch{
-            // error
-        }
-    }
-    
-    func insertCityInCitiesList(lat: Double, lon: Double){
-        let city = Cities(context: context)
-        city.lat = lat
-        city.lon = lon
-        city.lastUse = Date()
-        
-        do {
             try context.save()
         }catch{
             // error

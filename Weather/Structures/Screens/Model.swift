@@ -26,9 +26,20 @@ class Model: NSObject {
         return
     }
     
-    func getDataFromAPI (_ url:URL, completion: @escaping (WeatherData) -> Void) {
+    func searchCity(_ url: URL, completion: @escaping (SearchGeoNames) -> Void) {
         
-        print("---===",url,"===---")
+        print("Log: request to \(url)")
+        AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
+            if let data = response.value {
+                completion(data)
+            }
+        }
+        return
+    }
+    
+    func getDataFromAPI (_ url: URL, completion: @escaping (WeatherData) -> Void) {
+        
+        print("Log: request to \(url)\"")
         AF.request(url)
             .validate()
             .responseDecodable(of: Forecast.self) { (response) in

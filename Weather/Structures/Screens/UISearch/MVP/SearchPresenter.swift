@@ -4,21 +4,29 @@ protocol SearchViewProtocol: AnyObject {
     func switchTheme()
     func openAddCityAlert()
     func updateCityList(_ dataSource: CityListItemDataSourceProtocol)
+    
+    func showAlertCityDoesNotExists()
+    func showAlertCityAlreadyExists()
 }
 
 protocol SearchModelProtocol {
     
-    func insertCityInCitiesList(name: String)
     func didCityListUpdate()
     func updateCityList()
     func clearCoreData()
     func updateCityLastUse(_ name: String)
     
+    func checkCity(_ name: String)
+    
+}
+
+protocol SearchRouterProtocol: AnotherRouterProtocol {
+    func popToRootWithSelectedCity(_ cityName: String)
 }
 
 class SearchPresenter {
     
-    var router: RouterProtocol?
+    var router: SearchRouterProtocol!
     var model: SearchModelProtocol!
     var view: SearchViewProtocol!
 }
@@ -26,7 +34,7 @@ class SearchPresenter {
 extension SearchPresenter: SearchPresenterProtocol {
     
     func onTapBack() {
-        router?.popToRoot()
+        router.popToRoot()
     }
     
     func onTapThemeButton() {
@@ -46,17 +54,26 @@ extension SearchPresenter: SearchPresenterProtocol {
     }
     
     func inputCityName(_ cityName: String) {
-        model.insertCityInCitiesList(name: cityName)
+        model.checkCity(cityName)
     }
 }
 
 extension SearchPresenter: SearchPresenterProtocolForModel {
+    
+    func cityAlreadyExists() {
+        view.showAlertCityAlreadyExists()
+    }
+    
+    func cityDoesNotExists() {
+        view.showAlertCityDoesNotExists()
+    }
+    
     
     func cityListUpdated(_ dataSource: CityListItemDataSourceProtocol ){
         view.updateCityList(dataSource)
     }
     
     func didCityLastUseUpdate(_ cityName: String) {
-        router?.popToRootWithSelectedCity(cityName)
+        router.popToRootWithSelectedCity(cityName)
     }
 }
