@@ -21,13 +21,6 @@ struct CityListItem {
         self.tempFeelsLike = tempFeelsLike
     }
     init(){
-        self.name = ""
-        self.lat = 0
-        self.lon = 0
-        self.lastUse = Date()
         
-        self.icon = ""
-        self.temp = 0
-        self.tempFeelsLike = 0
     }
 }
