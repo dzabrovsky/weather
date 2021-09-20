@@ -36,7 +36,7 @@ class UIGeneralDayViewController: UICustomViewController {
         
         super.viewDidLoad()
         
-        setupUI()
+        setup()
         setActions()
         presenter.updateDataByUser()
     }
@@ -67,7 +67,7 @@ class UIGeneralDayViewController: UICustomViewController {
     }
     
     //Methods
-    private func setupUI(){
+    private func setup(){
         
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
