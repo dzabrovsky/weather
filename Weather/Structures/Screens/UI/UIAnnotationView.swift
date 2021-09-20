@@ -52,6 +52,7 @@ class UIAnnotationView: MKAnnotationView {
     override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
         setup()
+        animate()
     }
     
     required init?(coder: NSCoder) {
@@ -68,9 +69,13 @@ class UIAnnotationView: MKAnnotationView {
         addSubview(feelsLikeLabel)
         
         NSLayoutConstraint.activate([
-            
+            imageView.bottomAnchor.constraint(equalTo: centerYAnchor)
+        ])
+    }
+    
+    private func animate(){
+        NSLayoutConstraint.activate([
             imageView.leftAnchor.constraint(equalTo: leftAnchor),
-            imageView.bottomAnchor.constraint(equalTo: centerYAnchor),
             imageView.heightAnchor.constraint(equalTo: heightAnchor),
             imageView.rightAnchor.constraint(equalTo: rightAnchor),
             
@@ -86,6 +91,15 @@ class UIAnnotationView: MKAnnotationView {
             feelsLikeLabel.topAnchor.constraint(equalTo: weatherIcon.bottomAnchor, constant: 6.5 * UIAnnotationView.k),
             
         ])
+        
+        UIView.animate(withDuration: 0.3){
+            self.imageView.layoutIfNeeded()
+        }
+        UIView.animate(withDuration: 1){
+            self.weatherIcon.layoutIfNeeded()
+            self.tempLabel.layoutIfNeeded()
+            self.feelsLikeLabel.layoutIfNeeded()
+        }
     }
     
     public func setValues(icon: UIImage, temp: Int, feelsLike: Int){
