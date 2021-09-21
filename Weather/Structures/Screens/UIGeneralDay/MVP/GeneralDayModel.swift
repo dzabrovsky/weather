@@ -10,10 +10,6 @@ import Alamofire
 protocol GeneralDayPresenterProtocolForModel: AnyObject {
     
     func didDataUpdated(_ data: WeatherData)
-    func didDataByLocationUpdated(_ data: WeatherData)
-    func didGeoNamesUpdated(_ geonames: GeoNames)
-    func didGeoNamesWeatherUpdated(_ dataSource: WeatherInGeoNamesProtocol)
-    func didLocationUpdated(lat: Double, lon: Double)
     
 }
 
@@ -27,34 +23,10 @@ class GeneralDayModel: Model {
     private var cityName:String = "Tambov"
     private let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
     
-    private var dataGeoNames = WeatherInGeoNames()
-    
-    private var locationManager: CLLocationManager = CLLocationManager()
-    
+
     func didDataUpdated(_ data: WeatherData) {
         presenter.didDataUpdated(data)
     }
-    func didDataByLocationUpdated(_ data: WeatherData) {
-        presenter.didDataByLocationUpdated(data)
-    }
-    
-    func didGeoNamesUpdated(_ data: GeoNames) {
-        presenter.didGeoNamesUpdated(data)
-    }
-    
-    func getGeoNames (_ url:URL, completion: @escaping (GeoNames) -> Void) {
-        
-        print("--===", url, "\n===--")
-        
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: GeoNames.self) { (response) in
-                if let data = response.value {
-                    completion(data)
-                }
-            }
-    }
-    
     
 }
 
@@ -74,53 +46,6 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         }
     }
     
-    func updateDataByCityName(_ cityName: String) {
-        self.cityName = cityName
-        updateDataByCityName()
-    }
-    
-    func updateLocation() {
-        
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
-    }
-    
-    func updateGeoNames(east: Double, west: Double, north: Double, south: Double) {
-        
-        guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {
-            print("Cannot covert string to URL")
-            return
-        }
-        
-        
-        getGeoNames(url){ result in
-            DispatchQueue.main.async {
-                self.didGeoNamesUpdated(result)
-            }
-        }
-        
-    }
-    
-    func updateCurrentDataInGeoNames(_ geonames: GeoNames) {
-        
-        for geoname in geonames.geonames {
-            guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?lat=\(geoname.lat!)&lon=\(geoname.lon!)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
-                print("Cannot covert string to URL")
-                return
-            }
-            
-            getCurrentDataFromAPI(url){ result in
-                DispatchQueue.main.async {
-                    self.dataGeoNames.data.append(result)
-                    
-                    self.presenter.didGeoNamesWeatherUpdated(self.dataGeoNames)
-                }
-            }
-        }
-    }
     
     func updateDataByLocation(lat: Double, lon: Double){
         
@@ -135,21 +60,7 @@ extension GeneralDayModel: GeneralDayModelProtocol {
             }
         }
     }
-}
-
-extension GeneralDayModel: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if let location = locations.first {
-            locationManager.startUpdatingLocation()
-            locationManager = CLLocationManager()
-            
-            presenter.didLocationUpdated(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
-        }
-        
-    }
-}
 
 extension String{
     var encodeUrl : String
