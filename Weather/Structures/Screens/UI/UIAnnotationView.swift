@@ -102,11 +102,11 @@ class UIAnnotationView: MKAnnotationView {
         }
     }
     
-    public func setValues(icon: UIImage, temp: Int, feelsLike: Int){
+    public func setValues(icon: UIImage, temp: String, feelsLike: String){
         
         weatherIcon.image = icon
-        tempLabel.text = String(temp) + "°"
-        feelsLikeLabel.text = String(feelsLike) + "°"
+        tempLabel.text = temp
+        feelsLikeLabel.text = feelsLike
         
     }
 }
