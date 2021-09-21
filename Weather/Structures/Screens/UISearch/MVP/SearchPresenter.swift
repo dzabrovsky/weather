@@ -21,7 +21,7 @@ protocol SearchModelProtocol {
 }
 
 protocol SearchRouterProtocol: AnotherRouterProtocol {
-    func popToRootWithSelectedCity(_ cityName: String)
+    func popToRootWithSelectedCity()
 }
 
 class SearchPresenter {
@@ -73,7 +73,8 @@ extension SearchPresenter: SearchPresenterProtocolForModel {
         view.updateCityList(dataSource)
     }
     
-    func didCityLastUseUpdate(_ cityName: String) {
-        router.popToRootWithSelectedCity(cityName)
+    func didCityLastUseUpdate(lat: Double, lon: Double) {
+        UserDataManager.saveCity(lat: lat, lon: lon)
+        router.popToRootWithSelectedCity()
     }
 }
