@@ -6,7 +6,6 @@ class Builder: BuilderProtocol {
         let model = GeneralDayModel()
         let view = UIGeneralDayViewController()
         let presenter = GeneralDayPresenter()
-        model.presenter = presenter
         view.presenter = presenter
         presenter.view = view
         presenter.model = model

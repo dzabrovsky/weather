@@ -7,25 +7,9 @@ import UIKit
 import CoreLocation
 import Alamofire
 
-protocol GeneralDayPresenterProtocolForModel: AnyObject {
-    
-    func didDataUpdated(_ data: WeatherData)
-    
-}
-
 class GeneralDayModel: Model {
     
-    unowned var presenter: GeneralDayPresenterProtocolForModel!
-
-    func didDataUpdated(_ data: WeatherData) {
-        presenter.didDataUpdated(data)
-    }
-    
-}
-
-extension GeneralDayModel: GeneralDayModelProtocol {
-    
-    func updateDataByLocation(lat: Double, lon: Double){
+    func updateDataByLocation(lat: Double, lon: Double, completion: @escaping (WeatherData) -> Void){
         
         guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/forecast?lat=\(lat)&lon=\(lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
             print("Cannot covert string to URL")
@@ -33,13 +17,11 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         }
         
         getDataFromAPI(url){ result in
-            DispatchQueue.main.async {
-                self.didDataUpdated(result)
-            }
+            completion(result)
         }
     }
-    
-    func updateDataByCityName() {
+
+    func updateDataByCityName(_ cityName: String, completion: @escaping (WeatherData) -> Void) {
         
         guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/forecast?q=\(cityName)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
             print("Cannot covert string to URL")
@@ -47,14 +29,7 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         }
         
         getDataFromAPI(url){ result in
-            DispatchQueue.main.async {
-                self.didDataUpdated(result)
-            }
+            completion(result)
         }
-    }
-    
-    func updateDataByCityName(_ cityName: String) {
-        self.cityName = cityName
-        updateDataByCityName()
     }
 }

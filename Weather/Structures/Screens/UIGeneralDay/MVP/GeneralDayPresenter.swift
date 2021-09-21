@@ -8,12 +8,6 @@ protocol GeneralDayViewProtocol: AnyObject {
     
 }
 
-protocol GeneralDayModelProtocol: AnyObject {
-    func updateDataByCityName()
-    func updateDataByCityName(_ cityName: String)
-    func updateDataByLocation(lat: Double, lon: Double)
-}
-
 protocol GeneralDayRouterProtocol {
     func showDayDetails(_ dataSource: DataSourceDay)
     func showSearchView()
@@ -21,16 +15,12 @@ protocol GeneralDayRouterProtocol {
 }
 
 class GeneralDayPresenter{
-
+    
     var router: GeneralDayRouterProtocol!
-    var model: GeneralDayModelProtocol!
+    var model: GeneralDayModel!
     var view: GeneralDayViewProtocol!
     
-}
-
-extension GeneralDayPresenter: GeneralDayPresenterProtocolForModel {
-    
-    func didDataUpdated(_ data: WeatherData) {
+    func updateWeatherData(_ data: WeatherData) {
         UserDataManager.saveCityName(name: data.cityName)
         self.view.refreshData(data)
     }
@@ -41,9 +31,13 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     
     func didGeneralDayScreenLoad() {
         if let coord = UserDataManager.getSavedCoordinates() {
-            model.updateDataByLocation(lat: coord.lat, lon: coord.lon)
+            model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
+                self.view.refreshData(result)
+            }
         }else{
-            model.updateDataByCityName("Moscow")
+            model.updateDataByCityName("Moscow") { [unowned self] result in
+                self.view.refreshData(result)
+            }
         }
     }
     
@@ -60,7 +54,11 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     }
     
     func updateDataByUser() {
-        model.updateDataByCityName()
+        if let cityName = UserDataManager.getSavedCityName() {
+            model.updateDataByCityName(cityName) { [unowned self] result in
+                self.view.refreshData(result)
+            }
+        }
     }
     
     func showDayDetails(_ dataSource: DataSourceDay) {
