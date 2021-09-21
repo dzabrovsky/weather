@@ -1,9 +1,10 @@
 import UIKit
 
 protocol BuilderProtocol {
-    func buildGeneralDayScreen(_ router: RouterProtocol ) -> UIViewController
-    func buildSearchScreen(_ router: RouterProtocol ) -> UIViewController
-    func buildDayDetailsScreen(_ router: RouterProtocol, dataSource: DataSourceDay ) -> UIViewController
+    func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController
+    func buildSearchScreen(_ router: SearchRouterProtocol ) -> UIViewController
+    func buildDayDetailsScreen(_ router: AnotherRouterProtocol, dataSource: DataSourceDay ) -> UIViewController
+    func buildMapScreen(_ router: MapRouterProtocol) -> UIViewController
 }
 
 protocol AnotherRouterProtocol {
