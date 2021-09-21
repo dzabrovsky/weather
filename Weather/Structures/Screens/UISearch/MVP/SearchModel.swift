@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 
 protocol SearchPresenterProtocolForModel: AnyObject {
-    func didCityLastUseUpdate(_ cityName: String)
+    func didCityLastUseUpdate(lat: Double, lon: Double)
     func cityListUpdated(_ dataSource: CityListItemDataSourceProtocol)
     func cityAlreadyExists()
     func cityDoesNotExists()
@@ -97,13 +97,14 @@ class SearchModel: Model, SearchModelProtocol{
     
     func insertCityInCitiesList(name: String){
         let city = Cities(context: context)
-        city.name = name
-        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(name)&appid=\(APIKey)").encodeUrl) else{
+        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(name)&appid=\(APIKey)&lang=\(lang)").encodeUrl) else{
             print("Cannot covert string to URL")
             return
         }
         getCurrentDataFromAPI(url){ result in
             DispatchQueue.main.async {
+                city.name = result.name
+                print(result.name)
                 city.lat = result.lat
                 city.lon = result.lon
             }
@@ -131,11 +132,12 @@ class SearchModel: Model, SearchModelProtocol{
     func updateCityLastUse(_ name: String){
         do {
             if let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
-                let city = cities.filter({ $0.name == name }).first
-                city?.lastUse = Date()
-                try context.save()
-                DispatchQueue.main.async {
-                    self.presenter.didCityLastUseUpdate(name)
+                if let city = cities.filter({ $0.name == name }).first {
+                    city.lastUse = Date()
+                    try context.save()
+                    DispatchQueue.main.async {
+                        self.presenter.didCityLastUseUpdate(lat: city.lat, lon: city.lon)
+                    }
                 }
             }
         }catch{
