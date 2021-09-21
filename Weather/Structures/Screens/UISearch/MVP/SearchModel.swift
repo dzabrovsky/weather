@@ -13,10 +13,6 @@ class SearchModel: Model, SearchModelProtocol{
     private var dataSource = CityListItemDataSource()
     unowned var presenter: SearchPresenterProtocolForModel!
     
-    private let lang: String = "ru"
-    private let units: String = "metric"
-    private let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     func didCityListUpdate() {

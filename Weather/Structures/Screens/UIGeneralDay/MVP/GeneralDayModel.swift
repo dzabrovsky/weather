@@ -16,13 +16,6 @@ protocol GeneralDayPresenterProtocolForModel: AnyObject {
 class GeneralDayModel: Model {
     
     unowned var presenter: GeneralDayPresenterProtocolForModel!
-    
-    private let lang: String = "ru"
-    private let units: String = "metric"
-    private let defaultCityName: String = "Moscow"
-    private var cityName:String = "Tambov"
-    private let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
-    
 
     func didDataUpdated(_ data: WeatherData) {
         presenter.didDataUpdated(data)
@@ -62,13 +55,5 @@ extension GeneralDayModel: GeneralDayModelProtocol {
     }
     
 
-extension String{
-    var encodeUrl : String
-    {
-        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-    }
-    var decodeUrl : String
-    {
-        return self.removingPercentEncoding!
     }
 }

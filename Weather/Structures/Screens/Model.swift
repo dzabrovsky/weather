@@ -3,6 +3,12 @@ import Alamofire
 
 class Model: NSObject {
     
+    let lang: String = "ru"
+    let units: String = "metric"
+    let defaultCityName: String = "Moscow"
+    var cityName:String = "Tambov"
+    let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
+    
     func getCurrentDataFromAPI(_ url: URL, completion: @escaping (CityListItem) -> Void) {
         
         print("Log: request to \(url)\"")
@@ -70,5 +76,16 @@ class Model: NSObject {
     
     static func returnHour(_ dt: Int) -> Int{
         return ( dt % Int(86400) ) / 3600
+    }
+}
+
+extension String{
+    var encodeUrl : String
+    {
+        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    var decodeUrl : String
+    {
+        return self.removingPercentEncoding!
     }
 }
