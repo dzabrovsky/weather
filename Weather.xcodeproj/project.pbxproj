@@ -62,8 +62,13 @@
 		5466262C26F0A6DE0024E38B /* UIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */; };
 		5466262E26F0D08E0024E38B /* GeoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5466262D26F0D08E0024E38B /* GeoNames.swift */; };
 		54BA58AA26F8835800996AF1 /* SearchGeoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58A926F8835800996AF1 /* SearchGeoNames.swift */; };
-		54BA58AC26F888AA00996AF1 /* WeatherInGeoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58AB26F888AA00996AF1 /* WeatherInGeoNames.swift */; };
 		54BA58AE26F888E600996AF1 /* CityListItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58AD26F888E600996AF1 /* CityListItemDataSource.swift */; };
+		54BA58B326F8D71600996AF1 /* UIMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B226F8D71600996AF1 /* UIMapViewController.swift */; };
+		54BA58B526F8D93C00996AF1 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B426F8D93C00996AF1 /* MapModel.swift */; };
+		54BA58B726F8D94F00996AF1 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B626F8D94F00996AF1 /* MapPresenter.swift */; };
+		54BA58B926F9CA1B00996AF1 /* GeoNamesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B826F9CA1B00996AF1 /* GeoNamesDataSource.swift */; };
+		54BA58BB26F9CB4C00996AF1 /* GeoNamesAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58BA26F9CB4B00996AF1 /* GeoNamesAdapter.swift */; };
+		54BA58BE26F9CF1800996AF1 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58BD26F9CF1800996AF1 /* UserDataManager.swift */; };
 		54C1B0C026EA065E009FE1F2 /* UIGraphItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C1B0BF26EA065E009FE1F2 /* UIGraphItem.swift */; };
 		54C1B0C326EA06A6009FE1F2 /* UIGraphItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C1B0C226EA06A6009FE1F2 /* UIGraphItemInfo.swift */; };
 		54C1B0C526EA1060009FE1F2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54C1B0C426EA1060009FE1F2 /* Lato-Regular.ttf */; };
@@ -126,13 +131,18 @@
 		5466261B26EB5AA80024E38B /* Cities+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cities+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5466261C26EB5AA80024E38B /* Cities+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Cities+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5466261F26EF5B490024E38B /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageManager.swift; path = Weather/Structures/Screens/ImageManager.swift; sourceTree = SOURCE_ROOT; };
-		5466262726EF8D960024E38B /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapView.swift; path = Weather/Structures/Screens/UIGeneralDay/UI/UIMapView.swift; sourceTree = SOURCE_ROOT; };
-		5466262926EF91F80024E38B /* UIMapViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapViewHeader.swift; path = Weather/structures/Screens/UIGeneralDay/UI/UIMapViewHeader.swift; sourceTree = SOURCE_ROOT; };
+		5466262726EF8D960024E38B /* UIMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapView.swift; path = Weather/structures/Screens/UIMap/UI/UIMapView.swift; sourceTree = SOURCE_ROOT; };
+		5466262926EF91F80024E38B /* UIMapViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapViewHeader.swift; path = Weather/structures/Screens/UIMap/UI/UIMapViewHeader.swift; sourceTree = SOURCE_ROOT; };
 		5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIAnnotationView.swift; path = Weather/Structures/Screens/UI/UIAnnotationView.swift; sourceTree = SOURCE_ROOT; };
 		5466262D26F0D08E0024E38B /* GeoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNames.swift; sourceTree = "<group>"; };
 		54BA58A926F8835800996AF1 /* SearchGeoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGeoNames.swift; sourceTree = "<group>"; };
-		54BA58AB26F888AA00996AF1 /* WeatherInGeoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInGeoNames.swift; sourceTree = "<group>"; };
 		54BA58AD26F888E600996AF1 /* CityListItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListItemDataSource.swift; sourceTree = "<group>"; };
+		54BA58B226F8D71600996AF1 /* UIMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapViewController.swift; path = Weather/Structures/Screens/UIMap/MVP/UIMapViewController.swift; sourceTree = SOURCE_ROOT; };
+		54BA58B426F8D93C00996AF1 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapModel.swift; path = Weather/Structures/Screens/UIMap/MVP/MapModel.swift; sourceTree = SOURCE_ROOT; };
+		54BA58B626F8D94F00996AF1 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPresenter.swift; path = Weather/Structures/Screens/UIMap/MVP/MapPresenter.swift; sourceTree = SOURCE_ROOT; };
+		54BA58B826F9CA1B00996AF1 /* GeoNamesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNamesDataSource.swift; sourceTree = "<group>"; };
+		54BA58BA26F9CB4B00996AF1 /* GeoNamesAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoNamesAdapter.swift; sourceTree = "<group>"; };
+		54BA58BD26F9CF1800996AF1 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataManager.swift; path = Weather/Structures/Screens/UserDataManager.swift; sourceTree = SOURCE_ROOT; };
 		54C1B0BF26EA065E009FE1F2 /* UIGraphItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIGraphItem.swift; path = Weather/structures/Screens/UIDayDetails/UI/Cells/Graph/UIGraphItem.swift; sourceTree = SOURCE_ROOT; };
 		54C1B0C226EA06A6009FE1F2 /* UIGraphItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIGraphItemInfo.swift; path = Weather/Structures/Screens/UIDayDetails/UI/Cells/Graph/UIGraphItemInfo.swift; sourceTree = SOURCE_ROOT; };
 		54C1B0C426EA1060009FE1F2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
@@ -219,6 +229,7 @@
 		542FD2B726CBD45200AC4077 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				54BA58BC26F9CC6000996AF1 /* Adapters */,
 				54BA58A826F4DA7600996AF1 /* DataSources */,
 				5466260726EA64590024E38B /* CoreData */,
 				54FAECB526D6628100431E54 /* Structures */,
@@ -241,11 +252,13 @@
 			children = (
 				5466262426EF84520024E38B /* UI */,
 				54183E5026E628F8002E135E /* UIDayDetails */,
+				54BA58AF26F8D2D300996AF1 /* UIMap */,
 				54480D3026E0F4CC001698C3 /* UISearch */,
 				54480D1E26DFCB25001698C3 /* UIGeneralDay */,
 				54480D4226E1F8D8001698C3 /* Model.swift */,
 				5466261F26EF5B490024E38B /* ImageManager.swift */,
 				54C516A526F21EA3006E585E /* ThemeManager.swift */,
+				54BA58BD26F9CF1800996AF1 /* UserDataManager.swift */,
 			);
 			name = Screens;
 			path = structures/Screens;
@@ -309,8 +322,6 @@
 				54480D2226DFD21C001698C3 /* UIGeneralDayView.swift */,
 				54480D1B26DFC205001698C3 /* UIGeneralDayHeader.swift */,
 				54480D1F26DFCB64001698C3 /* UIGeneralDayTable.swift */,
-				5466262726EF8D960024E38B /* UIMapView.swift */,
-				5466262926EF91F80024E38B /* UIMapViewHeader.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -369,11 +380,47 @@
 		54BA58A826F4DA7600996AF1 /* DataSources */ = {
 			isa = PBXGroup;
 			children = (
-				54BA58AB26F888AA00996AF1 /* WeatherInGeoNames.swift */,
 				54480D0E26DF8E4F001698C3 /* DataSource.swift */,
 				54BA58AD26F888E600996AF1 /* CityListItemDataSource.swift */,
+				54BA58B826F9CA1B00996AF1 /* GeoNamesDataSource.swift */,
 			);
 			path = DataSources;
+			sourceTree = "<group>";
+		};
+		54BA58AF26F8D2D300996AF1 /* UIMap */ = {
+			isa = PBXGroup;
+			children = (
+				54BA58B126F8D6FA00996AF1 /* UI */,
+				54BA58B026F8D6F400996AF1 /* MVP */,
+			);
+			path = UIMap;
+			sourceTree = "<group>";
+		};
+		54BA58B026F8D6F400996AF1 /* MVP */ = {
+			isa = PBXGroup;
+			children = (
+				54BA58B426F8D93C00996AF1 /* MapModel.swift */,
+				54BA58B226F8D71600996AF1 /* UIMapViewController.swift */,
+				54BA58B626F8D94F00996AF1 /* MapPresenter.swift */,
+			);
+			path = MVP;
+			sourceTree = "<group>";
+		};
+		54BA58B126F8D6FA00996AF1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				5466262726EF8D960024E38B /* UIMapView.swift */,
+				5466262926EF91F80024E38B /* UIMapViewHeader.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		54BA58BC26F9CC6000996AF1 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				54BA58BA26F9CB4B00996AF1 /* GeoNamesAdapter.swift */,
+			);
+			path = Adapters;
 			sourceTree = "<group>";
 		};
 		54C1B0C126EA067C009FE1F2 /* Graph */ = {
@@ -558,11 +605,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				54480D4326E1F8D8001698C3 /* Model.swift in Sources */,
+				54BA58BE26F9CF1800996AF1 /* UserDataManager.swift in Sources */,
 				54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */,
 				54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */,
 				54183E5C26E629E3002E135E /* UIDetails.swift in Sources */,
 				54480D0F26DF8E4F001698C3 /* DataSource.swift in Sources */,
 				5466262A26EF91F80024E38B /* UIMapViewHeader.swift in Sources */,
+				54BA58B726F8D94F00996AF1 /* MapPresenter.swift in Sources */,
 				54C1B0C326EA06A6009FE1F2 /* UIGraphItemInfo.swift in Sources */,
 				54480D2F26E0E9D8001698C3 /* UICustomAlertCollectionViewCell.swift in Sources */,
 				54183E5A26E629B7002E135E /* UIDayDetailsView.swift in Sources */,
@@ -571,6 +620,7 @@
 				54BA58AA26F8835800996AF1 /* SearchGeoNames.swift in Sources */,
 				54480D3226E10002001698C3 /* Builder.swift in Sources */,
 				542FD2F126CE3C8B00AC4077 /* GeneralDayModel.swift in Sources */,
+				54BA58B526F8D93C00996AF1 /* MapModel.swift in Sources */,
 				54480D2026DFCB64001698C3 /* UIGeneralDayTable.swift in Sources */,
 				54480D4526E203FC001698C3 /* UISearchView.swift in Sources */,
 				54183E6D26E78490002E135E /* UIGraphMarker.swift in Sources */,
@@ -588,12 +638,14 @@
 				54C516A626F21EA3006E585E /* ThemeManager.swift in Sources */,
 				54480D4C26E209ED001698C3 /* UISearchHeader.swift in Sources */,
 				54C516B026F37E5F006E585E /* UICustomAlert.swift in Sources */,
+				54BA58BB26F9CB4C00996AF1 /* GeoNamesAdapter.swift in Sources */,
 				5466262826EF8D960024E38B /* UIMapView.swift in Sources */,
 				54183E5E26E62A0E002E135E /* UIGraph.swift in Sources */,
+				54BA58B326F8D71600996AF1 /* UIMapViewController.swift in Sources */,
 				541D1CB726D4DDEA003B1FEF /* UIWeatherCell.swift in Sources */,
+				54BA58B926F9CA1B00996AF1 /* GeoNamesDataSource.swift in Sources */,
 				54480D3D26E11250001698C3 /* SearchPresenter.swift in Sources */,
 				54480D2D26E0DFD1001698C3 /* UICustomAlertCollectionView.swift in Sources */,
-				54BA58AC26F888AA00996AF1 /* WeatherInGeoNames.swift in Sources */,
 				5466262026EF5B490024E38B /* ImageManager.swift in Sources */,
 				5466261A26EB53620024E38B /* CityListItem.swift in Sources */,
 				54C1B0C026EA065E009FE1F2 /* UIGraphItem.swift in Sources */,

@@ -2,6 +2,8 @@ import UIKit
 
 protocol GeneralDayPresenterProtocol: AnyObject {
     
+    func didGeneralDayScreenLoad()
+    
     func updateDataByUser()
     func onTapThemeButton()
     func onTapCityListButton()
