@@ -25,6 +25,20 @@ class GeneralDayModel: Model {
 
 extension GeneralDayModel: GeneralDayModelProtocol {
     
+    func updateDataByLocation(lat: Double, lon: Double){
+        
+        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/forecast?lat=\(lat)&lon=\(lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
+            print("Cannot covert string to URL")
+            return
+        }
+        
+        getDataFromAPI(url){ result in
+            DispatchQueue.main.async {
+                self.didDataUpdated(result)
+            }
+        }
+    }
+    
     func updateDataByCityName() {
         
         guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/forecast?q=\(cityName)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
@@ -39,21 +53,8 @@ extension GeneralDayModel: GeneralDayModelProtocol {
         }
     }
     
-    
-    func updateDataByLocation(lat: Double, lon: Double){
-        
-        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/forecast?lat=\(lat)&lon=\(lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
-            print("Cannot covert string to URL")
-            return
-        }
-        
-        getDataFromAPI(url){ result in
-            DispatchQueue.main.async {
-                self.didDataByLocationUpdated(result)
-            }
-        }
-    }
-    
-
+    func updateDataByCityName(_ cityName: String) {
+        self.cityName = cityName
+        updateDataByCityName()
     }
 }
