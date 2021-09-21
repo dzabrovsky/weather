@@ -2,7 +2,7 @@ import UIKit
 
 class Builder: BuilderProtocol {
     
-    func buildGeneralDayScreen(_ router: RouterProtocol ) -> UIViewController {
+    func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController {
         let model = GeneralDayModel()
         let view = UIGeneralDayViewController()
         let presenter = GeneralDayPresenter()
@@ -14,7 +14,7 @@ class Builder: BuilderProtocol {
         
         return view
     }
-    func buildSearchScreen(_ router: RouterProtocol ) -> UIViewController {
+    func buildSearchScreen(_ router: SearchRouterProtocol ) -> UIViewController {
         let model = SearchModel()
         let view = UISearchViewController()
         let presenter = SearchPresenter()
@@ -26,7 +26,7 @@ class Builder: BuilderProtocol {
         
         return view
     }
-    func buildDayDetailsScreen(_ router: RouterProtocol, dataSource: DataSourceDay ) -> UIViewController {
+    func buildDayDetailsScreen(_ router: AnotherRouterProtocol, dataSource: DataSourceDay ) -> UIViewController {
         let view = UIDayDetailsViewController()
         let presenter = DayDetailsPresenter()
         view.presenter = presenter
