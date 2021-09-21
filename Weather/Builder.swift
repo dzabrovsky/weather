@@ -36,5 +36,14 @@ class Builder: BuilderProtocol {
         
         return view
     }
-    
+    func buildMapScreen(_ router: MapRouterProtocol) -> UIViewController{
+        let view = UIMapViewController()
+        let model = MapModel()
+        let presenter = MapPresenter(router: router, model: model)
+        presenter.view = view
+        view.presenter = presenter
+        model.delegate = presenter
+        
+        return view
+    }
 }
