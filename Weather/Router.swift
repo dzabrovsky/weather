@@ -11,7 +11,7 @@ protocol AnotherRouterProtocol {
     func popToRoot()
 }
 
-protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol {
+protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol, MapRouterProtocol {
     func initialGeneralDayView()
 }
 
@@ -39,15 +39,19 @@ class Router: RouterProtocol {
         let searchViewController = builder.buildDayDetailsScreen(self, dataSource: dataSource)
         navigationController.pushViewController(searchViewController, animated: true)
     }
+    func showMapView(){
+        let mapViewController = builder.buildMapScreen(self)
+        navigationController.pushViewController(mapViewController, animated: true)
+    }
     
     func popToRoot() {
         navigationController.popToRootViewController(animated: true)
     }
     
-    func popToRootWithSelectedCity(_ cityName: String) {
-        navigationController.popToRootViewController(animated: true)
+    func popToRootWithSelectedCity() {
         let generalDay = navigationController.viewControllers[0] as! UIGeneralDayViewController
-        generalDay.presenter.onApplyNewCityName(cityName)
+        navigationController.popToRootViewController(animated: true)
+        generalDay.presenter.didGeneralDayScreenLoad()
     }
     
 }
