@@ -15,7 +15,7 @@ public class UIWeatherCell: UITableViewCell {
         
     }
     
-    func refresh(_ dataSource: DataSourceDay){
+    func refresh(_ dataSource: ForecastDayDataSource){
         print("Cell refreshed")
     }
     

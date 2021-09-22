@@ -10,6 +10,6 @@ import Foundation
 struct Current: Codable {
     let coord: Coord
     let weather: [Weather]
-    let main: Main
+    let main: MainDetails
     let name: String
 }

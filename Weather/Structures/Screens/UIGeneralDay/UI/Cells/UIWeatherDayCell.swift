@@ -3,7 +3,7 @@ import UIKit
 class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private static let k: CGFloat = UIScreen.main.bounds.width / 375
-    private weak var dataSource: DataSourceDay!
+    private var dataSource: ForecastDayDataSource!
     
     public let weatherDayItem:UIView = {
         let view = UIView()
@@ -164,7 +164,7 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         
     }
     
-    override func refresh(_ dataSource: DataSourceDay) {
+    override func refresh(_ dataSource: ForecastDayDataSource) {
         
         self.dataSource = dataSource
         
@@ -172,17 +172,15 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         formatter.dateFormat = "d MMMM, E"
         formatter.locale = Locale(identifier: "ru_RU")
         
-        let text = formatter.string(from: dataSource.getDayData().date).lowercased()
-        
         let attribute = [ NSAttributedString.Key.font: UIFont.init(name: "Manrope-Medium", size: 16 * UIWeatherDayCell.k)! ]
-        let myString = NSMutableAttributedString(string: text, attributes: attribute )
+        let myString = NSMutableAttributedString(string: dataSource.date, attributes: attribute )
         
         myString.addAttribute(NSAttributedString.Key.foregroundColor, value: #colorLiteral(red: 0.5609950423, green: 0.5900147557, blue: 0.6328315735, alpha: 1) , range: NSRange(location:myString.length-2,length:2))
         dateLabelFirst.attributedText = myString
         
-        weatherImage.image = ImageManager.getIconByCode(dataSource.getDayData().icon)
-        tempLabel.text = String(Int(dataSource.getDayData().temp)) + "°"
-        tempLabelFeelsLike.text = String(Int(dataSource.getDayData().feelsLike)) + "°"
+        weatherImage.image = dataSource.icon
+        tempLabel.text = dataSource.temp
+        tempLabelFeelsLike.text = dataSource.feelsLike
         
         collectionView.reloadData()
         collectionView.scrollToItem(at: IndexPath(row: 4, section: 0), at: [.centeredHorizontally], animated: true)
@@ -191,7 +189,7 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let dataSource = dataSource {
-            return dataSource.getDayData().forecast.count
+            return dataSource.forecast.count
         }else{
             return 0
         }
@@ -209,9 +207,9 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         
         cell.contentView.addSubview(view)
         if let dataSource = dataSource {
-            cell.temp.text = String(Int(dataSource.getHourData(indexPath.row).main.temp)) + "°"
-            cell.time.text = String(dataSource.getHourData(indexPath.row).hour) + ":00"
-            cell.weather.image = ImageManager.getIconByCode(dataSource.getHourData(indexPath.row).weather[0].icon)
+            cell.temp.text = dataSource.forecast[indexPath.row].temp
+            cell.time.text = dataSource.forecast[indexPath.row].hour
+            cell.weather.image = dataSource.forecast[indexPath.row].icon
         }
         if view.translatesAutoresizingMaskIntoConstraints {
             view.backgroundColor = UIColor.init(named: "cv_cell_background") ?? .black

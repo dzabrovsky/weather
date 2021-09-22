@@ -3,7 +3,7 @@ import UIKit
 public class UITodayWeatherCell: UIWeatherCell {
     
     private static let k: CGFloat = UIScreen.main.bounds.width / 375
-    private weak var dataSource: DataSourceDay!
+    private var dataSource: ForecastDayDataSource!
     
     var view:UIView = {
         let view = UIView()
@@ -16,7 +16,6 @@ public class UITodayWeatherCell: UIWeatherCell {
     var todayLabel:UILabel = {
         
         let label = UILabel()
-        label.text = "Сегодня, 12 августа, чт"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.init(name: "Manrope-Medium", size: 14 * k )
         label.textAlignment = .center
@@ -29,7 +28,6 @@ public class UITodayWeatherCell: UIWeatherCell {
     let weatherImage:UIImageView = {
         
         let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "01d")
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         
@@ -40,7 +38,6 @@ public class UITodayWeatherCell: UIWeatherCell {
     let todayTemperatureLabel:UILabel = {
         
         let label = UILabel()
-        label.text = "30°C"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.init(name: "Manrope-ExtraBold", size: 48 * k)
         label.textAlignment = .center
@@ -53,7 +50,6 @@ public class UITodayWeatherCell: UIWeatherCell {
     let todayWeatherLabel:UILabel = {
         
         let label = UILabel()
-        label.text = "Ясно, ощущается как 32°"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.init(name: "Manrope-Medium", size: 14 * k)
         label.textAlignment = .center
@@ -151,23 +147,13 @@ public class UITodayWeatherCell: UIWeatherCell {
     }
     
     //MARK: - Refresh data with data parameter
-    override func refresh(_ dataSource: DataSourceDay){
+    override func refresh(_ dataSource: ForecastDayDataSource){
         self.dataSource = dataSource
-        todayLabel.text = {
-            var text = "Сегодня, "
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "d MMMM, E"
-            formatter.locale = Locale(identifier: "ru_RU")
-            
-            text += formatter.string(from: dataSource.getDayData().date).lowercased()
-            
-            return text
-        }()
-        todayTemperatureLabel.text = String(Int(dataSource.getHourData(0).main.temp)) + "°"
-        todayWeatherLabel.text = dataSource.getHourData(0).weather[0].weatherDescription + ", ощущается как " + String(Int(dataSource.getHourData(0).main.feelsLike))+"°"
+        todayLabel.text = "Сегодня, " + dataSource.date
+        todayTemperatureLabel.text = dataSource.temp
+        todayWeatherLabel.text =  dataSource.description
         
-        weatherImage.image = ImageManager.getIconByCode(dataSource.getHourData(0).weather[0].icon)
+        weatherImage.image = dataSource.icon
     }
     
 }

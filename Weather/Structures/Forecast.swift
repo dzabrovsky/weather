@@ -1,28 +1,24 @@
 import UIKit
 
 struct Forecast: Codable {
-    let cod: String
-    let message, cnt: Int
-    let list: [WeatherHour]
+    let list: [ForecastHour]
     let city: City
 }
 
 struct City: Codable {
-    let id: Int
     let name: String
     let coord: Coord
     let country: String
-    let population, timezone, sunrise, sunset: Int
+    let population: Int
 }
 
 struct Coord: Codable {
     let lat, lon: Double
 }
 
-struct WeatherHour: Codable {
+struct ForecastHour: Codable {
     let dt: Int
-    var hour: Int = 0
-    let main: Main
+    let main: MainDetails
     let weather: [Weather]
     let wind: Wind
     let rain: Rain?
@@ -33,7 +29,7 @@ struct WeatherHour: Codable {
     }
 }
 
-struct Main: Codable {
+struct MainDetails: Codable {
     let temp, feelsLike: Float
     let humidity: Int = 0
 

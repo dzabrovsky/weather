@@ -8,7 +8,7 @@ protocol GeneralDayPresenterProtocol: AnyObject {
     func onTapThemeButton()
     func onTapCityListButton()
     func onTapLocationButton()
-    func showDayDetails(_ dataSource: DataSourceDay)
+    func showDayDetails(_ dataSource: ForecastDayDataSource)
     
 }
 
@@ -18,7 +18,7 @@ class UIGeneralDayViewController: UIViewController {
     
     var contentView: UIGeneralDayView = UIGeneralDayView()
     
-    private var dataSource: DataSource?
+    private var dataSource: ForecastDataSource?
     
     override func viewDidLoad() {
         
@@ -70,7 +70,7 @@ extension UIGeneralDayViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let dataSource = dataSource {
-            presenter.showDayDetails(dataSource.getDayData(indexPath.row))
+            //presenter.showDayDetails(dataSource.getDayData(indexPath.row))
         }
     }
     
@@ -84,7 +84,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let dataSource = dataSource {
-            return dataSource.getDaysCount() - 1
+            return dataSource.forecast.count - 1
         }else{
             return 0
         }
@@ -100,7 +100,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
             }
             cell.setupCell()
             if let dataSource = dataSource {
-                cell.refresh(dataSource.getDayData(indexPath.row))
+                cell.refresh(dataSource.forecast[indexPath.row])
             }
             return cell
             
@@ -112,7 +112,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
             }
             cell.setupCell()
             if let dataSource = dataSource {
-                cell.refresh(dataSource.getDayData(indexPath.row))
+                cell.refresh(dataSource.forecast[indexPath.row])
             }
             return cell
             
@@ -131,12 +131,12 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
         self.contentView.header.title.text = name
     }
     
-    func refreshData(_ dataSource: DataSource){
+    func refreshData(_ dataSource: ForecastDataSource){
         
         self.dataSource = dataSource
         self.contentView.tableView.reloadData()
         self.contentView.tableView.refreshControl?.endRefreshing()
-        self.updateCityName(dataSource.getCityName())
+        self.updateCityName(dataSource.cityName)
     }
     
     func updateCells() {

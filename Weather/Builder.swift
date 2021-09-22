@@ -25,11 +25,10 @@ class Builder: BuilderProtocol {
         
         return view
     }
-    func buildDayDetailsScreen(_ router: AnotherRouterProtocol, dataSource: DataSourceDay ) -> UIViewController {
+    func buildDayDetailsScreen(_ router: AnotherRouterProtocol, dataSource: ForecastDayDataSource ) -> UIViewController {
         let view = UIDayDetailsViewController()
         let presenter = DayDetailsPresenter()
         view.presenter = presenter
-        view.dataSource = dataSource
         presenter.view = view
         presenter.router = router
         
