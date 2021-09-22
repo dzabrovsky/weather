@@ -31,8 +31,8 @@
 		54395B7C26FB40C000F3A07B /* ForecastDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B7B26FB40C000F3A07B /* ForecastDataSource.swift */; };
 		54395B8026FB4C5400F3A07B /* CityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B7F26FB4C5400F3A07B /* CityDataSource.swift */; };
 		54395B8226FB4E3500F3A07B /* ForecastAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */; };
+		54395B8626FB8AAF00F3A07B /* CityAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8526FB8AAF00F3A07B /* CityAdapter.swift */; };
 		54480D0D26DE58CC001698C3 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D0C26DE58CC001698C3 /* Forecast.swift */; };
-		54480D0F26DF8E4F001698C3 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D0E26DF8E4F001698C3 /* DataSource.swift */; };
 		54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1326DFB3DC001698C3 /* UIHeader.swift */; };
 		54480D1926DFBC06001698C3 /* UIGeneralDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */; };
 		54480D1C26DFC205001698C3 /* UIGeneralDayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1B26DFC205001698C3 /* UIGeneralDayHeader.swift */; };
@@ -108,8 +108,8 @@
 		54395B7B26FB40C000F3A07B /* ForecastDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastDataSource.swift; sourceTree = "<group>"; };
 		54395B7F26FB4C5400F3A07B /* CityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDataSource.swift; sourceTree = "<group>"; };
 		54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastAdapter.swift; sourceTree = "<group>"; };
+		54395B8526FB8AAF00F3A07B /* CityAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAdapter.swift; sourceTree = "<group>"; };
 		54480D0C26DE58CC001698C3 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
-		54480D0E26DF8E4F001698C3 /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		54480D1326DFB3DC001698C3 /* UIHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHeader.swift; sourceTree = "<group>"; };
 		54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeneralDayViewController.swift; sourceTree = "<group>"; };
 		54480D1B26DFC205001698C3 /* UIGeneralDayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeneralDayHeader.swift; sourceTree = "<group>"; };
@@ -257,7 +257,6 @@
 		54395B7A26FB408F00F3A07B /* OldDataSource */ = {
 			isa = PBXGroup;
 			children = (
-				54480D0E26DF8E4F001698C3 /* DataSource.swift */,
 				54BA58AD26F888E600996AF1 /* CityListItemDataSource.swift */,
 			);
 			path = OldDataSource;
@@ -436,6 +435,7 @@
 			children = (
 				54BA58BA26F9CB4B00996AF1 /* GeonamesAdapter.swift */,
 				54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */,
+				54395B8526FB8AAF00F3A07B /* CityAdapter.swift */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -626,8 +626,8 @@
 				54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */,
 				54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */,
 				54183E5C26E629E3002E135E /* UIDetails.swift in Sources */,
-				54480D0F26DF8E4F001698C3 /* DataSource.swift in Sources */,
 				5466262A26EF91F80024E38B /* UIMapViewHeader.swift in Sources */,
+				54395B8626FB8AAF00F3A07B /* CityAdapter.swift in Sources */,
 				54BA58B726F8D94F00996AF1 /* MapPresenter.swift in Sources */,
 				54C1B0C326EA06A6009FE1F2 /* UIGraphItemInfo.swift in Sources */,
 				54480D2F26E0E9D8001698C3 /* UICustomAlertCollectionViewCell.swift in Sources */,
