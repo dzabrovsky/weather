@@ -10,14 +10,14 @@ protocol MapViewProtocol: AnyObject {
     func moveToLocation(lat: Double, lon: Double)
     func showAlertMissingSaves()
     func setCityName(_ name: String)
-    func addMarker(_ dataSource: GeoNameDataSource)
+    func addMarker(_ dataSource: GeonameDataSource)
 }
 
 class MapPresenter {
     let router: MapRouterProtocol
     let model: MapModel
     weak var view: MapViewProtocol!
-    var updateGeoNames: (() -> GeoNames?)?
+    var updateGeoNames: (() -> Geonames?)?
     
     init(router: MapRouterProtocol, model: MapModel) {
         self.router = router
@@ -60,13 +60,13 @@ extension MapPresenter: MapPresenterProtocol {
     
     func mapViewDidFinishLoadingMap(centerLon: Double, centerLat: Double, latA: Double, lonA: Double) {
         
-        model.updateGeoNames(
+        model.updateGeonames(
             east: centerLon + lonA/2,
             west: centerLon - lonA/2,
             north: centerLat + latA/2,
             south: centerLat - latA/2
         ){ [unowned self] result in
-            let data = GeoNamesAdapter.convertToDataSource(data: result)
+            let data = GeonamesAdapter.convertToGeonames(data: result)
             self.view.addMarker(data)
         }
     }

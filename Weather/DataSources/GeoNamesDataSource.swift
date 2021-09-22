@@ -1,6 +1,6 @@
 import UIKit
 
-struct GeoNameDataSource {
+struct GeonameDataSource {
     let lat: Double
     let lon: Double
     let icon: UIImage

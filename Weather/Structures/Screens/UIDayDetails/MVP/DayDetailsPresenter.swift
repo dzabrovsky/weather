@@ -8,7 +8,6 @@ protocol UIDayDetailsViewControllerProtocol: AnyObject {
 class DayDetailsPresenter: DayDetailsPresenterProtocol {
 
     unowned var view: UIDayDetailsViewControllerProtocol!
-    var model: GeneralDayModelProtocol!
     var router: AnotherRouterProtocol!
     
     func onTapBackButton() {

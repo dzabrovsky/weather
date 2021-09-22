@@ -55,7 +55,7 @@ class UIMapView: UIView {
         
     }
     
-    func loadAnnotationFromDataSource(_ dataSource: GeoNameDataSource) {
+    func loadAnnotationFromDataSource(_ dataSource: GeonameDataSource) {
         
             let pin = MKPointAnnotation()
             pin.coordinate = CLLocationCoordinate2D(latitude: dataSource.lat, longitude: dataSource.lon)

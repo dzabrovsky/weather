@@ -8,11 +8,11 @@
 import Foundation
 import Alamofire
 
-struct GeoNames: Codable {
-    var geonames: [GeoName]
+struct Geonames: Codable {
+    var geonames: [Geoname]
 }
 
-struct GeoName: Codable {
+struct Geoname: Codable {
     let lon: Double?
     let name: String?
     let lat: Double?

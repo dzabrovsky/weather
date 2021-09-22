@@ -16,7 +16,7 @@ class MapModel: Model {
         
     }
     
-    func updateGeoNames(east: Double, west: Double, north: Double, south: Double, completion: @escaping (CityListItem) -> Void) {
+    func updateGeonames(east: Double, west: Double, north: Double, south: Double, completion: @escaping (CityListItem) -> Void) {
         
         guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {
             print("Cannot covert string to URL")
@@ -25,14 +25,14 @@ class MapModel: Model {
         
         AF.request(url)
             .validate()
-            .responseDecodable(of: GeoNames.self) { (response) in
+            .responseDecodable(of: Geonames.self) { (response) in
                 if let data = response.value {
-                    self.updateCurrentDataInGeoNames(data, completion: completion)
+                    self.updateCurrentDataInGeonames(data, completion: completion)
                 }
             }
     }
     
-    func updateCurrentDataInGeoNames(_ geonames: GeoNames, completion: @escaping (CityListItem) -> Void) {
+    func updateCurrentDataInGeonames(_ geonames: Geonames, completion: @escaping (CityListItem) -> Void) {
         
         for geoname in geonames.geonames {
             guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?lat=\(geoname.lat!)&lon=\(geoname.lon!)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {

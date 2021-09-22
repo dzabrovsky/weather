@@ -1,9 +1,9 @@
 import UIKit
 
-class GeoNamesAdapter {
-    static func convertToDataSource(data: CityListItem) -> GeoNameDataSource{
+class GeonamesAdapter {
+    static func convertToGeonames(data: CityListItem) -> GeonameDataSource{
         
-        return GeoNameDataSource(
+        return GeonameDataSource(
             lat: data.lat,
             lon: data.lon,
             icon: ImageManager.getIconByCode(data.icon),
