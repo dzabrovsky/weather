@@ -70,7 +70,7 @@ extension UIGeneralDayViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let dataSource = dataSource {
-            //presenter.showDayDetails(dataSource.getDayData(indexPath.row))
+            presenter.showDayDetails(dataSource.forecast[indexPath.row])
         }
     }
     

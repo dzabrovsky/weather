@@ -17,7 +17,7 @@ protocol DayDetailsPresenterProtocol {
 class UIDayDetailsViewController: UIViewController{
 
     var presenter: DayDetailsPresenterProtocol!
-    var dataSource: DataSourceDay?
+    var dataSource: ForecastDayDataSource!
     
     let contentView = UIDayDetailsView()
     

@@ -9,12 +9,11 @@ import UIKit
 
 class UIDetails: UITableViewCell {
     
-    private weak var dataSource: DataSourceDay!
+    private var dataSource: ForecastDayDataSource!
     
     var dateLabel:UILabel = {
         
         let label = UILabel()
-        label.text = "Сегодня, 12 августа, чт"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.init(name: "Manrope-Medium", size: 16)
         label.textAlignment = .center
@@ -27,7 +26,6 @@ class UIDetails: UITableViewCell {
     let weatherImage:UIImageView = {
         
         let image = UIImageView()
-        image.image = #imageLiteral(resourceName: "01d")
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         
@@ -38,7 +36,6 @@ class UIDetails: UITableViewCell {
     let temperatureLabel:UILabel = {
         
         let label = UILabel()
-        label.text = "30°C"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.init(name: "Manrope-ExtraBold", size: 52)
         label.textAlignment = .center
@@ -51,7 +48,6 @@ class UIDetails: UITableViewCell {
     let weatherLabel:UILabel = {
         
         let label = UILabel()
-        label.text = "Ясно, ощущается как 32°"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.init(name: "Manrope-Medium", size: 16)
         label.textAlignment = .center
@@ -73,7 +69,6 @@ class UIDetails: UITableViewCell {
     let circleGradientImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = #imageLiteral(resourceName: "circle_gradient")
         image.alpha = 0.9
         return image
     }()
@@ -144,23 +139,14 @@ class UIDetails: UITableViewCell {
         ])
     }
     
-    func refresh(_ dataSource: DataSourceDay){
+    func refresh(_ dataSource: ForecastDayDataSource){
         self.dataSource = dataSource
-        dateLabel.text = {
-            var text = "Сегодня, "
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "d MMMM, E"
-            formatter.locale = Locale(identifier: "ru_RU")
-            
-            text += formatter.string(from: dataSource.getDayData().date).lowercased()
-            
-            return text
-        }()
-        temperatureLabel.text = String(Int(dataSource.getHourData(0).main.temp)) + "°"
-        weatherLabel.text = dataSource.getHourData(0).weather[0].weatherDescription + ", ощущается как " + String(Int(dataSource.getHourData(0).main.feelsLike))+"°"
+        dateLabel.text = dataSource.date
+        temperatureLabel.text = dataSource.temp
+        weatherLabel.text = dataSource.description
         
-        weatherImage.image = ImageManager.getIconByCode(dataSource.getHourData(0).weather[0].icon)
+        weatherImage.image = dataSource.icon
+        info.setInfo(wind: dataSource.wind, humidity: dataSource.humidity, precipitation: dataSource.precipitation)
     }
     
     override func layoutSublayers(of layer: CALayer) {

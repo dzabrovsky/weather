@@ -15,6 +15,7 @@ class ForecastAdapter {
                 
                 let hour = ForecastHourDataSource(
                     temp: String( Int( hourItem.main.temp ) ) + "°",
+                    tempValue: Double(hourItem.main.temp),
                     feelsLike: String( Int( hourItem.main.feelsLike ) ) + "°",
                     icon: ImageManager.getIconByCode( hourItem.weather[0].icon ),
                     hour: String( returnHour(hourItem.dt) ) + ":00"
@@ -48,13 +49,26 @@ class ForecastAdapter {
             ).sorted( by: { $0.value.count > $1.value.count } ).first?.value[0].weather[0]
                 .weatherDescription ?? "") + ", ощущается как " + feelsLike
             
+            let wind: String = {
+                let value = dayItem.map( { Float($0.wind.speed) } ).reduce(0, +) / Float(dayItem.count)
+                return String(format: "%.1fм/с", value )
+            }()
+            let humidity = String( Int( dayItem.map( { $0.main.humidity } ).reduce(0, +) / dayItem.count ) ) + "%"
+            let precipitation: String = {
+                let value = dayItem.map( { Float($0.rain?.the3H ?? 0) } ).reduce(0, +) / Float(dayItem.count)
+                return String(format: "%.2fмм", value )
+            }()
+            
             let day = ForecastDayDataSource(
                 temp: temp,
                 feelsLike: feelsLike,
                 icon: icon,
                 date: date,
                 description: description,
-                forecast: hours
+                forecast: hours,
+                wind: wind,
+                humidity: humidity,
+                precipitation: precipitation
             )
             days.append(day)
         }

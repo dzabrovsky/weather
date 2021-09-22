@@ -31,7 +31,7 @@ struct ForecastHour: Codable {
 
 struct MainDetails: Codable {
     let temp, feelsLike: Float
-    let humidity: Int = 0
+    let humidity: Int
 
     enum CodingKeys: String, CodingKey {
         case temp

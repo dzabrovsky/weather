@@ -53,7 +53,7 @@ class UIGraph: UITableViewCell {
         return collectionView
     }()
     
-    var dataSource: DataSourceDay?
+    var dataSource: ForecastDayDataSource!
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -142,39 +142,32 @@ class UIGraph: UITableViewCell {
         return graphItem.rightAnchor
     }
     
-    func refresh(_ dataSource: DataSourceDay) {
+    func refresh(_ dataSource: ForecastDayDataSource) {
         var chartData: [ChartDataEntry] = []
-        var i: Int = 0
-        var max: Float = 0
-        var min: Float = 0
+        var i: Double = 0
         self.dataSource = dataSource
-        let dayData = dataSource.getDayData()
         
-        for hour in dayData.forecast {
-            chartData.append(ChartDataEntry(x: Double(i), y: Double(hour.main.temp)))
-            
-            if max < dayData.forecast[i].main.temp {
-                max = dayData.forecast[i].main.temp
-            }
-            
-            if min > dayData.forecast[i].main.temp {
-                min = dayData.forecast[i].main.temp
-            }
+        for hour in dataSource.forecast {
+            chartData.append(ChartDataEntry(x: Double(i), y: hour.tempValue))
             
             i += 1
         }
         
-        chartView.leftAxis.axisMaximum = Double(max * 1.5)
-        chartView.leftAxis.axisMinimum = Double(min - 1)
+        let max: Double = dataSource.forecast.max(by: { a, b in a.tempValue < b.tempValue })?.tempValue ?? 1
+        let min: Double = dataSource.forecast.min(by: { a, b in a.tempValue < b.tempValue })?.tempValue ?? 0
+        
+        chartView.leftAxis.axisMaximum = max * 1.25
+        chartView.leftAxis.axisMinimum = min / 2
         setupChart(chartData)
         graphItemsCollectionView.reloadData()
+        
     }
 }
 
 extension UIGraph: UICollectionViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        chartView.moveViewToX(Double( scrollView.contentOffset.x / (graphItemsCollectionView.bounds.width / CGFloat( dataSource?.getDayData().forecast.count ?? 1))))
+        chartView.moveViewToX(Double( scrollView.contentOffset.x / (graphItemsCollectionView.bounds.width / CGFloat( dataSource.forecast.count))))
     }
     
 }

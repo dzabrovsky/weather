@@ -29,6 +29,7 @@ class Builder: BuilderProtocol {
         let view = UIDayDetailsViewController()
         let presenter = DayDetailsPresenter()
         view.presenter = presenter
+        view.dataSource = dataSource
         presenter.view = view
         presenter.router = router
         

@@ -105,7 +105,7 @@ class UIDetailsInfo: UIView {
         
         windLabel.attributedText = getAttributedString(text: wind, count: 3)
         humidityLabel.attributedText = getAttributedString(text: humidity, count: 1)
-        precipitationLabel.attributedText = getAttributedString(text: precipitation, count: 1)
+        precipitationLabel.attributedText = getAttributedString(text: precipitation, count: 2)
         
     }
     
