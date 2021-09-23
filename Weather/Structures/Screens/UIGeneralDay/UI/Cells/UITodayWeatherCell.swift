@@ -153,7 +153,10 @@ public class UITodayWeatherCell: UIWeatherCell {
         todayTemperatureLabel.text = dataSource.temp
         todayWeatherLabel.text =  dataSource.description
         
-        weatherImage.image = dataSource.icon
+        weatherImage.animationImages = dataSource.icon
+        weatherImage.animationDuration = 1.0
+        weatherImage.animationRepeatCount = 0
+        weatherImage.startAnimating()
     }
     
 }

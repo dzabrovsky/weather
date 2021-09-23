@@ -8,7 +8,7 @@ struct ForecastDataSource {
 struct ForecastDayDataSource {
     let temp: String
     let feelsLike: String
-    let icon: UIImage
+    let icon: [UIImage]
     let date: String
     let description: String
     let forecast: [ForecastHourDataSource]

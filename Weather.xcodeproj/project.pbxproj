@@ -32,6 +32,7 @@
 		54395B8026FB4C5400F3A07B /* CityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B7F26FB4C5400F3A07B /* CityDataSource.swift */; };
 		54395B8226FB4E3500F3A07B /* ForecastAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */; };
 		54395B8626FB8AAF00F3A07B /* CityAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8526FB8AAF00F3A07B /* CityAdapter.swift */; };
+		54395B8826FC73A300F3A07B /* IconsAnimate.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54395B8726FC73A300F3A07B /* IconsAnimate.xcassets */; };
 		54480D0D26DE58CC001698C3 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D0C26DE58CC001698C3 /* Forecast.swift */; };
 		54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1326DFB3DC001698C3 /* UIHeader.swift */; };
 		54480D1926DFBC06001698C3 /* UIGeneralDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */; };
@@ -109,6 +110,7 @@
 		54395B7F26FB4C5400F3A07B /* CityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDataSource.swift; sourceTree = "<group>"; };
 		54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastAdapter.swift; sourceTree = "<group>"; };
 		54395B8526FB8AAF00F3A07B /* CityAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAdapter.swift; sourceTree = "<group>"; };
+		54395B8726FC73A300F3A07B /* IconsAnimate.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IconsAnimate.xcassets; sourceTree = "<group>"; };
 		54480D0C26DE58CC001698C3 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		54480D1326DFB3DC001698C3 /* UIHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHeader.swift; sourceTree = "<group>"; };
 		54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeneralDayViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				542FD2C326CBD45700AC4077 /* LaunchScreen.storyboard */,
 				542FD2C626CBD45700AC4077 /* Info.plist */,
 				542FD2D326CBED5400AC4077 /* Icons.xcassets */,
+				54395B8726FC73A300F3A07B /* IconsAnimate.xcassets */,
 			);
 			path = Weather;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				54480D2A26E0C0DB001698C3 /* Manrope-ExtraBold.ttf in Resources */,
 				54480D2926E0C0D7001698C3 /* Manrope-Bold.ttf in Resources */,
 				542FD2C526CBD45700AC4077 /* LaunchScreen.storyboard in Resources */,
+				54395B8826FC73A300F3A07B /* IconsAnimate.xcassets in Resources */,
 				54C1B0C526EA1060009FE1F2 /* Lato-Regular.ttf in Resources */,
 				542FD2C226CBD45700AC4077 /* Assets.xcassets in Resources */,
 				542FD2D426CBED5400AC4077 /* Icons.xcassets in Resources */,

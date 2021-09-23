@@ -27,7 +27,7 @@ class ForecastAdapter {
             
             let feelsLike = String( Int( dayItem.map( { Int($0.main.feelsLike) } ).reduce(0, +) / dayItem.count ) ) + "°"
             
-            let icon = ImageManager.getIconByCode(
+            let icon = ImageManager.getIconAnimateByCode(
                 Dictionary( grouping: dayItem, by: { $0.weather[0].icon }).sorted( by: { $0.value.count > $1.value.count } ).first?.value[0].weather[0].icon ?? "" )
             
             let date: String = {

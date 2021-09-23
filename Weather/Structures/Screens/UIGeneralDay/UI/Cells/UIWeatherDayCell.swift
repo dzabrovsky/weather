@@ -178,7 +178,7 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         myString.addAttribute(NSAttributedString.Key.foregroundColor, value: #colorLiteral(red: 0.5609950423, green: 0.5900147557, blue: 0.6328315735, alpha: 1) , range: NSRange(location:myString.length-2,length:2))
         dateLabelFirst.attributedText = myString
         
-        weatherImage.image = dataSource.icon
+        weatherImage.image = dataSource.icon[0]
         tempLabel.text = dataSource.temp
         tempLabelFeelsLike.text = dataSource.feelsLike
         

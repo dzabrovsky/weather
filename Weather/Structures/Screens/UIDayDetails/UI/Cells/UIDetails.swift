@@ -145,7 +145,10 @@ class UIDetails: UITableViewCell {
         temperatureLabel.text = dataSource.temp
         weatherLabel.text = dataSource.description
         
-        weatherImage.image = dataSource.icon
+        weatherImage.animationImages = dataSource.icon
+        weatherImage.animationDuration = 1.0
+        weatherImage.animationRepeatCount = 0
+        weatherImage.startAnimating()
         info.setInfo(wind: dataSource.wind, humidity: dataSource.humidity, precipitation: dataSource.precipitation)
     }
     
