@@ -3,7 +3,7 @@ import UIKit
 protocol BuilderProtocol {
     func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController
     func buildSearchScreen(_ router: SearchRouterProtocol ) -> UIViewController
-    func buildDayDetailsScreen(_ router: AnotherRouterProtocol, dataSource: ForecastDayDataSource ) -> UIViewController
+    func buildDayDetailsScreen(_ router: DayDetailsRourerProtocol, dataSource: ForecastDayDataSource ) -> UIViewController
     func buildMapScreen(_ router: MapRouterProtocol) -> UIViewController
 }
 
@@ -11,7 +11,7 @@ protocol AnotherRouterProtocol {
     func popToRoot()
 }
 
-protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol, MapRouterProtocol {
+protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol, MapRouterProtocol, DayDetailsRourerProtocol {
     func initialGeneralDayView()
 }
 

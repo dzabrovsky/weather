@@ -1,17 +1,9 @@
-//
-//  UIDayDetailsViewController.swift
-//  Weather
-//
-//  Created by Denis Zabrovsky on 06.09.2021.
-//
-
 import UIKit
 
 protocol DayDetailsPresenterProtocol {
     func onTapBackButton()
     func onTapThemeButton()
     func onTapCityListButton()
-    func refreshData()
 }
 
 class UIDayDetailsViewController: UIViewController{

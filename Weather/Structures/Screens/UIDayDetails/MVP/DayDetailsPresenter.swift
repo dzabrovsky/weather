@@ -5,10 +5,14 @@ protocol UIDayDetailsViewControllerProtocol: AnyObject {
     func switchtheme()
 }
 
+protocol DayDetailsRourerProtocol: AnotherRouterProtocol {
+    func showSearchView()
+}
+
 class DayDetailsPresenter: DayDetailsPresenterProtocol {
 
     unowned var view: UIDayDetailsViewControllerProtocol!
-    var router: AnotherRouterProtocol!
+    var router: DayDetailsRourerProtocol!
     
     func onTapBackButton() {
         router.popToRoot()
@@ -19,10 +23,6 @@ class DayDetailsPresenter: DayDetailsPresenterProtocol {
     }
     
     func onTapCityListButton() {
-        
-    }
-    
-    func refreshData() {
-        
+        router.showSearchView()
     }
 }
