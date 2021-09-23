@@ -33,6 +33,8 @@
 		54395B8226FB4E3500F3A07B /* ForecastAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */; };
 		54395B8626FB8AAF00F3A07B /* CityAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8526FB8AAF00F3A07B /* CityAdapter.swift */; };
 		54395B8826FC73A300F3A07B /* IconsAnimate.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54395B8726FC73A300F3A07B /* IconsAnimate.xcassets */; };
+		54395B8D26FC7B0200F3A07B /* UILaunchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B8C26FC7B0200F3A07B /* UILaunchScreen.swift */; };
+		54395B9126FCB76100F3A07B /* LaunchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B9026FCB76100F3A07B /* LaunchPresenter.swift */; };
 		54480D0D26DE58CC001698C3 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D0C26DE58CC001698C3 /* Forecast.swift */; };
 		54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1326DFB3DC001698C3 /* UIHeader.swift */; };
 		54480D1926DFBC06001698C3 /* UIGeneralDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */; };
@@ -111,6 +113,8 @@
 		54395B8126FB4E3500F3A07B /* ForecastAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastAdapter.swift; sourceTree = "<group>"; };
 		54395B8526FB8AAF00F3A07B /* CityAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityAdapter.swift; sourceTree = "<group>"; };
 		54395B8726FC73A300F3A07B /* IconsAnimate.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IconsAnimate.xcassets; sourceTree = "<group>"; };
+		54395B8C26FC7B0200F3A07B /* UILaunchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UILaunchScreen.swift; path = Weather/Structures/Screens/LaunchScreen/UILaunchScreen.swift; sourceTree = SOURCE_ROOT; };
+		54395B9026FCB76100F3A07B /* LaunchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchPresenter.swift; path = Weather/Structures/Screens/LaunchScreen/LaunchPresenter.swift; sourceTree = SOURCE_ROOT; };
 		54480D0C26DE58CC001698C3 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 		54480D1326DFB3DC001698C3 /* UIHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHeader.swift; sourceTree = "<group>"; };
 		54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeneralDayViewController.swift; sourceTree = "<group>"; };
@@ -265,9 +269,19 @@
 			path = OldDataSource;
 			sourceTree = "<group>";
 		};
+		54395B8926FC7A9D00F3A07B /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54395B8C26FC7B0200F3A07B /* UILaunchScreen.swift */,
+				54395B9026FCB76100F3A07B /* LaunchPresenter.swift */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		54480D1D26DFCB17001698C3 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				54395B8926FC7A9D00F3A07B /* LaunchScreen */,
 				5466262426EF84520024E38B /* UI */,
 				54183E5026E628F8002E135E /* UIDayDetails */,
 				54BA58AF26F8D2D300996AF1 /* UIMap */,
@@ -627,6 +641,7 @@
 			files = (
 				54480D4326E1F8D8001698C3 /* Model.swift in Sources */,
 				54BA58BE26F9CF1800996AF1 /* UserDataManager.swift in Sources */,
+				54395B8D26FC7B0200F3A07B /* UILaunchScreen.swift in Sources */,
 				54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */,
 				54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */,
 				54183E5C26E629E3002E135E /* UIDetails.swift in Sources */,
@@ -681,6 +696,7 @@
 				542FD2EF26CD111200AC4077 /* UITodayWeatherCell.swift in Sources */,
 				54183E6926E64B1E002E135E /* UIDetailsInfo.swift in Sources */,
 				54480D4A26E204F8001698C3 /* UICityListTableViewCell.swift in Sources */,
+				54395B9126FCB76100F3A07B /* LaunchPresenter.swift in Sources */,
 				5466261E26EB5AA80024E38B /* Cities+CoreDataProperties.swift in Sources */,
 				5466261D26EB5AA80024E38B /* Cities+CoreDataClass.swift in Sources */,
 				54183E6726E64115002E135E /* UIDayDetailsHeader.swift in Sources */,

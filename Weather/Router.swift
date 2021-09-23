@@ -1,6 +1,7 @@
 import UIKit
 
 protocol BuilderProtocol {
+    func buildLaunchScreen(_ router: LaunchRouterProtocol) -> UIViewController
     func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController
     func buildSearchScreen(_ router: SearchRouterProtocol ) -> UIViewController
     func buildDayDetailsScreen(_ router: DayDetailsRourerProtocol, dataSource: ForecastDayDataSource ) -> UIViewController
@@ -11,14 +12,15 @@ protocol AnotherRouterProtocol {
     func popToRoot()
 }
 
-protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol, MapRouterProtocol, DayDetailsRourerProtocol {
-    func initialGeneralDayView()
+protocol RouterProtocol: GeneralDayRouterProtocol, SearchRouterProtocol, MapRouterProtocol, DayDetailsRourerProtocol, LaunchRouterProtocol {
+    func showLaunchScreen()
 }
 
 class Router: RouterProtocol {
     
     private let navigationController: UINavigationController
     private let builder: BuilderProtocol
+    private var generalDayView: UIViewController!
     
     init(navigationController: UINavigationController, builder: BuilderProtocol) {
         self.builder = builder
@@ -26,8 +28,18 @@ class Router: RouterProtocol {
     }
     
     func initialGeneralDayView() {
-        let mainViewController = builder.buildGeneralDayScreen(self)
-        navigationController.viewControllers = [mainViewController]
+        generalDayView = builder.buildGeneralDayScreen(self)
+    }
+    
+    func showGeneralDayView(){
+        navigationController.viewControllers = [generalDayView]
+    }
+    
+    func showLaunchScreen() {
+        let launchViewController = builder.buildLaunchScreen(self) as! UILaunchScreen
+        launchViewController.modalPresentationStyle = .fullScreen
+        launchViewController.modalTransitionStyle = .crossDissolve
+        navigationController.pushViewController(launchViewController, animated: true)
     }
     
     func showSearchView() {

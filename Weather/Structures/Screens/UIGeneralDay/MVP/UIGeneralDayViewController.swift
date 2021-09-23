@@ -20,12 +20,24 @@ class UIGeneralDayViewController: UIViewController {
     
     private var dataSource: ForecastDataSource?
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         setup()
         setActions()
+    }
+    
+    func setPresenter(_ presenter: GeneralDayPresenterProtocol){
+        self.presenter = presenter
         presenter.didGeneralDayScreenLoad()
     }
     

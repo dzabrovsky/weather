@@ -2,14 +2,22 @@ import UIKit
 
 class Builder: BuilderProtocol {
     
+    func buildLaunchScreen(_ router: LaunchRouterProtocol) -> UIViewController {
+        let view = UILaunchScreen()
+        let presenter = LaunchPresenter()
+        presenter.router = router
+        view.presenter = presenter
+        return view
+    }
+    
     func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController {
         let model = GeneralDayModel()
         let view = UIGeneralDayViewController()
         let presenter = GeneralDayPresenter()
-        view.presenter = presenter
         presenter.view = view
         presenter.model = model
         presenter.router = router
+        view.setPresenter(presenter)
         
         return view
     }
