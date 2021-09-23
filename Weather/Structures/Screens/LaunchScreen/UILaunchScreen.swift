@@ -34,7 +34,7 @@ class UILaunchScreen: UIViewController {
         progress.progressViewStyle = .default
         progress.setProgress(0, animated: false)
         progress.progressTintColor = UIColor.init(named: "apply_button_background")
-        progress.trackTintColor = UIColor.init(named: "background")
+        progress.trackTintColor = UIColor.init(named: "black_text")
         progress.translatesAutoresizingMaskIntoConstraints = false
         progress.alpha = 0
         return progress
@@ -74,16 +74,16 @@ class UILaunchScreen: UIViewController {
     
     func animateHead(){
         
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { timer in
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
             NSLayoutConstraint.activate([
                 self.head.heightAnchor.constraint(equalTo: self.view.widthAnchor),
                 self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor)
             ])
             UIView.animate(
-                withDuration: 0.4,
+                withDuration: 0.5,
                 animations: {
                     self.head.backgroundColor = UIColor.init(named: "apply_button_background")
-                    self.view.layoutIfNeeded()
+                    self.head.layoutIfNeeded()
                 },
                 completion: { _ in
                     NSLayoutConstraint.activate([
@@ -91,14 +91,14 @@ class UILaunchScreen: UIViewController {
                         self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2)
                     ])
                     UIView.animate(
-                        withDuration: 0.5,
+                        withDuration: 0.4,
                         animations: {
                             self.head.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.25)
-                            self.view.layoutIfNeeded()
+                            self.head.layoutIfNeeded()
                         },
                         completion: { _ in
                             UIView.animate(
-                                withDuration: 0.4,
+                                withDuration: 0.3,
                                 animations: {
                                     self.head.transform = CGAffineTransform(rotationAngle: 0)
                                     self.head.layer.cornerRadius = self.view.bounds.width * 0.2 / 2
@@ -109,7 +109,7 @@ class UILaunchScreen: UIViewController {
                                         self.logo.centerYAnchor.constraint(equalTo: self.head.centerYAnchor)
                                     ])
                                     UIView.animate(
-                                        withDuration: 0.5,
+                                        withDuration: 0.6,
                                         delay: 0,
                                         usingSpringWithDamping: 0.5,
                                         initialSpringVelocity: 1,
@@ -119,7 +119,7 @@ class UILaunchScreen: UIViewController {
                                         }, completion: { _ in
                                             
                                             UIView.animate(
-                                                withDuration: 0.2,
+                                                withDuration: 0.1,
                                                 animations: {
                                                     self.loader.alpha = 1
                                                     self.loader.layoutIfNeeded()
