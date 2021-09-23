@@ -17,7 +17,6 @@ class Builder: BuilderProtocol {
         let model = SearchModel()
         let view = UISearchViewController()
         let presenter = SearchPresenter()
-        model.presenter = presenter
         view.presenter = presenter
         presenter.view = view
         presenter.model = model

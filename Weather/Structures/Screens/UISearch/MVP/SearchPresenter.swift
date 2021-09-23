@@ -3,21 +3,10 @@ import Foundation
 protocol SearchViewProtocol: AnyObject {
     func switchTheme()
     func openAddCityAlert()
-    func updateCityList(_ dataSource: CityListItemDataSourceProtocol)
+    func updateCityList(_ dataSource: CityDataSource)
     
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
-}
-
-protocol SearchModelProtocol {
-    
-    func didCityListUpdate()
-    func updateCityList()
-    func clearCoreData()
-    func updateCityLastUse(_ name: String)
-    
-    func checkCity(_ name: String)
-    
 }
 
 protocol SearchRouterProtocol: AnotherRouterProtocol {
@@ -27,7 +16,7 @@ protocol SearchRouterProtocol: AnotherRouterProtocol {
 class SearchPresenter {
     
     var router: SearchRouterProtocol!
-    var model: SearchModelProtocol!
+    var model: SearchModel!
     var view: SearchViewProtocol!
 }
 
@@ -46,35 +35,31 @@ extension SearchPresenter: SearchPresenterProtocol {
     }
     
     func updateDataSource() {
-        model.updateCityList()
+        model.updateCityList(){ result in
+            self.view.updateCityList( CityAdapter.convertToCity(from: result) )
+        }
     }
     
     func onRowSelected(_ cityName: String) {
-        model.updateCityLastUse(cityName)
+        model.updateCityLastUse(cityName){ name, lat, lon in
+            UserDataManager.saveCityName(name: name)
+            UserDataManager.saveCity(lat: lat, lon: lon)
+            self.router.popToRootWithSelectedCity()
+        }
     }
     
     func inputCityName(_ cityName: String) {
-        model.checkCity(cityName)
-    }
-}
-
-extension SearchPresenter: SearchPresenterProtocolForModel {
-    
-    func cityAlreadyExists() {
-        view.showAlertCityAlreadyExists()
-    }
-    
-    func cityDoesNotExists() {
-        view.showAlertCityDoesNotExists()
-    }
-    
-    
-    func cityListUpdated(_ dataSource: CityListItemDataSourceProtocol ){
-        view.updateCityList(dataSource)
-    }
-    
-    func didCityLastUseUpdate(lat: Double, lon: Double) {
-        UserDataManager.saveCity(lat: lat, lon: lon)
-        router.popToRootWithSelectedCity()
+        model.checkCity(cityName){ result, info in
+            switch info {
+            case .AlreadyExists:
+                self.view.showAlertCityAlreadyExists()
+            case .NotExists:
+                self.view.showAlertCityDoesNotExists()
+            case .Complete:
+                if let result = result {
+                    self.view.updateCityList( CityAdapter.convertToCity(from: result) )
+                }
+            }
+        }
     }
 }

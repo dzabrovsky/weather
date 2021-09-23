@@ -12,14 +12,13 @@ protocol SearchPresenterProtocol: AnyObject {
 
 class UISearchViewController: UIViewController {
     
-    var dataSource: CityListItemDataSourceProtocol!
+    var dataSource: [CityDataSource] = []
     
     var presenter: SearchPresenterProtocol!
     
-    var contentView: UISearchView!
+    var contentView: UISearchView = UISearchView()
     
     override func viewDidLoad(){
-        contentView = UISearchView()
         view = contentView
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
@@ -65,7 +64,7 @@ extension UISearchViewController: SearchViewProtocol{
     }
     
     func openAddCityAlert() {
-
+        
         let inputCity = UIInputCityName(completion: { cityName in
             DispatchQueue.main.async {
                 self.presenter.inputCityName(cityName)
@@ -87,36 +86,32 @@ extension UISearchViewController: SearchViewProtocol{
             view.drawGradient()
         }
     }
-    func updateCityList(_ dataSource: CityListItemDataSourceProtocol) {
-        self.dataSource = dataSource
+    func updateCityList(_ dataSource: CityDataSource) {
+        self.dataSource.append(dataSource)
         contentView.tableView.reloadData()
     }
     
 }
 extension UISearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.onRowSelected( dataSource.getCityListByIndexInArray(indexPath.row).name)
+        presenter.onRowSelected( dataSource[indexPath.row].name)
     }
 }
 
 extension UISearchViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let dataSource = dataSource {
-            return dataSource.getCityList().count
-        }else{
-            return 0
-        }
+        return dataSource.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UICityListTableViewCell", for: indexPath) as! UICityListTableViewCell
         
-        let city = dataSource.getCityListByIndexInArray(indexPath.row)
+        let city = dataSource[indexPath.row]
         
         cell.cityName.text = city.name
-        cell.temp.text = String(Int(city.temp))
-        cell.tempFeelsLike.text = String(Int(city.tempFeelsLike))
-        cell.icon.image = ImageManager.getIconByCode(city.icon)
+        cell.temp.text = city.temp
+        cell.tempFeelsLike.text = city.feelsLike
+        cell.icon.image = city.icon
         
         return cell
     }

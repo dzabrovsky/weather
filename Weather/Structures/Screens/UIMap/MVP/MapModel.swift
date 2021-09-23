@@ -56,6 +56,10 @@ class MapModel: Model {
         locationManager.startUpdatingLocation()
         
     }
+    
+    func getCityNameByCoord(lat: Double, lon: Double, completion: @escaping (String) -> Void) {
+        
+    }
 }
 
 extension MapModel: CLLocationManagerDelegate {
