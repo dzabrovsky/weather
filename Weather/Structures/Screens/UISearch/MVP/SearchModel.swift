@@ -92,16 +92,14 @@ class SearchModel: Model{
                 print(result.name)
                 city.lat = result.lat
                 city.lon = result.lon
-            }
-        }
-        
-        city.lastUse = Date()
-        do {
-            DispatchQueue.main.async {
-                self.updateWeatherInCity(name){ result in
+                city.lastUse = Date()
+                self.updateWeatherInCity(city.name ?? ""){ result in
                     completion(result)
                 }
             }
+        }
+        
+        do {
             try context.save()
         }catch{
             // error
