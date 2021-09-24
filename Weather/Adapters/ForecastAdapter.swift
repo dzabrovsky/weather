@@ -72,6 +72,9 @@ class ForecastAdapter {
             )
             days.append(day)
         }
+        if days.count > 5 {
+            days.removeLast()
+        }
         
         return ForecastDataSource(cityName: from.city.name, forecast: days)
     }
