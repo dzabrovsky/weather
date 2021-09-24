@@ -18,7 +18,8 @@ class UIGeneralDayViewController: UIViewController {
     
     var contentView: UIGeneralDayView = UIGeneralDayView()
     
-    private var dataSource: ForecastDataSource?
+    private var dataSource: ForecastDataSource!
+    private var cellsCount: Int = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -81,9 +82,7 @@ class UIGeneralDayViewController: UIViewController {
 extension UIGeneralDayViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let dataSource = dataSource {
-            presenter.showDayDetails(dataSource.forecast[indexPath.row])
-        }
+        presenter.showDayDetails(dataSource.forecast[indexPath.row])
     }
     
 }
@@ -95,11 +94,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let dataSource = dataSource {
-            return dataSource.forecast.count - 1
-        }else{
-            return 0
-        }
+        return cellsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -111,9 +106,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
                 return UITableViewCell()
             }
             cell.setupCell()
-            if let dataSource = dataSource {
-                cell.refresh(dataSource.forecast[indexPath.row])
-            }
+            cell.refresh(dataSource.forecast[indexPath.row])
             return cell
             
         }else{
@@ -123,9 +116,7 @@ extension UIGeneralDayViewController: UITableViewDataSource{
                 return UITableViewCell()
             }
             cell.setupCell()
-            if let dataSource = dataSource {
-                cell.refresh(dataSource.forecast[indexPath.row])
-            }
+            cell.refresh(dataSource.forecast[indexPath.row])
             return cell
             
         }
@@ -146,6 +137,7 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
     func refreshData(_ dataSource: ForecastDataSource){
         
         self.dataSource = dataSource
+        self.cellsCount = dataSource.forecast.count
         self.contentView.tableView.reloadData()
         self.contentView.tableView.refreshControl?.endRefreshing()
         self.updateCityName(dataSource.cityName)

@@ -143,7 +143,6 @@ extension UIMapViewController: MKMapViewDelegate {
         if let data = dataSource.first(
             where: {
                 $0.lat == annotation.coordinate.latitude && $0.lon == annotation.coordinate.longitude
-                
             }
         ) {
             annotationView.setValues(icon: data.icon, temp: data.temp, feelsLike: data.feelsLike)

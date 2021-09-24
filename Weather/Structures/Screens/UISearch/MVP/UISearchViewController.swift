@@ -77,14 +77,8 @@ extension UISearchViewController: SearchViewProtocol{
     }
     
     func switchTheme() {
-        
         ThemeManager.switchTheme(sender: self)
-        
-        if #available(iOS 13, *) {
-            
-            guard let view = view as? UISearchView else{ return }
-            view.drawGradient()
-        }
+        contentView.drawGradient()
     }
     func updateCityList(_ dataSource: CityDataSource) {
         self.dataSource.append(dataSource)

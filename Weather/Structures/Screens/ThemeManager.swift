@@ -24,7 +24,7 @@ class ThemeManager {
                 sender.view.layoutIfNeeded()
             }
         }else{
-
+            
             let alert = UIAlertController(title: "Темная тема не доступна!", message: "Данная опция доступна только для версии iOS 13 и выше", preferredStyle: .alert)
             let okButton = UIAlertAction(title: "Ок", style: .cancel, handler: nil)
             alert.addAction(okButton)
