@@ -11,7 +11,7 @@ class UIDayDetailsView: UIView {
     
     let header: UIDayDetailsHeader = {
         let header = UIDayDetailsHeader()
-        header.title.text = "Тамбов"
+        header.title.text = "City name"
         header.backgroundColor = UIColor.init(named: "background")
         header.translatesAutoresizingMaskIntoConstraints = false
         

@@ -4,12 +4,14 @@ protocol DayDetailsPresenterProtocol {
     func onTapBackButton()
     func onTapThemeButton()
     func onTapCityListButton()
+    func onViewDidLoad()
 }
 
 class UIDayDetailsViewController: UIViewController{
 
     var presenter: DayDetailsPresenterProtocol!
     var dataSource: ForecastDayDataSource!
+    var cityName: String!
     
     let contentView = UIDayDetailsView()
     
@@ -37,13 +39,16 @@ class UIDayDetailsViewController: UIViewController{
         contentView.tableView.delegate = self
         contentView.tableView.dataSource = self
         setActions()
+        presenter.onViewDidLoad()
     }
     
 }
 extension UIDayDetailsViewController: UIDayDetailsViewControllerProtocol{
     func updateView() {
+        contentView.header.title.text = cityName
         contentView.tableView.reloadData()
     }
+    
     func switchtheme() {
         ThemeManager.switchTheme(sender: self)
     }

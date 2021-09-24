@@ -32,9 +32,10 @@ class Builder: BuilderProtocol {
         
         return view
     }
-    func buildDayDetailsScreen(_ router: DayDetailsRourerProtocol, dataSource: ForecastDayDataSource ) -> UIViewController {
+    func buildDayDetailsScreen(_ router: DayDetailsRourerProtocol, dataSource: ForecastDayDataSource, cityName: String ) -> UIViewController {
         let view = UIDayDetailsViewController()
         let presenter = DayDetailsPresenter()
+        view.cityName = cityName
         view.presenter = presenter
         view.dataSource = dataSource
         presenter.view = view

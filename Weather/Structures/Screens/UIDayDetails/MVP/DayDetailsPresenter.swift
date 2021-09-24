@@ -25,4 +25,8 @@ class DayDetailsPresenter: DayDetailsPresenterProtocol {
     func onTapCityListButton() {
         router.showSearchView()
     }
+    
+    func onViewDidLoad() {
+        view.updateView()
+    }
 }

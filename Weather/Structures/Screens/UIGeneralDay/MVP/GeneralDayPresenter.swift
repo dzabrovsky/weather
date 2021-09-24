@@ -9,7 +9,7 @@ protocol GeneralDayViewProtocol: AnyObject {
 }
 
 protocol GeneralDayRouterProtocol {
-    func showDayDetails(_ dataSource: ForecastDayDataSource)
+    func showDayDetails(_ dataSource: ForecastDayDataSource, cityName: String)
     func showSearchView()
     func showMapView()
 }
@@ -33,6 +33,7 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     func didGeneralDayScreenLoad() {
         if let coord = UserDataManager.getSavedCoordinates() {
             model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
+                UserDataManager.saveCityName(name: result.city.name)
                 self.view.refreshData(ForecastAdapter.convertToForecast(from: result))
             }
         }else{
@@ -62,8 +63,8 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
         }
     }
     
-    func showDayDetails(_ dataSource: ForecastDayDataSource) {
-        router?.showDayDetails(dataSource)
+    func showDayDetails(_ dataSource: ForecastDayDataSource, cityName: String) {
+        router?.showDayDetails(dataSource, cityName: cityName)
     }
     
 }

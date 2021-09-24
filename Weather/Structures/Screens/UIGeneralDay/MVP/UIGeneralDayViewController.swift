@@ -8,7 +8,7 @@ protocol GeneralDayPresenterProtocol: AnyObject {
     func onTapThemeButton()
     func onTapCityListButton()
     func onTapLocationButton()
-    func showDayDetails(_ dataSource: ForecastDayDataSource)
+    func showDayDetails(_ dataSource: ForecastDayDataSource, cityName: String)
     
 }
 
@@ -82,7 +82,7 @@ class UIGeneralDayViewController: UIViewController {
 extension UIGeneralDayViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showDayDetails(dataSource.forecast[indexPath.row])
+        presenter.showDayDetails(dataSource.forecast[indexPath.row], cityName: dataSource.cityName)
     }
     
 }
