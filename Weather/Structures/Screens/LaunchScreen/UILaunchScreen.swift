@@ -28,6 +28,16 @@ class UILaunchScreen: UIViewController {
         return label
     }()
     
+    let gradient: CAGradientLayer = {
+        let layer = CAGradientLayer()
+        layer.type = .radial
+        layer.colors=[ UIColor(red: 255/255, green: 226/255, blue: 0, alpha: 0.8).cgColor, UIColor(red: 255/255, green: 226/255, blue: 0, alpha: 0).cgColor]
+        layer.startPoint=CGPoint(x: 0.76, y: 0.6)
+        layer.endPoint=CGPoint(x: 0.05, y: 0.05)
+        layer.locations=[0,1]
+        return layer
+    }()
+    
     let loader: UIProgressView = {
         let progress = UIProgressView()
         progress.layer.cornerRadius = 8*k/2
@@ -80,9 +90,9 @@ class UILaunchScreen: UIViewController {
                 self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor)
             ])
             UIView.animate(
-                withDuration: 0.5,
+                withDuration: 0.4,
                 animations: {
-                    self.head.backgroundColor = UIColor.init(named: "apply_button_background")
+                    self.head.backgroundColor = UIColor(red: 1, green: 0.741, blue: 0.075, alpha: 1)
                     self.head.layoutIfNeeded()
                 },
                 completion: { _ in
@@ -91,47 +101,59 @@ class UILaunchScreen: UIViewController {
                         self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2)
                     ])
                     UIView.animate(
-                        withDuration: 0.4,
+                        withDuration: 0.3,
                         animations: {
                             self.head.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.25)
                             self.head.layoutIfNeeded()
                         },
                         completion: { _ in
+                            self.head.layer.addSublayer(self.gradient)
                             UIView.animate(
-                                withDuration: 0.3,
+                                withDuration: 0.5,
                                 animations: {
-                                    self.head.transform = CGAffineTransform(rotationAngle: 0)
-                                    self.head.layer.cornerRadius = self.view.bounds.width * 0.2 / 2
                                     self.head.layoutIfNeeded()
                                 },
                                 completion: { _ in
-                                    NSLayoutConstraint.activate([
-                                        self.logo.centerYAnchor.constraint(equalTo: self.head.centerYAnchor)
-                                    ])
+                                    let size = UIScreen.main.bounds.width * 0.2
+                                    self.gradient.frame = CGRect(x: 0, y: 0, width: size, height: size)
+                                    self.gradient.cornerRadius = size/2
                                     UIView.animate(
-                                        withDuration: 0.6,
-                                        delay: 0,
-                                        usingSpringWithDamping: 0.5,
-                                        initialSpringVelocity: 1,
-                                        options: .curveEaseInOut,
+                                        withDuration: 0.5,
                                         animations: {
-                                            self.view.layoutIfNeeded()
-                                        }, completion: { _ in
-                                            
+                                            self.head.transform = CGAffineTransform(rotationAngle: 0)
+                                            self.head.layer.cornerRadius = self.view.bounds.width * 0.2 / 2
+                                            self.head.layer.layoutIfNeeded()
+                                        },
+                                        completion: { _ in
+                                            NSLayoutConstraint.activate([
+                                                self.logo.centerYAnchor.constraint(equalTo: self.head.centerYAnchor)
+                                            ])
                                             UIView.animate(
-                                                withDuration: 0.1,
+                                                withDuration: 0.6,
+                                                delay: 0,
+                                                usingSpringWithDamping: 0.5,
+                                                initialSpringVelocity: 1,
+                                                options: .curveEaseInOut,
                                                 animations: {
-                                                    self.loader.alpha = 1
-                                                    self.loader.layoutIfNeeded()
-                                                },
-                                                completion: { _ in
-                                                    Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-                                                        self.loader.setProgress(self.loader.progress + 0.05, animated: true)
-                                                        if self.loader.progress >= 1 {
-                                                            timer.invalidate()
-                                                            self.presenter.onLoadingComplete()
+                                                    self.view.layoutIfNeeded()
+                                                }, completion: { _ in
+                                                    
+                                                    UIView.animate(
+                                                        withDuration: 0.1,
+                                                        animations: {
+                                                            self.loader.alpha = 1
+                                                            self.loader.layoutIfNeeded()
+                                                        },
+                                                        completion: { _ in
+                                                            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                                                                self.loader.setProgress(self.loader.progress + 0.05, animated: true)
+                                                                if self.loader.progress >= 1 {
+                                                                    timer.invalidate()
+                                                                    self.presenter.onLoadingComplete()
+                                                                }
+                                                            }
                                                         }
-                                                    }
+                                                    )
                                                 }
                                             )
                                         }
