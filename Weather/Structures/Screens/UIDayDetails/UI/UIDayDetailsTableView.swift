@@ -13,6 +13,8 @@ class UIDayDetailsTableView: UITableView {
         
         self.separatorStyle = .none
         self.backgroundColor = UIColor.init(named: "background")
+        self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
         self.register(UIDetails.self, forCellReuseIdentifier: "UIDetails")
         self.register(UIGraph.self, forCellReuseIdentifier: "UIGraph")
     }
