@@ -95,7 +95,7 @@ class UIAnnotationView: MKAnnotationView {
         UIView.animate(withDuration: 0.3){
             self.imageView.layoutIfNeeded()
         }
-        UIView.animate(withDuration: 1){
+        UIView.animate(withDuration: 0.5){
             self.weatherIcon.layoutIfNeeded()
             self.tempLabel.layoutIfNeeded()
             self.feelsLikeLabel.layoutIfNeeded()

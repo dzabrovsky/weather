@@ -48,14 +48,9 @@ extension MapPresenter: MapPresenterProtocol {
         model.updateLocation()
     }
     
-    func onSelectCity(lat: Double, lon: Double) {
-        UserDataManager.saveCity(lat: lat, lon: lon)
-        
-        router.popToRootWithSelectedCity()
-    }
-    
     func onTapAnnotation(lat: Double, lon: Double) {
-        
+        UserDataManager.saveCity(lat: lat, lon: lon)
+        router.popToRootWithSelectedCity()
     }
     
     func mapViewDidFinishLoadingMap(centerLon: Double, centerLat: Double, latA: Double, lonA: Double) {
