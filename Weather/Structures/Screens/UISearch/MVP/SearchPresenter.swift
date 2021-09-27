@@ -42,8 +42,8 @@ extension SearchPresenter: SearchPresenterProtocol {
     
     func onRowSelected(_ cityName: String) {
         model.updateCityLastUse(cityName){ name, lat, lon in
-            UserDataManager.saveCityName(name: name)
-            UserDataManager.saveCity(lat: lat, lon: lon)
+            UserDataRepository.shared.saveCityName(name: name)
+            UserDataRepository.shared.saveCity(lat: lat, lon: lon)
             self.router.popToRootWithSelectedCity()
         }
     }

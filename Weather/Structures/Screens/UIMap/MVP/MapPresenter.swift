@@ -28,7 +28,7 @@ class MapPresenter {
 extension MapPresenter: MapPresenterProtocol {
     
     func didMapScreenLoad() {
-        if let coord = UserDataManager.getSavedCoordinates(), let cityName = UserDataManager.getSavedCityName() {
+        if let coord = UserDataRepository.shared.getSavedCoordinates(), let cityName = UserDataRepository.shared.getSavedCityName() {
             view.setRegion(lat: coord.lat, lon: coord.lon, size: 100000)
             view.setCityName(cityName)
         }else{
@@ -49,7 +49,7 @@ extension MapPresenter: MapPresenterProtocol {
     }
     
     func onTapAnnotation(lat: Double, lon: Double) {
-        UserDataManager.saveCity(lat: lat, lon: lon)
+        UserDataRepository.shared.saveCity(lat: lat, lon: lon)
         router.popToRootWithSelectedCity()
     }
     

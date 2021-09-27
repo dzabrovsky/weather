@@ -6,6 +6,8 @@ private let coordKeyLon = "WeatherApp_coordinates_longtitude"
 
 class UserDataRepository {
     
+    static let shared: UserDataRepository = UserDataRepository()
+    
     private let userDefaults = UserDefaults.standard
     
     func isKeyExists(key: String) -> Bool {
