@@ -24,3 +24,15 @@ struct CityListItem {
         
     }
 }
+
+extension CityListItem {
+    func convertToGeonames() -> GeonameDataSource{
+        return GeonameDataSource(
+            lat: self.lat,
+            lon: self.lon,
+            icon: ImageManager.getIconByCode(self.icon),
+            temp: String(Int(self.temp)) + "°",
+            feelsLike: String(Int(self.tempFeelsLike)) + "°"
+        )
+    }
+}

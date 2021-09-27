@@ -61,7 +61,7 @@ extension MapPresenter: MapPresenterProtocol {
             north: centerLat + latA/2,
             south: centerLat - latA/2
         ){ [unowned self] result in
-            let data = GeonamesAdapter.convertToGeonames(data: result)
+            let data = result.convertToGeonames()
             if let view = self.view {
                 view.addMarker(data)
             }
