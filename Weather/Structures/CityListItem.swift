@@ -35,4 +35,13 @@ extension CityListItem {
             feelsLike: String(Int(self.tempFeelsLike)) + "°"
         )
     }
+    
+    func convertToCity() -> CityDataSource {
+        return CityDataSource(
+            name: self.name,
+            temp: String( Int( self.temp ) ) + "°",
+            feelsLike: String( Int( self.tempFeelsLike ) ) + "°",
+            icon: ImageManager.getIconByCode( self.icon )
+        )
+    }
 }

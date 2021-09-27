@@ -36,7 +36,7 @@ extension SearchPresenter: SearchPresenterProtocol {
     
     func updateDataSource() {
         model.updateCityList(){ result in
-            self.view.updateCityList( CityAdapter.convertToCity(from: result) )
+            self.view.updateCityList( result.convertToCity() )
         }
     }
     
@@ -57,7 +57,7 @@ extension SearchPresenter: SearchPresenterProtocol {
                 self.view.showAlertCityDoesNotExists()
             case .Complete:
                 if let result = result {
-                    self.view.updateCityList( CityAdapter.convertToCity(from: result) )
+                    self.view.updateCityList( result.convertToCity() )
                 }
             }
         }
