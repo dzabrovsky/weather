@@ -12,23 +12,15 @@ class UserDataManager {
     private let userDefaults = UserDefaults.standard
     
     func getSavedCoordinates() -> Coord? {
-        
-        if userDefaults.bool(forKey: savedCoordKeyExists) {
-            let lat = userDefaults.double(forKey: coordKeyLat)
-            let lon = userDefaults.double(forKey: coordKeyLon)
-            return Coord(lat: lat, lon: lon)
-        }else{
-            return nil
-        }
+        guard userDefaults.bool(forKey: savedCoordKeyExists) else { return nil }
+        return Coord(
+            lat: userDefaults.double(forKey: coordKeyLat),
+            lon: userDefaults.double(forKey: coordKeyLon))
     }
     
     func getSavedCityName() -> String? {
-        if userDefaults.bool(forKey: savedCityNameKeyExists) {
-            let name = userDefaults.string(forKey: cityKeyName)
-            return name
-        }else{
-            return nil
-        }
+        guard userDefaults.bool(forKey: savedCityNameKeyExists) else { return nil }
+        return userDefaults.string(forKey: cityKeyName)
     }
     
     func saveCity(lat: Double, lon: Double) {
