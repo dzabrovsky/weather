@@ -52,10 +52,9 @@ class UILaunchScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setup()
+    
         showLaunchScreen()
-        animateHead()
+        startAnimations()
     }
     
     func showLaunchScreen(){
@@ -82,92 +81,129 @@ class UILaunchScreen: UIViewController {
         ])
     }
     
-    func animateHead(){
+    func animateStepOne() {
+        NSLayoutConstraint.activate([
+            self.head.heightAnchor.constraint(equalTo: self.view.widthAnchor),
+            self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor)
+        ])
+        UIView.animate(
+            withDuration: 0.4,
+            animations: {
+                self.head.backgroundColor = UIColor(red: 1, green: 0.741, blue: 0.075, alpha: 1)
+                self.head.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepTwo() }
+        )
+    }
+    
+    func animateStepTwo() {
+        UIView.animate(
+            withDuration: 0.4,
+            animations: {
+                self.head.backgroundColor = UIColor(red: 1, green: 0.741, blue: 0.075, alpha: 1)
+                self.head.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepThree() }
+        )
+    }
+    
+    func animateStepThree() {
         
-        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { timer in
-            NSLayoutConstraint.activate([
-                self.head.heightAnchor.constraint(equalTo: self.view.widthAnchor),
-                self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor)
-            ])
-            UIView.animate(
-                withDuration: 0.4,
-                animations: {
-                    self.head.backgroundColor = UIColor(red: 1, green: 0.741, blue: 0.075, alpha: 1)
-                    self.head.layoutIfNeeded()
-                },
-                completion: { _ in
-                    NSLayoutConstraint.activate([
-                        self.head.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2),
-                        self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2)
-                    ])
-                    UIView.animate(
-                        withDuration: 0.3,
-                        animations: {
-                            self.head.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.25)
-                            self.head.layoutIfNeeded()
-                        },
-                        completion: { _ in
-                            self.head.layer.addSublayer(self.gradient)
-                            UIView.animate(
-                                withDuration: 0.5,
-                                animations: {
-                                    self.head.layoutIfNeeded()
-                                },
-                                completion: { _ in
-                                    let size = UIScreen.main.bounds.width * 0.2
-                                    self.gradient.frame = CGRect(x: 0, y: 0, width: size, height: size)
-                                    self.gradient.cornerRadius = size/2
-                                    UIView.animate(
-                                        withDuration: 0.5,
-                                        animations: {
-                                            self.head.transform = CGAffineTransform(rotationAngle: 0)
-                                            self.head.layer.cornerRadius = self.view.bounds.width * 0.2 / 2
-                                            self.head.layer.layoutIfNeeded()
-                                        },
-                                        completion: { _ in
-                                            NSLayoutConstraint.activate([
-                                                self.logo.centerYAnchor.constraint(equalTo: self.head.centerYAnchor)
-                                            ])
-                                            UIView.animate(
-                                                withDuration: 0.6,
-                                                delay: 0,
-                                                usingSpringWithDamping: 0.5,
-                                                initialSpringVelocity: 1,
-                                                options: .curveEaseInOut,
-                                                animations: {
-                                                    self.view.layoutIfNeeded()
-                                                }, completion: { _ in
-                                                    
-                                                    UIView.animate(
-                                                        withDuration: 0.1,
-                                                        animations: {
-                                                            self.loader.alpha = 1
-                                                            self.loader.layoutIfNeeded()
-                                                        },
-                                                        completion: { _ in
-                                                            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-                                                                self.loader.setProgress(self.loader.progress + 0.05, animated: true)
-                                                                if self.loader.progress >= 1 {
-                                                                    timer.invalidate()
-                                                                    self.presenter.onLoadingComplete()
-                                                                }
-                                                            }
-                                                        }
-                                                    )
-                                                }
-                                            )
-                                        }
-                                    )
-                                }
-                            )
-                        }
-                    )
+        NSLayoutConstraint.activate([
+            self.head.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2),
+            self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2)
+        ])
+        UIView.animate(
+            withDuration: 0.3,
+            animations: {
+                self.head.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.25)
+                self.head.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepFour() }
+        )
+    }
+    
+    func animateStepFour() {
+        
+        NSLayoutConstraint.activate([
+            self.head.heightAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2),
+            self.head.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2)
+        ])
+        UIView.animate(
+            withDuration: 0.3,
+            animations: {
+                self.head.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.25)
+                self.head.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepFive()}
+        )
+    }
+    
+    func animateStepFive() {
+        self.head.layer.addSublayer(self.gradient)
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                self.head.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepSix() }
+        )
+    }
+    
+    func animateStepSix() {
+        let size = UIScreen.main.bounds.width * 0.2
+        self.gradient.frame = CGRect(x: 0, y: 0, width: size, height: size)
+        self.gradient.cornerRadius = size/2
+        UIView.animate(
+            withDuration: 0.5,
+            animations: {
+                self.head.transform = CGAffineTransform(rotationAngle: 0)
+                self.head.layer.cornerRadius = self.view.bounds.width * 0.2 / 2
+                self.head.layer.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepSeven() }
+        )
+    }
+    
+    func animateStepSeven() {
+        NSLayoutConstraint.activate([
+            self.logo.centerYAnchor.constraint(equalTo: self.head.centerYAnchor)
+        ])
+        UIView.animate(
+            withDuration: 0.6,
+            delay: 0,
+            usingSpringWithDamping: 0.5,
+            initialSpringVelocity: 1,
+            options: .curveEaseInOut,
+            animations: {
+                self.view.layoutIfNeeded()
+            },
+            completion: { _ in self.animateStepEight() }
+        )
+    }
+    
+    func animateStepEight() {
+        UIView.animate(
+            withDuration: 0.1,
+            animations: {
+                self.loader.alpha = 1
+                self.loader.layoutIfNeeded()
+            },
+            completion: { _ in
+                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                    self.loader.setProgress(self.loader.progress + 0.05, animated: true)
+                    if self.loader.progress >= 1 {
+                        timer.invalidate()
+                        self.presenter.onLoadingComplete()
+                    }
                 }
-            )
-        }
+            }
+        )
     }
-    func setup(){
-        
+    
+    func startAnimations(){
+        animateStepOne()
     }
+    
 }
 
