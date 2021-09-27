@@ -11,6 +11,10 @@ class UserDataRepository {
     
     private let userDefaults = UserDefaults.standard
     
+    func isKeyExists(key: String) -> Bool {
+        return userDefaults.object(forKey: key) != nil
+    }
+    
     func getSavedCoordinates() -> Coord? {
         guard userDefaults.bool(forKey: savedCoordKeyExists) else { return nil }
         return Coord(
