@@ -17,7 +17,8 @@ class Model: NSObject {
         AF.request(url)
             .validate()
             .responseDecodable(of: Current.self) { (response) in
-                if let data = response.value {
+                switch response.result {
+                case .success(let data):
                     
                     result.lat = data.coord.lat
                     result.lon = data.coord.lon
@@ -27,9 +28,11 @@ class Model: NSObject {
                     result.icon = data.weather[0].icon
                     
                     completion(result)
+                case .failure(let error):
+                    print(error)
                 }
+                return
             }
-        return
     }
     
     func searchCity(_ url: URL, completion: @escaping (SearchGeoNames) -> Void) {
@@ -55,13 +58,6 @@ class Model: NSObject {
             }
     }
     
-    static func dropTime(_ dt: Int) -> Int{
-        return dt - dt % Int(86400)
-    }
-    
-    static func returnHour(_ dt: Int) -> Int{
-        return ( dt % Int(86400) ) / 3600
-    }
 }
 
 extension String{
