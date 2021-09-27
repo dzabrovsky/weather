@@ -16,6 +16,7 @@ class UIDayDetailsTableView: UITableView {
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
         self.register(UIDetails.self, forCellReuseIdentifier: "UIDetails")
-        self.register(UIGraph.self, forCellReuseIdentifier: "UIGraph")
+        self.register(UIChart.self, forCellReuseIdentifier: "UIChart")
+        self.allowsSelection = false
     }
 }

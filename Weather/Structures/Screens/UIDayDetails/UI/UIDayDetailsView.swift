@@ -1,10 +1,3 @@
-//
-//  UIDayDetailsView.swift
-//  Weather
-//
-//  Created by Denis Zabrovsky on 06.09.2021.
-//
-
 import UIKit
 
 class UIDayDetailsView: UIView {
@@ -20,12 +13,8 @@ class UIDayDetailsView: UIView {
     
     let tableView: UIDayDetailsTableView = {
         let tableView = UIDayDetailsTableView()
-        tableView.separatorStyle = .none
+        tableView.setup()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.backgroundColor = UIColor.init(named: "background")
-        tableView.register(UIDetails.self, forCellReuseIdentifier: "UIDetails")
-        tableView.register(UIGraph.self, forCellReuseIdentifier: "UIGraph")
-        tableView.allowsSelection = false
         
         return tableView
     }()

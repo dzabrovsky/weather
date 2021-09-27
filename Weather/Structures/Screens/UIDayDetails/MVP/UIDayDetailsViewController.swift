@@ -51,6 +51,7 @@ extension UIDayDetailsViewController: UIDayDetailsViewControllerProtocol{
     
     func switchtheme() {
         ThemeManager.switchTheme(sender: self)
+        contentView.tableView.reloadData()
     }
 }
 
@@ -94,13 +95,14 @@ extension UIDayDetailsViewController: UITableViewDataSource {
             
         }else{
             
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UIGraph", for: indexPath) as? UIGraph else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UIChart", for: indexPath) as? UIChart else {
                 assertionFailure()
                 return UITableViewCell()
             }
             
             if let dataSource = dataSource {
-                cell.refresh(dataSource)
+                cell.loadChart(dataSource)
+                cell.switchTheme()
             }
             return cell
             

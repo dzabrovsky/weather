@@ -217,8 +217,16 @@ open class XAxisRenderer: AxisRendererBase
             
             if viewPortHandler.isInBoundsX(position.x)
             {
-                let label = xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? ""
-
+                var label = (xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? "")
+                
+                if label == "24" {
+                    label = ""
+                }else if label.count > 2 {
+                    label = ""
+                }else{
+                    label += ":00"
+                }
+                
                 let labelns = label as NSString
                 
                 if xAxis.isAvoidFirstLastClippingEnabled
