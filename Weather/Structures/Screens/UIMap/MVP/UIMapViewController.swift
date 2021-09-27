@@ -17,13 +17,7 @@ class UIMapViewController: UIViewController {
     
     var presenter: MapPresenterProtocol!
     
-    private var mapView: UIMapView = {
-        let mapView = UIMapView()
-        mapView.mapView.showsCompass = false
-        mapView.mapView.showsScale = false
-        
-        return mapView
-    }()
+    private var mapView = UIMapView()
     
     private var dataSource: [GeonameDataSource] = []
     
@@ -37,7 +31,6 @@ class UIMapViewController: UIViewController {
     
     private func setup() {
         
-        mapView.mapView.mapType = .standard
         mapView.mapView.delegate = self
         view = mapView
     }

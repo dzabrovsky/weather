@@ -31,6 +31,7 @@ class UIMapView: UIView {
         super.init(frame: CGRect())
         
         setup()
+        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +40,13 @@ class UIMapView: UIView {
     
     private func setup() {
         
+        mapView.showsCompass = false
+        mapView.showsScale = false
+        mapView.mapType = .standard
+
+    }
+    
+    private func layout() {
         addSubview(mapView)
         addSubview(header)
         NSLayoutConstraint.activate([
@@ -52,7 +60,6 @@ class UIMapView: UIView {
             mapView.topAnchor.constraint(equalTo: topAnchor),
             mapView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
     }
     
     func loadAnnotationFromDataSource(_ dataSource: GeonameDataSource) {
