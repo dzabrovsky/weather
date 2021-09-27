@@ -71,7 +71,7 @@
 		54BA58B526F8D93C00996AF1 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B426F8D93C00996AF1 /* MapModel.swift */; };
 		54BA58B726F8D94F00996AF1 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B626F8D94F00996AF1 /* MapPresenter.swift */; };
 		54BA58B926F9CA1B00996AF1 /* GeonamesDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B826F9CA1B00996AF1 /* GeonamesDataSource.swift */; };
-		54BA58BE26F9CF1800996AF1 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58BD26F9CF1800996AF1 /* UserDataManager.swift */; };
+		54BA58BE26F9CF1800996AF1 /* UserDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */; };
 		54C1B0C526EA1060009FE1F2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 54C1B0C426EA1060009FE1F2 /* Lato-Regular.ttf */; };
 		54C516A626F21EA3006E585E /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C516A526F21EA3006E585E /* ThemeManager.swift */; };
 		54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C516AD26F3745C006E585E /* UIInputCityName.swift */; };
@@ -146,7 +146,7 @@
 		54BA58B426F8D93C00996AF1 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapModel.swift; path = Weather/Structures/Screens/UIMap/MVP/MapModel.swift; sourceTree = SOURCE_ROOT; };
 		54BA58B626F8D94F00996AF1 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPresenter.swift; path = Weather/Structures/Screens/UIMap/MVP/MapPresenter.swift; sourceTree = SOURCE_ROOT; };
 		54BA58B826F9CA1B00996AF1 /* GeonamesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeonamesDataSource.swift; sourceTree = "<group>"; };
-		54BA58BD26F9CF1800996AF1 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataManager.swift; path = Weather/Structures/Screens/UserDataManager.swift; sourceTree = SOURCE_ROOT; };
+		54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataRepository.swift; path = Weather/Structures/Screens/UserDataRepository.swift; sourceTree = SOURCE_ROOT; };
 		54C1B0C426EA1060009FE1F2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		54C516A526F21EA3006E585E /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThemeManager.swift; path = Weather/Structures/Screens/ThemeManager.swift; sourceTree = SOURCE_ROOT; };
 		54C516AD26F3745C006E585E /* UIInputCityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIInputCityName.swift; path = Weather/Structures/Screens/UISearch/UI/CustomAlert/UIInputCityName.swift; sourceTree = SOURCE_ROOT; };
@@ -230,6 +230,7 @@
 		542FD2B726CBD45200AC4077 /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				54395B9C27021DEF00F3A07B /* Singleton */,
 				54BA58BC26F9CC6000996AF1 /* Adapters */,
 				54BA58A826F4DA7600996AF1 /* DataSources */,
 				5466260726EA64590024E38B /* CoreData */,
@@ -276,6 +277,13 @@
 			path = UIChart;
 			sourceTree = "<group>";
 		};
+		54395B9C27021DEF00F3A07B /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
 		54480D1D26DFCB17001698C3 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,7 +296,7 @@
 				54480D4226E1F8D8001698C3 /* Model.swift */,
 				5466261F26EF5B490024E38B /* ImageManager.swift */,
 				54C516A526F21EA3006E585E /* ThemeManager.swift */,
-				54BA58BD26F9CF1800996AF1 /* UserDataManager.swift */,
+				54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */,
 			);
 			name = Screens;
 			path = structures/Screens;
@@ -625,7 +633,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				54480D4326E1F8D8001698C3 /* Model.swift in Sources */,
-				54BA58BE26F9CF1800996AF1 /* UserDataManager.swift in Sources */,
+				54BA58BE26F9CF1800996AF1 /* UserDataRepository.swift in Sources */,
 				54395B8D26FC7B0200F3A07B /* UILaunchScreen.swift in Sources */,
 				54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */,
 				54395B9726FE285E00F3A07B /* UIChartMarker.swift in Sources */,
