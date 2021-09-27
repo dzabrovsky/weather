@@ -7,7 +7,7 @@ private let cityKeyName = "WeatherApp_city_name"
 private let coordKeyLat = "WeatherApp_coordinates_latitude"
 private let coordKeyLon = "WeatherApp_coordinates_longtitude"
 
-class UserDataManager {
+class UserDataRepository {
     
     private let userDefaults = UserDefaults.standard
     
