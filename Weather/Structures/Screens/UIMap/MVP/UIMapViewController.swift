@@ -29,10 +29,14 @@ class UIMapViewController: UIViewController {
         presenter.didMapScreenLoad()
     }
     
-    private func setup() {
+    override func loadView() {
+        super.loadView()
         
-        mapView.mapView.delegate = self
         view = mapView
+    }
+    
+    private func setup() {
+        mapView.mapView.delegate = self
     }
     
     private func setActions() {
