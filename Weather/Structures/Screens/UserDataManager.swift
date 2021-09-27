@@ -1,13 +1,13 @@
 import Foundation
 
+let savedCoordKeyExists = "WeatherApp_coordinates_exists"
+let savedCityNameKeyExists = "WeatherApp_city_exists"
+
+let cityKeyName = "WeatherApp_city_name"
+let coordKeyLat = "WeatherApp_coordinates_latitude"
+let coordKeyLon = "WeatherApp_coordinates_longtitude"
+
 class UserDataManager {
-    
-    private static let savedCoordKeyExists = "WeatherApp_coordinates_exists"
-    private static let savedCityNameKeyExists = "WeatherApp_city_exists"
-    
-    private static let cityKeyName = "WeatherApp_city_name"
-    private static let coordKeyLat = "WeatherApp_coordinates_latitude"
-    private static let coordKeyLon = "WeatherApp_coordinates_longtitude"
     
     static func getSavedCoordinates() -> Coord? {
         
