@@ -68,7 +68,7 @@ extension UIMapViewController: MapViewProtocol {
     }
     
     func addMarker(_ data: GeonameDataSource) {
-        mapView.loadAnnotationFromData(data)
+        mapView.addAnnotationFromData(data)
         self.dataSource.append(data)
     }
     
