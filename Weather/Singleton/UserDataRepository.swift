@@ -10,6 +10,10 @@ class UserDataRepository {
     
     private let userDefaults = UserDefaults.standard
     
+    private init(){
+        
+    }
+    
     func isKeyExists(key: String) -> Bool {
         return userDefaults.object(forKey: key) != nil
     }
