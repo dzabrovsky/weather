@@ -41,11 +41,15 @@ extension MapPresenter: MapPresenterProtocol {
     }
     
     func onTapLocationButton() {
-        model.updateLocation()
+        model.updateLocation{ result in
+            self.view.moveToLocation(lat: result.lat, lon: result.lon)
+        }
     }
     
     func onTapByMyLocationButton() {
-        model.updateLocation()
+        model.updateLocation{ result in
+            self.view.moveToLocation(lat: result.lat, lon: result.lon)
+        }
     }
     
     func onTapAnnotation(lat: Double, lon: Double) {
@@ -68,11 +72,4 @@ extension MapPresenter: MapPresenterProtocol {
         }
     }
     
-}
-
-extension MapPresenter: MapModelDelegate {
-    
-    func didLocationUpdate(lat: Double, lon: Double) {
-        view.moveToLocation(lat: lat, lon: lon)
-    }
 }

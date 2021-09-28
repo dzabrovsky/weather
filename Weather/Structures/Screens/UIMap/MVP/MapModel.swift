@@ -2,21 +2,15 @@ import Foundation
 import CoreLocation
 import Alamofire
 
-protocol MapModelDelegate {
-    func didLocationUpdate(lat: Double, lon: Double)
-}
-
 class MapModel: Model {
     
-    private var locationManager: CLLocationManager = CLLocationManager()
-    
-    var delegate: MapModelDelegate!
+    private let locationManagerFacade = LocationManagerFacade()
     
     func updateWeatherDataInCity(_ cityName: String) {
         
     }
     
-    func updateGeonames(east: Double, west: Double, north: Double, south: Double, completion: @escaping (CityListItem) -> Void) {
+    func updateGeonames(east: Double, west: Double, north: Double, south: Double, completion: @escaping (CityListItem) -> Void){
         
         guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {
             print("Cannot covert string to URL")
@@ -48,32 +42,14 @@ class MapModel: Model {
         }
     }
     
-    func updateLocation() {
+    func updateLocation(completion: @escaping (Coord) -> ()) {
         
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
+        locationManagerFacade.getCurrentLocation{ result in
+            completion(result)
+        }
     }
     
     func getCityNameByCoord(lat: Double, lon: Double, completion: @escaping (String) -> Void) {
-        
-    }
-}
-
-extension MapModel: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        if let location = locations.first {
-            locationManager.startUpdatingLocation()
-            locationManager = CLLocationManager()
-            
-            if let delegate = delegate {
-                delegate.didLocationUpdate(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
-            }
-        }
         
     }
 }

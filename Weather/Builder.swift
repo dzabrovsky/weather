@@ -49,7 +49,6 @@ class Builder: BuilderProtocol {
         let presenter = MapPresenter(router: router, model: model)
         presenter.view = view
         view.presenter = presenter
-        model.delegate = presenter
         
         return view
     }
