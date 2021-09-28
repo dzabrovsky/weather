@@ -85,15 +85,13 @@ extension UIMapViewController: MapViewProtocol {
     func setRegion(lat: Double, lon: Double, size: Int) {
         
         let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-        
-        mapView.mapView.setRegion(
-            MKCoordinateRegion(
-                center: center,
-                latitudinalMeters: CLLocationDistance.init(size),
-                longitudinalMeters: CLLocationDistance.init(size)
-            ),
-            animated: true
+        let region = MKCoordinateRegion(
+            center: center,
+            latitudinalMeters: CLLocationDistance.init(size),
+            longitudinalMeters: CLLocationDistance.init(size)
         )
+        
+        mapView.mapView.setRegion(region, animated: true)
     }
     
     func showAlertMissingSaves() {
