@@ -54,8 +54,12 @@ extension MapPresenter: MapPresenterProtocol {
     }
     
     func onTapAnnotation(lat: Double, lon: Double) {
-        UserDataRepository.shared.saveCity(lat: lat, lon: lon)
-        router.popToRootWithSelectedCity()
+        model.insertCity(lat: lat, lon: lon) { result, info in
+            guard let data = result else { return }
+            UserDataRepository.shared.saveCity(lat: data.lat, lon: data.lon)
+            UserDataRepository.shared.saveCityName(name: data.name)
+            self.router.popToRootWithSelectedCity()
+        }
     }
     
     func mapViewDidFinishLoadingMap(centerLon: Double, centerLat: Double, latA: Double, lonA: Double) {

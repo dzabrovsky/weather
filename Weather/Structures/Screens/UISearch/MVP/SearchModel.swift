@@ -53,14 +53,16 @@ class SearchModel{
                     return
                 }
                 self.alamofireFacade.getCurrentWeather(name) { data in
-                    self.coreDataFacade.insertCity(data.name, lat: data.lat, lon: data.lon)
+                    self.coreDataFacade.insertCity(data.name, lat: data.lat, lon: data.lon){
+                        completion(data, .Succed)
+                    }
                 }
             }
         }
     }
     
     func getCityData(_ name: String, completion: @escaping (String, Double, Double) -> () ) {
-        coreDataFacade.getCityDetails(name) { name, lat, lon in
+        coreDataFacade.getCityCoordinates(name) { _, lat, lon in
             completion(name, lat, lon)
         }
     }

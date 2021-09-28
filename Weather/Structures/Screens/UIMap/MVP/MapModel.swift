@@ -6,10 +6,7 @@ class MapModel {
     
     private let locationManagerFacade = LocationManagerFacade.shared
     private let alamofireFacade = AlamofireFacade.shared
-    
-    func updateWeatherDataInCity(_ cityName: String) {
-        
-    }
+    private let coreDataFacade = CoreDataFacade.shared
     
     func updateGeonames(east: Double, west: Double, north: Double, south: Double, completion: @escaping (CityListItem) -> Void){
         
@@ -38,7 +35,19 @@ class MapModel {
         }
     }
     
-    func getCityNameByCoord(lat: Double, lon: Double, completion: @escaping (String) -> Void) {
+    func insertCity(lat: Double, lon: Double, completion: @escaping (CityListItem?, CheckResult) -> Void) {
         
+        alamofireFacade.getCurrentWeather(lat: lat, lon: lon) { data in
+            
+            self.coreDataFacade.checkCityNameExists(data.name) { check in
+                guard !check else{
+                    completion(data, .AlreadyExists)
+                    return
+                }
+                self.coreDataFacade.insertCity(data.name, lat: data.lat, lon: data.lon){
+                    completion(data, .Succed)
+                }
+            }
+        }
     }
 }

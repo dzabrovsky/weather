@@ -3,8 +3,9 @@ import CoreData
 
 protocol CoreDataFacadeProtocol {
     func checkCityNameExists(_ name: String, completion: @escaping (Bool) -> ())
-    func insertCity(_ name: String, lat: Double, lon: Double)
-    func getCityDetails(_ name: String, completion: @escaping (String, Double, Double) -> ())
+    func insertCity(_ name: String, lat: Double, lon: Double, completion: @escaping () -> ())
+    func getCityCoordinates(_ name: String, completion: @escaping (String, Double, Double) -> ())
+    func getCityName(lat: Double, lon: Double, completion: @escaping (String, Double, Double) -> ())
     func getCities() -> [Cities]?
 }
 
@@ -31,7 +32,17 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
         }
     }
     
-    func getCityDetails(_ name: String, completion: @escaping (String, Double, Double) -> ()) {
+    func getCityName(lat: Double, lon: Double, completion: @escaping (String, Double, Double) -> ()) {
+        do{
+            guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else { return }
+            guard let city = cities.first(where: { $0.lat == lat && $0.lon == lon }) else{ return }
+            completion(city.name, city.lat, city.lon)
+        }catch{
+            //error
+        }
+    }
+    
+    func getCityCoordinates(_ name: String, completion: @escaping (String, Double, Double) -> ()) {
         do{
             guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else { return }
             guard let city = cities.first(where: { $0.name == name }) else{ return }
@@ -41,7 +52,7 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
         }
     }
     
-    func insertCity(_ name: String, lat: Double, lon: Double) {
+    func insertCity(_ name: String, lat: Double, lon: Double, completion: @escaping () -> ()) {
         let city = Cities(context: context)
         city.name = name
         city.lat = lat
@@ -50,6 +61,7 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
         
         do {
             try context.save()
+            completion()
         }catch{
             // error
         }
