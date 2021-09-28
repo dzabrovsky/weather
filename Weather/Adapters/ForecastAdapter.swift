@@ -14,7 +14,7 @@ class ForecastAdapter {
             for hourItem in dayItem {
                 
                 let hour = ForecastHourDataSource(
-                    temp: String( Int( hourItem.main.temp ) ) + "°",
+                    temperature: String( Int( hourItem.main.temp ) ) + "°",
                     tempValue: Double(hourItem.main.temp),
                     feelsLike: String( Int( hourItem.main.feelsLike ) ) + "°",
                     icon: ImageManager.getIconByCode( hourItem.weather[0].icon ),
@@ -60,7 +60,7 @@ class ForecastAdapter {
             }()
             
             let day = ForecastDayDataSource(
-                temp: temp,
+                temperature: temp,
                 feelsLike: feelsLike,
                 icon: icon,
                 date: date,

@@ -179,7 +179,7 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         dateLabelFirst.attributedText = myString
         
         weatherImage.image = dataSource.icon[0]
-        tempLabel.text = dataSource.temp
+        tempLabel.text = dataSource.temperature
         tempLabelFeelsLike.text = dataSource.feelsLike
         
         collectionView.reloadData()
@@ -207,7 +207,7 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         
         cell.contentView.addSubview(view)
         if let dataSource = dataSource {
-            cell.temp.text = dataSource.forecast[indexPath.row].temp
+            cell.temp.text = dataSource.forecast[indexPath.row].temperature
             cell.time.text = dataSource.forecast[indexPath.row].hour
             cell.weather.image = dataSource.forecast[indexPath.row].icon
         }

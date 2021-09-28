@@ -6,7 +6,7 @@ struct ForecastDataSource {
 }
 
 struct ForecastDayDataSource {
-    let temp: String
+    let temperature: String
     let feelsLike: String
     let icon: [UIImage]
     let date: String
@@ -18,7 +18,7 @@ struct ForecastDayDataSource {
 }
 
 struct ForecastHourDataSource {
-    let temp: String
+    let temperature: String
     let tempValue: Double
     let feelsLike: String
     let icon: UIImage

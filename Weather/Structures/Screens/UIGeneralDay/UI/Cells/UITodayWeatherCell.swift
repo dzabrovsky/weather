@@ -150,7 +150,7 @@ public class UITodayWeatherCell: UIWeatherCell {
     override func refresh(_ dataSource: ForecastDayDataSource){
         self.dataSource = dataSource
         todayLabel.text = "Сегодня, " + dataSource.date
-        todayTemperatureLabel.text = dataSource.temp
+        todayTemperatureLabel.text = dataSource.temperature
         todayWeatherLabel.text =  dataSource.description
         
         weatherImage.animationImages = dataSource.icon
