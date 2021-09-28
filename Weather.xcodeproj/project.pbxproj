@@ -66,7 +66,8 @@
 		5466262A26EF91F80024E38B /* UIMapViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5466262926EF91F80024E38B /* UIMapViewHeader.swift */; };
 		5466262C26F0A6DE0024E38B /* UIAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */; };
 		5466262E26F0D08E0024E38B /* Geonames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5466262D26F0D08E0024E38B /* Geonames.swift */; };
-		54708B3D27030A6E00431522 /* LocationManagerFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54708B3C27030A6E00431522 /* LocationManagerFacade.swift */; };
+		54708B3F2703125600431522 /* AlamofireFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54708B3E2703125600431522 /* AlamofireFacade.swift */; };
+		54708B41270312C100431522 /* LocationManagerFacade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54708B40270312C100431522 /* LocationManagerFacade.swift */; };
 		54BA58AA26F8835800996AF1 /* SearchGeoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58A926F8835800996AF1 /* SearchGeoNames.swift */; };
 		54BA58B326F8D71600996AF1 /* UIMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B226F8D71600996AF1 /* UIMapViewController.swift */; };
 		54BA58B526F8D93C00996AF1 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B426F8D93C00996AF1 /* MapModel.swift */; };
@@ -142,13 +143,14 @@
 		5466262926EF91F80024E38B /* UIMapViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapViewHeader.swift; path = Weather/structures/Screens/UIMap/UI/UIMapViewHeader.swift; sourceTree = SOURCE_ROOT; };
 		5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIAnnotationView.swift; path = Weather/Structures/Screens/UI/UIAnnotationView.swift; sourceTree = SOURCE_ROOT; };
 		5466262D26F0D08E0024E38B /* Geonames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geonames.swift; sourceTree = "<group>"; };
-		54708B3C27030A6E00431522 /* LocationManagerFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationManagerFacade.swift; path = Weather/Structures/Screens/UIMap/Facades/LocationManagerFacade.swift; sourceTree = SOURCE_ROOT; };
+		54708B3E2703125600431522 /* AlamofireFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AlamofireFacade.swift; path = Weather/Structures/Screens/Facades/AlamofireFacade.swift; sourceTree = SOURCE_ROOT; };
+		54708B40270312C100431522 /* LocationManagerFacade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LocationManagerFacade.swift; path = Weather/Structures/Screens/Facades/LocationManagerFacade.swift; sourceTree = SOURCE_ROOT; };
 		54BA58A926F8835800996AF1 /* SearchGeoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGeoNames.swift; sourceTree = "<group>"; };
 		54BA58B226F8D71600996AF1 /* UIMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapViewController.swift; path = Weather/Structures/Screens/UIMap/MVP/UIMapViewController.swift; sourceTree = SOURCE_ROOT; };
 		54BA58B426F8D93C00996AF1 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapModel.swift; path = Weather/Structures/Screens/UIMap/MVP/MapModel.swift; sourceTree = SOURCE_ROOT; };
 		54BA58B626F8D94F00996AF1 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapPresenter.swift; path = Weather/Structures/Screens/UIMap/MVP/MapPresenter.swift; sourceTree = SOURCE_ROOT; };
 		54BA58B826F9CA1B00996AF1 /* GeonamesDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeonamesDataSource.swift; sourceTree = "<group>"; };
-		54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataRepository.swift; path = Weather/Structures/Screens/UserDataRepository.swift; sourceTree = SOURCE_ROOT; };
+		54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDataRepository.swift; path = Weather/Singleton/UserDataRepository.swift; sourceTree = SOURCE_ROOT; };
 		54C1B0C426EA1060009FE1F2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		54C516A526F21EA3006E585E /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThemeManager.swift; path = Weather/Structures/Screens/ThemeManager.swift; sourceTree = SOURCE_ROOT; };
 		54C516AD26F3745C006E585E /* UIInputCityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIInputCityName.swift; path = Weather/Structures/Screens/UISearch/UI/CustomAlert/UIInputCityName.swift; sourceTree = SOURCE_ROOT; };
@@ -282,6 +284,7 @@
 		54395B9C27021DEF00F3A07B /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
+				54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */,
 			);
 			path = Singleton;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 		54480D1D26DFCB17001698C3 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				54708B3B27030A4E00431522 /* Facades */,
 				54395B8926FC7A9D00F3A07B /* LaunchScreen */,
 				5466262426EF84520024E38B /* UI */,
 				54183E5026E628F8002E135E /* UIDayDetails */,
@@ -298,7 +302,6 @@
 				54480D4226E1F8D8001698C3 /* Model.swift */,
 				5466261F26EF5B490024E38B /* ImageManager.swift */,
 				54C516A526F21EA3006E585E /* ThemeManager.swift */,
-				54BA58BD26F9CF1800996AF1 /* UserDataRepository.swift */,
 			);
 			name = Screens;
 			path = structures/Screens;
@@ -420,7 +423,8 @@
 		54708B3B27030A4E00431522 /* Facades */ = {
 			isa = PBXGroup;
 			children = (
-				54708B3C27030A6E00431522 /* LocationManagerFacade.swift */,
+				54708B3E2703125600431522 /* AlamofireFacade.swift */,
+				54708B40270312C100431522 /* LocationManagerFacade.swift */,
 			);
 			path = Facades;
 			sourceTree = "<group>";
@@ -438,7 +442,6 @@
 		54BA58AF26F8D2D300996AF1 /* UIMap */ = {
 			isa = PBXGroup;
 			children = (
-				54708B3B27030A4E00431522 /* Facades */,
 				54BA58B126F8D6FA00996AF1 /* UI */,
 				54BA58B026F8D6F400996AF1 /* MVP */,
 			);
@@ -643,7 +646,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54708B3D27030A6E00431522 /* LocationManagerFacade.swift in Sources */,
 				54480D4326E1F8D8001698C3 /* Model.swift in Sources */,
 				54BA58BE26F9CF1800996AF1 /* UserDataRepository.swift in Sources */,
 				54395B8D26FC7B0200F3A07B /* UILaunchScreen.swift in Sources */,
@@ -695,8 +697,10 @@
 				54183E5426E6293B002E135E /* UIDayDetailsViewController.swift in Sources */,
 				542FD2EF26CD111200AC4077 /* UITodayWeatherCell.swift in Sources */,
 				54183E6926E64B1E002E135E /* UIDetailsInfo.swift in Sources */,
+				54708B3F2703125600431522 /* AlamofireFacade.swift in Sources */,
 				54480D4A26E204F8001698C3 /* UICityListTableViewCell.swift in Sources */,
 				54395B9126FCB76100F3A07B /* LaunchPresenter.swift in Sources */,
+				54708B41270312C100431522 /* LocationManagerFacade.swift in Sources */,
 				5466261E26EB5AA80024E38B /* Cities+CoreDataProperties.swift in Sources */,
 				5466261D26EB5AA80024E38B /* Cities+CoreDataClass.swift in Sources */,
 				54183E6726E64115002E135E /* UIDayDetailsHeader.swift in Sources */,
