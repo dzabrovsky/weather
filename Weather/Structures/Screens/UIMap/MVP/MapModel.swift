@@ -5,7 +5,7 @@ import Alamofire
 class MapModel {
     
     private let locationManagerFacade = LocationManagerFacade()
-    private let alamofireFacade = AlamofireFacade()
+    private let alamofireFacade = AlamofireFacade.shared
     
     func updateWeatherDataInCity(_ cityName: String) {
         

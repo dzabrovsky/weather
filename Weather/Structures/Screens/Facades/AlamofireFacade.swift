@@ -1,8 +1,25 @@
 import Foundation
 import Alamofire
 
+protocol AlamofireFacadeProtocol {
+    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (Geonames) -> Void)
+    func getForecast(lat: Double, lon: Double, completion: @escaping (Forecast) -> ())
+    func getForecast(_ cityName: String, completion: @escaping (Forecast) -> ())
+    func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ())
+    func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ())
+    func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ())
+}
+
 class AlamofireFacade {
     
+    static let shared: AlamofireFacadeProtocol = AlamofireFacade()
+    
+    private init(){
+        
+    }
+}
+
+extension AlamofireFacade: AlamofireFacadeProtocol {
     func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (Geonames) -> Void){
         
         guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {

@@ -16,7 +16,7 @@ enum CheckResult {
 
 class SearchModel{
     
-    private let alamofireFacade = AlamofireFacade()
+    private let alamofireFacade = AlamofireFacade.shared
     
     func updateWeatherInCity(_ name: String, completion: @escaping (CityListItem) -> Void) {
         alamofireFacade.getCurrentWeather(name){ result in
