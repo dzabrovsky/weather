@@ -142,7 +142,7 @@ class UIDetails: UITableViewCell {
     func refresh(_ dataSource: ForecastDayDataSource){
         self.dataSource = dataSource
         dateLabel.text = dataSource.date
-        temperatureLabel.text = dataSource.temp
+        temperatureLabel.text = dataSource.temperature
         weatherLabel.text = dataSource.description
         
         weatherImage.animationImages = dataSource.icon

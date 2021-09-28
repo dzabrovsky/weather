@@ -137,7 +137,7 @@ extension UIMapViewController: MKMapViewDelegate {
                 $0.lat == annotation.coordinate.latitude && $0.lon == annotation.coordinate.longitude
             }
         ) {
-            annotationView.setValues(icon: data.icon, temperature: data.temp, feelsLike: data.feelsLike)
+            annotationView.setValues(icon: data.icon, temperature: data.temperature, feelsLike: data.feelsLike)
         }
         return annotationView
     }

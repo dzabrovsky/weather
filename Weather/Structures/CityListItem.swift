@@ -31,7 +31,7 @@ extension CityListItem {
             lat: self.lat,
             lon: self.lon,
             icon: ImageManager.getIconByCode(self.icon),
-            temp: String(Int(self.temp)) + "°",
+            temperature: String(Int(self.temp)) + "°",
             feelsLike: String(Int(self.tempFeelsLike)) + "°"
         )
     }

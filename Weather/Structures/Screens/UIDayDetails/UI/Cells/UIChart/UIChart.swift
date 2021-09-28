@@ -152,7 +152,7 @@ class UIChart: UITableViewCell {
 extension UIChart: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         if entry.x >= 0 && entry.x <= 21 {
-            marker.tempLabel.text = dataSource.forecast[Int(entry.x) / 3].temp
+            marker.tempLabel.text = dataSource.forecast[Int(entry.x) / 3].temperature
             marker.feelsLikeLabel.text = dataSource.forecast[Int(entry.x) / 3].feelsLike
             marker.weatherIcon.image = dataSource.forecast[Int(entry.x) / 3].icon
         }
