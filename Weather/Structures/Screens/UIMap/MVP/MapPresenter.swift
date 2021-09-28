@@ -10,7 +10,7 @@ protocol MapViewProtocol: AnyObject {
     func moveToLocation(lat: Double, lon: Double)
     func showAlertMissingSaves()
     func setCityName(_ name: String)
-    func addMarker(_ dataSource: GeonameDataSource)
+    func addMarker(_ data: GeonameDataSource)
 }
 
 class MapPresenter {

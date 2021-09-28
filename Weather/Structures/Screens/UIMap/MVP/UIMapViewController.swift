@@ -63,9 +63,9 @@ class UIMapViewController: UIViewController {
 
 extension UIMapViewController: MapViewProtocol {
     
-    func addMarker(_ dataSource: GeonameDataSource) {
-        mapView.loadAnnotationFromDataSource(dataSource)
-        self.dataSource.append(dataSource)
+    func addMarker(_ data: GeonameDataSource) {
+        mapView.loadAnnotationFromData(data)
+        self.dataSource.append(data)
     }
     
     func setCityName(_ name: String) {
@@ -123,8 +123,6 @@ extension UIMapViewController: MKMapViewDelegate {
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        mapView.removeAnnotations(mapView.annotations)
-        
         presenter.mapViewDidFinishLoadingMap(
             centerLon: mapView.region.center.longitude,
             centerLat: mapView.region.center.latitude,
