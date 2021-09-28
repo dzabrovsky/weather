@@ -1,11 +1,23 @@
 import Foundation
 import CoreLocation
 
+protocol LocationManagerFacadeProtocol {
+    func getCurrentLocation(completion: @escaping (Coord) -> ())
+}
+
 class LocationManagerFacade: NSObject {
     
-    private var locationManager: CLLocationManager = CLLocationManager()
+    static let shared: LocationManagerFacadeProtocol = LocationManagerFacade()
     
+    private var locationManager: CLLocationManager = CLLocationManager()
     private var onUpdateLocation: ((Coord) -> ())!
+    
+    private override init(){
+        super.init()
+    }
+}
+
+extension LocationManagerFacade: LocationManagerFacadeProtocol {
     
     func getCurrentLocation(completion: @escaping (Coord) -> ()) {
         

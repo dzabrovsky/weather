@@ -17,6 +17,7 @@ enum CheckResult {
 class SearchModel{
     
     private let alamofireFacade = AlamofireFacade.shared
+    private let coreDataFacade = CoreDataFacade.shared
     
     func updateWeatherInCity(_ name: String, completion: @escaping (CityListItem) -> Void) {
         alamofireFacade.getCurrentWeather(name){ result in
@@ -25,7 +26,7 @@ class SearchModel{
     }
     
     func updateCityList(completion: @escaping (CityListItem) -> Void){
-        guard var cities = CoreDataFacade.shared.getCities() else{ return }
+        guard var cities = coreDataFacade.getCities() else{ return }
         cities.sort(by: { $0.lastUse! > $1.lastUse! })
         for item in cities {
             print(item.lastUse!)
@@ -37,7 +38,7 @@ class SearchModel{
     
     func insertCity(_ name: String, completion: @escaping (CityListItem?, CheckResult) -> Void) {
         
-        CoreDataFacade.shared.checkCityNameExists(name) { check in
+        coreDataFacade.checkCityNameExists(name) { check in
             guard !check else{
                 completion(nil, .AlreadyExists)
                 return
@@ -52,14 +53,14 @@ class SearchModel{
                     return
                 }
                 self.alamofireFacade.getCurrentWeather(name) { data in
-                    CoreDataFacade.shared.insertCity(data.name, lat: data.lat, lon: data.lon)
+                    self.coreDataFacade.insertCity(data.name, lat: data.lat, lon: data.lon)
                 }
             }
         }
     }
     
     func getCityData(_ name: String, completion: @escaping (String, Double, Double) -> () ) {
-        CoreDataFacade.shared.getCityDetails(name) { name, lat, lon in
+        coreDataFacade.getCityDetails(name) { name, lat, lon in
             completion(name, lat, lon)
         }
     }
