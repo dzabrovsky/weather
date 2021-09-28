@@ -3,13 +3,13 @@ import MapKit
 
 class UIMapView: UIView {
     
-    let mapView: MKMapView = {
-        let mapView = MKMapView()
-        mapView.translatesAutoresizingMaskIntoConstraints = false
-        mapView.mapType = .standard
-        mapView.register(UIAnnotationView.self, forAnnotationViewWithReuseIdentifier: "UIAnnotationView")
+    let map: MKMapView = {
+        let map = MKMapView()
+        map.translatesAutoresizingMaskIntoConstraints = false
+        map.mapType = .standard
+        map.register(UIAnnotationView.self, forAnnotationViewWithReuseIdentifier: "UIAnnotationView")
         
-        return mapView
+        return map
     }()
     
     let header: UIMapViewHeader = {
@@ -33,14 +33,14 @@ class UIMapView: UIView {
     
     private func setup() {
         
-        mapView.showsCompass = false
-        mapView.showsScale = false
-        mapView.mapType = .standard
+        map.showsCompass = false
+        map.showsScale = false
+        map.mapType = .standard
 
     }
     
     private func layout() {
-        addSubview(mapView)
+        addSubview(map)
         addSubview(header)
         NSLayoutConstraint.activate([
             header.leftAnchor.constraint(equalTo: leftAnchor),
@@ -48,19 +48,19 @@ class UIMapView: UIView {
             header.rightAnchor.constraint(equalTo: rightAnchor),
             header.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 64/375),
             
-            mapView.leftAnchor.constraint(equalTo: leftAnchor),
-            mapView.rightAnchor.constraint(equalTo: rightAnchor),
-            mapView.topAnchor.constraint(equalTo: topAnchor),
-            mapView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            map.leftAnchor.constraint(equalTo: leftAnchor),
+            map.rightAnchor.constraint(equalTo: rightAnchor),
+            map.topAnchor.constraint(equalTo: topAnchor),
+            map.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
     func loadAnnotationFromData(_ data: GeonameDataSource) {
         
-            let pin = MKPointAnnotation()
-            pin.coordinate = CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)
-            print(pin.coordinate)
-            mapView.addAnnotation(pin)
+        let pin = MKPointAnnotation()
+        pin.coordinate = CLLocationCoordinate2D(latitude: data.lat, longitude: data.lon)
+        print(pin.coordinate)
+        map.addAnnotation(pin)
         
     }
     

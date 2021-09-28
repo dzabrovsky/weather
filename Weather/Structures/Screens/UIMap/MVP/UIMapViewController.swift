@@ -36,7 +36,7 @@ class UIMapViewController: UIViewController {
     }
     
     private func setup() {
-        mapView.mapView.delegate = self
+        mapView.map.delegate = self
     }
     
     private func setActions() {
@@ -57,14 +57,14 @@ class UIMapViewController: UIViewController {
     }
     
     private func updateLocationOnMap(lat: Double, lon: Double) {
-        mapView.mapView.setCenter(CLLocationCoordinate2D(latitude: lat, longitude: lon), animated: true)
+        mapView.map.setCenter(CLLocationCoordinate2D(latitude: lat, longitude: lon), animated: true)
     }
 }
 
 extension UIMapViewController: MapViewProtocol {
     
     func removeMarkers() {
-        mapView.mapView.removeAnnotations(mapView.mapView.annotations)
+        mapView.map.removeAnnotations(mapView.map.annotations)
     }
     
     func addMarker(_ data: GeonameDataSource) {
@@ -79,7 +79,7 @@ extension UIMapViewController: MapViewProtocol {
     func moveToLocation(lat: Double, lon: Double) {
         let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         
-        mapView.mapView.setCenter(center, animated: true)
+        mapView.map.setCenter(center, animated: true)
     }
     
     func setRegion(lat: Double, lon: Double, size: Int) {
@@ -91,7 +91,7 @@ extension UIMapViewController: MapViewProtocol {
             longitudinalMeters: CLLocationDistance.init(size)
         )
         
-        mapView.mapView.setRegion(region, animated: true)
+        mapView.map.setRegion(region, animated: true)
     }
     
     func showAlertMissingSaves() {
