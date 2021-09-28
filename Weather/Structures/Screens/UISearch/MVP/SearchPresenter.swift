@@ -41,12 +41,12 @@ extension SearchPresenter: SearchPresenterProtocol {
     
     func updateDataSource() {
         model.updateCityList(){ result in
-            self.view.updateCityList( result.convertToCity() )
+            self.view.updateCityList(result.convertToCity())
         }
     }
     
     func onRowSelected(_ cityName: String) {
-        model.updateCityLastUse(cityName){ name, lat, lon in
+        model.getCityData(cityName){ name, lat, lon in
             UserDataRepository.shared.saveCityName(name: name)
             UserDataRepository.shared.saveCity(lat: lat, lon: lon)
             self.router.popToRootWithSelectedCity()
@@ -54,16 +54,15 @@ extension SearchPresenter: SearchPresenterProtocol {
     }
     
     func inputCityName(_ cityName: String) {
-        model.checkCity(cityName){ result, info in
+        model.insertCity(cityName){ result, info in
             switch info {
             case .AlreadyExists:
                 self.view.showAlertCityAlreadyExists()
             case .NotExists:
                 self.view.showAlertCityDoesNotExists()
-            case .Complete:
-                if let result = result {
-                    self.view.updateCityList( result.convertToCity() )
-                }
+            case .Succed:
+                guard let result = result else{ return }
+                self.view.updateCityList(result.convertToCity())
             }
         }
     }

@@ -11,12 +11,10 @@ protocol SearchPresenterProtocolForModel: AnyObject {
 enum CheckResult {
     case AlreadyExists
     case NotExists
-    case Complete
+    case Succed
 }
 
 class SearchModel{
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     private let alamofireFacade = AlamofireFacade()
     
@@ -27,81 +25,42 @@ class SearchModel{
     }
     
     func updateCityList(completion: @escaping (CityListItem) -> Void){
-        do {
-            if var cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
-                cities.sort(by: { $0.lastUse! > $1.lastUse! })
-                for item in cities {
-                    print(item.lastUse!)
-                    if let name = item.name {
-                        updateWeatherInCity(name) { result in
-                            completion(result)
-                        }
-                    }
-                }
-            }
-        }catch{
-            // error
-        }
-    }
-    
-    func checkCity(_ name: String, completion: @escaping (CityListItem?, CheckResult) -> Void) {
-        do {
-            if let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
-                if let _ = cities.first(where: { $0.name == name } ) {
-                    completion(nil, .AlreadyExists)
-                }else{
-                    alamofireFacade.searchCity(name) { result in
-                        if result.geonames.count > 0 {
-                            if result.geonames.contains(where: { $0.name == name}) {
-                                self.insertCityInCitiesList(name: name) { result in
-                                    completion(result, .Complete)
-                                }
-                            }
-                        }else{
-                            completion(nil, .NotExists)
-                        }
-                    }
-                }
-            }
-        }catch{
-            
-        }
-    }
-    
-    func insertCityInCitiesList(name: String, completion: @escaping (CityListItem) -> Void){
-        let city = Cities(context: context)
-        
-        alamofireFacade.getCurrentWeather(name){ result in
-            city.name = result.name
-            print(result.name)
-            city.lat = result.lat
-            city.lon = result.lon
-            city.lastUse = Date()
-            self.updateWeatherInCity(city.name ?? ""){ result in
+        guard var cities = CoreDataFacade.shared.getCities() else{ return }
+        cities.sort(by: { $0.lastUse! > $1.lastUse! })
+        for item in cities {
+            print(item.lastUse!)
+            updateWeatherInCity(item.name) { result in
                 completion(result)
             }
         }
+    }
+    
+    func insertCity(_ name: String, completion: @escaping (CityListItem?, CheckResult) -> Void) {
         
-        do {
-            try context.save()
-        }catch{
-            // error
+        CoreDataFacade.shared.checkCityNameExists(name) { check in
+            guard !check else{
+                completion(nil, .AlreadyExists)
+                return
+            }
+            self.alamofireFacade.searchCity(name) { result in
+                guard result.geonames.count == 0 else{
+                    completion(nil, .NotExists)
+                    return
+                }
+                guard !result.geonames.contains(where: { $0.name == name}) else{
+                    completion(nil, .NotExists)
+                    return
+                }
+                self.alamofireFacade.getCurrentWeather(name) { data in
+                    CoreDataFacade.shared.insertCity(data.name, lat: data.lat, lon: data.lon)
+                }
+            }
         }
     }
     
-    func updateCityLastUse(_ name: String, completion: @escaping (String, Double, Double) -> Void){
-        do {
-            if let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] {
-                if let city = cities.filter({ $0.name == name }).first {
-                    city.lastUse = Date()
-                    try context.save()
-                    DispatchQueue.main.async {
-                        completion(city.name ?? "", city.lat, city.lon)
-                    }
-                }
-            }
-        }catch{
-            // error
+    func getCityData(_ name: String, completion: @escaping (String, Double, Double) -> () ) {
+        CoreDataFacade.shared.getCityDetails(name) { name, lat, lon in
+            completion(name, lat, lon)
         }
     }
     
