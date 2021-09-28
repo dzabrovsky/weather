@@ -11,6 +11,7 @@ protocol MapViewProtocol: AnyObject {
     func showAlertMissingSaves()
     func setCityName(_ name: String)
     func addMarker(_ data: GeonameDataSource)
+    func removeMarkers()
 }
 
 class MapPresenter {
@@ -58,6 +59,8 @@ extension MapPresenter: MapPresenterProtocol {
     }
     
     func mapViewDidFinishLoadingMap(centerLon: Double, centerLat: Double, latA: Double, lonA: Double) {
+        
+        view.removeMarkers()
         
         model.updateGeonames(
             east: centerLon + lonA/2,

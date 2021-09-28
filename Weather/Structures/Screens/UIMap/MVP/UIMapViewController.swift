@@ -63,6 +63,10 @@ class UIMapViewController: UIViewController {
 
 extension UIMapViewController: MapViewProtocol {
     
+    func removeMarkers() {
+        mapView.mapView.removeAnnotations(mapView.mapView.annotations)
+    }
+    
     func addMarker(_ data: GeonameDataSource) {
         mapView.loadAnnotationFromData(data)
         self.dataSource.append(data)
