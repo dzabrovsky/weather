@@ -5,6 +5,8 @@ protocol SearchPresenterProtocol: AnyObject {
     func onTapBack()
     func onTapThemeButton()
     func onTapAddCity()
+    func onTapLocationButton()
+    
     func inputCityName(_ cityName: String)
     func updateDataSource()
     func onRowSelected(_ cityName: String)
@@ -27,15 +29,20 @@ class UISearchViewController: UIViewController {
         setActions()
     }
     
-    @objc private func onTapThemeButton(sender: UIHeaderButton!){
+    @objc private func onTapThemeButton(sender: UIHeaderButton!) {
         presenter.onTapThemeButton()
     }
     
-    @objc private func onTapAddCity(sender: UIHeaderButton!){
+    @objc private func onTapAddCity(sender: UIButton) {
         presenter.onTapAddCity()
     }
-    @objc private func onTapBack(sender: UIHeaderButton!){
+    
+    @objc private func onTapBack(sender: UIHeaderButton!) {
         presenter.onTapBack()
+    }
+    
+    @objc private func onTapLocationButton(sender: UIButton) {
+        presenter.onTapLocationButton()
     }
     
     func setup(){
@@ -43,9 +50,10 @@ class UISearchViewController: UIViewController {
     }
     
     private func setActions(){
-        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton(sender:)), for: .touchDown)
-        contentView.header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchDown)
-        contentView.addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchDown)
+        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton(sender:)), for: .touchUpInside)
+        contentView.header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchUpInside)
+        contentView.addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchUpInside)
+        contentView.getLocationButton.addTarget(self, action: #selector(onTapLocationButton(sender:)), for: .touchUpInside)
     }
     
 }

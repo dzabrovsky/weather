@@ -11,6 +11,7 @@ protocol SearchViewProtocol: AnyObject {
 
 protocol SearchRouterProtocol: AnotherRouterProtocol {
     func popToRootWithSelectedCity()
+    func showMapView()
 }
 
 class SearchPresenter {
@@ -21,6 +22,10 @@ class SearchPresenter {
 }
 
 extension SearchPresenter: SearchPresenterProtocol {
+    
+    func onTapLocationButton() {
+        router.showMapView()
+    }
     
     func onTapBack() {
         router.popToRoot()
