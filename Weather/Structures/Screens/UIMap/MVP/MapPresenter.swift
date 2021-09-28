@@ -18,7 +18,6 @@ class MapPresenter {
     private let router: MapRouterProtocol
     private let model: MapModel
     weak var view: MapViewProtocol!
-    var updateGeoNames: (() -> Geonames?)?
     
     init(router: MapRouterProtocol, model: MapModel) {
         self.router = router
