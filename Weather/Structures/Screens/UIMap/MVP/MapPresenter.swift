@@ -15,8 +15,8 @@ protocol MapViewProtocol: AnyObject {
 }
 
 class MapPresenter {
-    let router: MapRouterProtocol
-    let model: MapModel
+    private let router: MapRouterProtocol
+    private let model: MapModel
     weak var view: MapViewProtocol!
     var updateGeoNames: (() -> Geonames?)?
     
