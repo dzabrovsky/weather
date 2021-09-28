@@ -77,13 +77,9 @@ extension UIMapViewController: MapViewProtocol {
     }
     
     func moveToLocation(lat: Double, lon: Double) {
-        mapView.mapView.setCenter(
-            CLLocationCoordinate2D(
-                latitude: lat,
-                longitude: lon
-            ),
-            animated: true
-        )
+        let center = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        
+        mapView.mapView.setCenter(center, animated: true)
     }
     
     func setRegion(lat: Double, lon: Double, size: Int) {
