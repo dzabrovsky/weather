@@ -3,6 +3,22 @@ import Alamofire
 
 class AlamofireFacade {
     
+    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (Geonames) -> Void){
+        
+        guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {
+            print("Cannot covert string to URL")
+            return
+        }
+        
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: Geonames.self) { (response) in
+                if let data = response.value {
+                    completion(data)
+                }
+            }
+    }
+    
     func getForecast(lat: Double, lon: Double, completion: @escaping (Forecast) -> ()) {
         
         let lang = UserDataRepository.shared.getLang()
@@ -89,4 +105,15 @@ class AlamofireFacade {
         }
     }
     
+}
+
+extension String{
+    var encodeUrl : String
+    {
+        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    var decodeUrl : String
+    {
+        return self.removingPercentEncoding!
+    }
 }

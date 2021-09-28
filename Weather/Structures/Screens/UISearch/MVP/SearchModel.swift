@@ -14,20 +14,15 @@ enum CheckResult {
     case Complete
 }
 
-class SearchModel: Model{
+class SearchModel{
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    private let alamofireFacade = AlamofireFacade()
+    
     func updateWeatherInCity(_ name: String, completion: @escaping (CityListItem) -> Void) {
-        
-        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(name)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl) else {
-            print("Cannot covert string to URL")
-            return
-        }
-        getCurrentDataFromAPI(url){ result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
+        alamofireFacade.getCurrentWeather(name){ result in
+            completion(result)
         }
     }
     
@@ -55,22 +50,15 @@ class SearchModel: Model{
                 if let _ = cities.first(where: { $0.name == name } ) {
                     completion(nil, .AlreadyExists)
                 }else{
-                    guard let url = URL(string: ("http://api.geonames.org/searchJSON?q=\(name)&username=ivan&style=MEDIUM&lang=ru").encodeUrl) else {
-                        print("Cannot covert string to URL")
-                        return
-                    }
-                    
-                    searchCity(url) { (result) in
-                        DispatchQueue.main.async {
-                            if result.geonames.count > 0 {
-                                if result.geonames.contains(where: { $0.name == name}) {
-                                    self.insertCityInCitiesList(name: name) { result in
-                                        completion(result, .Complete)
-                                    }
+                    alamofireFacade.searchCity(name) { result in
+                        if result.geonames.count > 0 {
+                            if result.geonames.contains(where: { $0.name == name}) {
+                                self.insertCityInCitiesList(name: name) { result in
+                                    completion(result, .Complete)
                                 }
-                            }else{
-                                completion(nil, .NotExists)
                             }
+                        }else{
+                            completion(nil, .NotExists)
                         }
                     }
                 }
@@ -82,20 +70,15 @@ class SearchModel: Model{
     
     func insertCityInCitiesList(name: String, completion: @escaping (CityListItem) -> Void){
         let city = Cities(context: context)
-        guard let url = URL(string: ("https://api.openweathermap.org/data/2.5/weather?q=\(name)&appid=\(APIKey)&lang=\(lang)").encodeUrl) else{
-            print("Cannot covert string to URL")
-            return
-        }
-        getCurrentDataFromAPI(url){ result in
-            DispatchQueue.main.async {
-                city.name = result.name
-                print(result.name)
-                city.lat = result.lat
-                city.lon = result.lon
-                city.lastUse = Date()
-                self.updateWeatherInCity(city.name ?? ""){ result in
-                    completion(result)
-                }
+        
+        alamofireFacade.getCurrentWeather(name){ result in
+            city.name = result.name
+            print(result.name)
+            city.lat = result.lat
+            city.lon = result.lon
+            city.lastUse = Date()
+            self.updateWeatherInCity(city.name ?? ""){ result in
+                completion(result)
             }
         }
         

@@ -1,10 +1,3 @@
-//
-//  UIMapView.swift
-//  Weather
-//
-//  Created by Denis Zabrovsky on 13.09.2021.
-//
-
 import UIKit
 import MapKit
 

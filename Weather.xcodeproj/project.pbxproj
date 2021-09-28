@@ -50,7 +50,6 @@
 		54480D3D26E11250001698C3 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3C26E11250001698C3 /* SearchPresenter.swift */; };
 		54480D3F26E113ED001698C3 /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D3E26E113ED001698C3 /* SearchModel.swift */; };
 		54480D4126E11F8F001698C3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D4026E11F8F001698C3 /* Router.swift */; };
-		54480D4326E1F8D8001698C3 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D4226E1F8D8001698C3 /* Model.swift */; };
 		54480D4526E203FC001698C3 /* UISearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D4426E203FC001698C3 /* UISearchView.swift */; };
 		54480D4726E20495001698C3 /* UICityListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D4626E20495001698C3 /* UICityListTableView.swift */; };
 		54480D4A26E204F8001698C3 /* UICityListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D4926E204F8001698C3 /* UICityListTableViewCell.swift */; };
@@ -127,7 +126,6 @@
 		54480D3C26E11250001698C3 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchPresenter.swift; path = Weather/Structures/Screens/UISearch/MVP/SearchPresenter.swift; sourceTree = SOURCE_ROOT; };
 		54480D3E26E113ED001698C3 /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchModel.swift; path = Weather/Structures/Screens/UISearch/MVP/SearchModel.swift; sourceTree = SOURCE_ROOT; };
 		54480D4026E11F8F001698C3 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		54480D4226E1F8D8001698C3 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Model.swift; path = Weather/Structures/Screens/Model.swift; sourceTree = SOURCE_ROOT; };
 		54480D4426E203FC001698C3 /* UISearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UISearchView.swift; path = Weather/Structures/Screens/UISearch/UI/UISearchView.swift; sourceTree = SOURCE_ROOT; };
 		54480D4626E20495001698C3 /* UICityListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UICityListTableView.swift; path = Weather/Structures/Screens/UISearch/UI/UICityListTableView.swift; sourceTree = SOURCE_ROOT; };
 		54480D4926E204F8001698C3 /* UICityListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UICityListTableViewCell.swift; path = Weather/Structures/Screens/UISearch/UI/Cells/UICityListTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -299,7 +297,6 @@
 				54BA58AF26F8D2D300996AF1 /* UIMap */,
 				54480D3026E0F4CC001698C3 /* UISearch */,
 				54480D1E26DFCB25001698C3 /* UIGeneralDay */,
-				54480D4226E1F8D8001698C3 /* Model.swift */,
 				5466261F26EF5B490024E38B /* ImageManager.swift */,
 				54C516A526F21EA3006E585E /* ThemeManager.swift */,
 			);
@@ -646,7 +643,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54480D4326E1F8D8001698C3 /* Model.swift in Sources */,
 				54BA58BE26F9CF1800996AF1 /* UserDataRepository.swift in Sources */,
 				54395B8D26FC7B0200F3A07B /* UILaunchScreen.swift in Sources */,
 				54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */,
