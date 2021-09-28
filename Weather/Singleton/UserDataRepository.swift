@@ -1,21 +1,52 @@
 import Foundation
 
+protocol UserDataRepositoryProtocol {
+    func getSavedCoordinates() -> Coord?
+    func getSavedCityName() -> String?
+    func saveCity(lat: Double, lon: Double)
+    func saveCityName(name: String)
+    
+    func getLang() -> String
+    func getUnits() -> String
+    func getAPIKey() -> String
+}
+
 private let cityKeyName = "WeatherApp_city_name"
 private let coordKeyLat = "WeatherApp_coordinates_latitude"
 private let coordKeyLon = "WeatherApp_coordinates_longtitude"
 
 class UserDataRepository {
     
-    static let shared: UserDataRepository = UserDataRepository()
+    static let shared: UserDataRepositoryProtocol = UserDataRepository()
     
     private let userDefaults = UserDefaults.standard
+    
+    let lang: String = "ru"
+    let units: String = "metric"
+    let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
     
     private init(){
         
     }
     
-    func isKeyExists(key: String) -> Bool {
+    private func isKeyExists(key: String) -> Bool {
         return userDefaults.object(forKey: key) != nil
+    }
+    
+}
+
+extension UserDataRepository: UserDataRepositoryProtocol {
+    
+    func getLang() -> String {
+        return lang
+    }
+    
+    func getUnits() -> String {
+        return units
+    }
+    
+    func getAPIKey() -> String {
+        return APIKey
     }
     
     func getSavedCoordinates() -> Coord? {
