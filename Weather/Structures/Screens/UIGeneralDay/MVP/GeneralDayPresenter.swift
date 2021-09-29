@@ -14,6 +14,11 @@ protocol GeneralDayRouterProtocol {
     func showMapView()
 }
 
+protocol GeneralDayModelProtocol {
+    func updateDataByLocation(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> Void)
+    func updateDataByCityName(_ cityName: String, completion: @escaping (ForecastCodable) -> Void)
+}
+
 class GeneralDayPresenter{
     
     var router: GeneralDayRouterProtocol!
