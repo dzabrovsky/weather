@@ -143,13 +143,16 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ()){
         
         let lang = UserDataRepository.shared.getLang()
-        let APIUrl = "https://api.openweathermap.org/data/2.5/weather"
+        let APIUrl = "http://api.geonames.org/searchJSON?"
         
         guard let url = URL(string: ("\(APIUrl)q=\(cityName)&username=ivan&style=MEDIUM&lang=\(lang)").encodeUrl)
         else { return }
+        print(url)
         AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
             if let data = response.value {
                 completion(data)
+            } else {
+                print(response.error ?? "")
             }
         }
     }

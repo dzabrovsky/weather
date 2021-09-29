@@ -44,11 +44,11 @@ class SearchModel{
                 return
             }
             self.alamofireFacade.searchCity(name) { result in
-                guard result.geonames.count == 0 else{
+                guard result.geonames.count > 0 else{
                     completion(nil, .NotExists)
                     return
                 }
-                guard !result.geonames.contains(where: { $0.name == name}) else{
+                guard result.geonames.contains(where: { $0.name == name}) else{
                     completion(nil, .NotExists)
                     return
                 }
