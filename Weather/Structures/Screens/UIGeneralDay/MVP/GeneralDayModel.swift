@@ -2,7 +2,7 @@ import UIKit
 import CoreLocation
 import Alamofire
 
-class GeneralDayModel {
+class GeneralDayModel: GeneralDayModelProtocol {
     
     private let alamofireFacade = AlamofireFacade.shared
     
