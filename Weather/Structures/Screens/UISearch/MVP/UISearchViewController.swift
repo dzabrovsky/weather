@@ -14,7 +14,7 @@ protocol SearchPresenterProtocol: AnyObject {
 
 class UISearchViewController: UIViewController {
     
-    var dataSource: [CityDataSource] = []
+    var dataSource: [CityWeather] = []
     
     var presenter: SearchPresenterProtocol!
     
@@ -88,7 +88,7 @@ extension UISearchViewController: SearchViewProtocol{
         ThemeManager.switchTheme(sender: self)
         contentView.drawGradient()
     }
-    func updateCityList(_ dataSource: CityDataSource) {
+    func updateCityList(_ dataSource: CityWeather) {
         self.dataSource.append(dataSource)
         contentView.tableView.reloadData()
     }

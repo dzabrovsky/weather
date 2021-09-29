@@ -1,6 +1,6 @@
 import UIKit
 
-struct CityDataSource {
+struct CityWeather {
     let name: String
     let temp: String
     let feelsLike: String

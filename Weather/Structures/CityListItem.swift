@@ -36,8 +36,8 @@ extension CityListItem {
         )
     }
     
-    func convertToCity() -> CityDataSource {
-        return CityDataSource(
+    func convertToCity() -> CityWeather {
+        return CityWeather(
             name: self.name,
             temp: String( Int( self.temp ) ) + "°",
             feelsLike: String( Int( self.tempFeelsLike ) ) + "°",

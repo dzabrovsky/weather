@@ -3,7 +3,7 @@ import Foundation
 protocol SearchViewProtocol: AnyObject {
     func switchTheme()
     func openAddCityAlert()
-    func updateCityList(_ dataSource: CityDataSource)
+    func updateCityList(_ dataSource: CityWeather)
     
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
