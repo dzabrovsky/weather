@@ -22,7 +22,7 @@ protocol GeneralDayModelProtocol {
 class GeneralDayPresenter{
     
     var router: GeneralDayRouterProtocol!
-    var model: GeneralDayModel!
+    var model: GeneralDayModelProtocol!
     var view: GeneralDayViewProtocol!
     
     func updateWeatherData(_ data: ForecastCodable) {
