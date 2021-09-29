@@ -8,8 +8,8 @@
 import Foundation
 
 struct Current: Codable {
-    let coord: Coord
-    let weather: [Weather]
-    let main: MainDetails
+    let coord: CoordCodable
+    let weather: [WeatherCodable]
+    let main: MainDetailsCodable
     let name: String
 }

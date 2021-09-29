@@ -3,8 +3,8 @@ import Alamofire
 
 protocol AlamofireFacadeProtocol {
     func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (Geonames) -> Void)
-    func getForecast(lat: Double, lon: Double, completion: @escaping (Forecast) -> ())
-    func getForecast(_ cityName: String, completion: @escaping (Forecast) -> ())
+    func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ())
+    func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ())
     func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ())
     func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ())
     func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ())
@@ -36,7 +36,7 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
             }
     }
     
-    func getForecast(lat: Double, lon: Double, completion: @escaping (Forecast) -> ()) {
+    func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ()) {
         
         let lang = UserDataRepository.shared.getLang()
         let APIKey = UserDataRepository.shared.getAPIKey()
@@ -49,14 +49,14 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
         
         AF.request(url)
             .validate()
-            .responseDecodable(of: Forecast.self) { (response) in
+            .responseDecodable(of: ForecastCodable.self) { (response) in
                 if let data = response.value {
                     completion(data)
                 }
             }
     }
     
-    func getForecast(_ cityName: String, completion: @escaping (Forecast) -> ()) {
+    func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ()) {
         
         let lang = UserDataRepository.shared.getLang()
         let APIKey = UserDataRepository.shared.getAPIKey()
@@ -69,7 +69,7 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
         
         AF.request(url)
             .validate()
-            .responseDecodable(of: Forecast.self) { (response) in
+            .responseDecodable(of: ForecastCodable.self) { (response) in
                 if let data = response.value {
                     completion(data)
                 }

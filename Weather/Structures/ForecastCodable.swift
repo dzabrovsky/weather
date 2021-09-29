@@ -16,36 +16,36 @@ fileprivate func formatDate(_ time: Int) -> String {
     return formatter.string(from: Date(timeIntervalSince1970: TimeInterval(dropTime(time)))).lowercased()
 }
 
-fileprivate func formatTemperature(_ dayItem: [ForecastHour]) -> String {
+fileprivate func formatTemperature(_ dayItem: [ForecastHourCodable]) -> String {
     return String( Int( dayItem.map( { Int($0.main.temp) } ).reduce(0, +) / dayItem.count ) ) + "°"
 }
 
-fileprivate func formatTemperatureFeelsLike(_ dayItem: [ForecastHour]) -> String {
+fileprivate func formatTemperatureFeelsLike(_ dayItem: [ForecastHourCodable]) -> String {
     return String( Int( dayItem.map( { Int($0.main.feelsLike) } ).reduce(0, +) / dayItem.count ) ) + "°"
 }
 
-fileprivate func formatWind(_ dayItem: [ForecastHour]) -> String {
+fileprivate func formatWind(_ dayItem: [ForecastHourCodable]) -> String {
     let value = dayItem.map( { Float($0.wind.speed) } ).reduce(0, +) / Float(dayItem.count)
     return String(format: "%.1fм/с", value )
 }
 
-fileprivate func formatHumidity(_ dayItem: [ForecastHour]) -> String {
+fileprivate func formatHumidity(_ dayItem: [ForecastHourCodable]) -> String {
     return String( Int( dayItem.map( { $0.main.humidity } ).reduce(0, +) / dayItem.count ) ) + "%"
 }
 
-fileprivate func formatPrecipitation(_ dayItem: [ForecastHour]) -> String{
+fileprivate func formatPrecipitation(_ dayItem: [ForecastHourCodable]) -> String{
     let value = dayItem.map( { Float($0.rain?.the3H ?? 0) } ).reduce(0, +) / Float(dayItem.count)
     return String(format: "%.2fмм", value )
 }
 
-fileprivate func getAverageImageSet(_ dayItem: [ForecastHour]) -> [UIImage] {
+fileprivate func getAverageImageSet(_ dayItem: [ForecastHourCodable]) -> [UIImage] {
     return ImageManager.getIconAnimateByCode(
         Dictionary( grouping: dayItem, by: { $0.weather[0].icon })
             .sorted( by: { $0.value.count > $1.value.count } )
             .first?.value[0].weather[0].icon ?? "" )
 }
 
-fileprivate func getDescription(_ dayItem: [ForecastHour]) -> String{
+fileprivate func getDescription(_ dayItem: [ForecastHourCodable]) -> String{
     return Dictionary(
         grouping: dayItem,
         by: { $0.weather[0].weatherDescription })
@@ -53,7 +53,7 @@ fileprivate func getDescription(_ dayItem: [ForecastHour]) -> String{
         .first?.value[0].weather[0].weatherDescription ?? ""
 }
 
-fileprivate func createHour(_ hourItem: ForecastHour) -> ForecastHourDataSource {
+fileprivate func createHour(_ hourItem: ForecastHourCodable) -> ForecastHourDataSource {
     return ForecastHourDataSource(
         temperature: String( Int( hourItem.main.temp ) ) + "°",
         tempValue: Double(hourItem.main.temp),
@@ -63,7 +63,7 @@ fileprivate func createHour(_ hourItem: ForecastHour) -> ForecastHourDataSource 
     )
 }
 
-fileprivate func createDay(_ dayItem: [ForecastHour], hours: [ForecastHourDataSource]) -> ForecastDayDataSource{
+fileprivate func createDay(_ dayItem: [ForecastHourCodable], hours: [ForecastHourDataSource]) -> ForecastDayDataSource{
     return ForecastDayDataSource(
         temperature: formatTemperature(dayItem),
         feelsLike: formatTemperatureFeelsLike(dayItem),
@@ -77,33 +77,33 @@ fileprivate func createDay(_ dayItem: [ForecastHour], hours: [ForecastHourDataSo
     )
 }
 
-fileprivate func groupForecastByDays(_ forecast: Forecast) -> [[ForecastHour]] {
+fileprivate func groupForecastByDays(_ forecast: ForecastCodable) -> [[ForecastHourCodable]] {
     return Array(Dictionary(grouping: forecast.list, by: { dropTime($0.dt) } ).values)
         .sorted(by: { $0[0].dt < $1[0].dt } )
 }
 
-struct Forecast: Codable {
-    let list: [ForecastHour]
-    let city: City
+struct ForecastCodable: Codable {
+    let list: [ForecastHourCodable]
+    let city: CityCodable
 }
 
-struct City: Codable {
+struct CityCodable: Codable {
     let name: String
-    let coord: Coord
+    let coord: CoordCodable
     let country: String
     let population: Int
 }
 
-struct Coord: Codable {
+struct CoordCodable: Codable {
     let lat, lon: Double
 }
 
-struct ForecastHour: Codable {
+struct ForecastHourCodable: Codable {
     let dt: Int
-    let main: MainDetails
-    let weather: [Weather]
-    let wind: Wind
-    let rain: Rain?
+    let main: MainDetailsCodable
+    let weather: [WeatherCodable]
+    let wind: WindCodable
+    let rain: RainCodable?
 
     enum CodingKeys: String, CodingKey {
         case dt, main, weather, wind
@@ -111,7 +111,7 @@ struct ForecastHour: Codable {
     }
 }
 
-struct MainDetails: Codable {
+struct MainDetailsCodable: Codable {
     let temp, feelsLike: Float
     let humidity: Int
 
@@ -122,7 +122,7 @@ struct MainDetails: Codable {
     }
 }
 
-struct Rain: Codable {
+struct RainCodable: Codable {
     let the3H: Float
 
     enum CodingKeys: String, CodingKey {
@@ -130,7 +130,7 @@ struct Rain: Codable {
     }
 }
 
-struct Weather: Codable {
+struct WeatherCodable: Codable {
     let weatherDescription: String!
     let icon: String
 
@@ -140,10 +140,10 @@ struct Weather: Codable {
     }
 }
 
-struct Wind: Codable {
+struct WindCodable: Codable {
     let speed: Double
 }
-extension Forecast {
+extension ForecastCodable {
     func convertToForecast() -> ForecastDataSource {
         
         var days: [ForecastDayDataSource] = []

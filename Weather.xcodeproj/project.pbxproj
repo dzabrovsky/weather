@@ -33,7 +33,7 @@
 		54395B9126FCB76100F3A07B /* LaunchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B9026FCB76100F3A07B /* LaunchPresenter.swift */; };
 		54395B9526FDE4C300F3A07B /* UIChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B9426FDE4C300F3A07B /* UIChart.swift */; };
 		54395B9726FE285E00F3A07B /* UIChartMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54395B9626FE285E00F3A07B /* UIChartMarker.swift */; };
-		54480D0D26DE58CC001698C3 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D0C26DE58CC001698C3 /* Forecast.swift */; };
+		54480D0D26DE58CC001698C3 /* ForecastCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D0C26DE58CC001698C3 /* ForecastCodable.swift */; };
 		54480D1426DFB3DC001698C3 /* UIHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1326DFB3DC001698C3 /* UIHeader.swift */; };
 		54480D1926DFBC06001698C3 /* UIGeneralDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */; };
 		54480D1C26DFC205001698C3 /* UIGeneralDayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54480D1B26DFC205001698C3 /* UIGeneralDayHeader.swift */; };
@@ -109,7 +109,7 @@
 		54395B9026FCB76100F3A07B /* LaunchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LaunchPresenter.swift; path = Weather/Structures/Screens/LaunchScreen/LaunchPresenter.swift; sourceTree = SOURCE_ROOT; };
 		54395B9426FDE4C300F3A07B /* UIChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIChart.swift; path = Weather/Structures/Screens/UIDayDetails/UI/Cells/UIChart/UIChart.swift; sourceTree = SOURCE_ROOT; };
 		54395B9626FE285E00F3A07B /* UIChartMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIChartMarker.swift; path = Weather/Structures/Screens/UIDayDetails/UI/Cells/UIChart/UIChartMarker.swift; sourceTree = SOURCE_ROOT; };
-		54480D0C26DE58CC001698C3 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		54480D0C26DE58CC001698C3 /* ForecastCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastCodable.swift; sourceTree = "<group>"; };
 		54480D1326DFB3DC001698C3 /* UIHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHeader.swift; sourceTree = "<group>"; };
 		54480D1826DFBC06001698C3 /* UIGeneralDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeneralDayViewController.swift; sourceTree = "<group>"; };
 		54480D1B26DFC205001698C3 /* UIGeneralDayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeneralDayHeader.swift; sourceTree = "<group>"; };
@@ -476,7 +476,7 @@
 		54FAECB526D6628100431E54 /* Structures */ = {
 			isa = PBXGroup;
 			children = (
-				54480D0C26DE58CC001698C3 /* Forecast.swift */,
+				54480D0C26DE58CC001698C3 /* ForecastCodable.swift */,
 				54480D4D26E23F6F001698C3 /* Current.swift */,
 				5466261926EB53620024E38B /* CityListItem.swift */,
 				5466262D26F0D08E0024E38B /* Geonames.swift */,
@@ -695,7 +695,7 @@
 				54480D4126E11F8F001698C3 /* Router.swift in Sources */,
 				54FAECF926DE255C00431E54 /* UICustomTextField.swift in Sources */,
 				54183E6226E6340A002E135E /* DayDetailsPresenter.swift in Sources */,
-				54480D0D26DE58CC001698C3 /* Forecast.swift in Sources */,
+				54480D0D26DE58CC001698C3 /* ForecastCodable.swift in Sources */,
 				54183E6426E63546002E135E /* UIDayDetailsTableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
