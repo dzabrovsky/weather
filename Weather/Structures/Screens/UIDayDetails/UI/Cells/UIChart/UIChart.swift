@@ -5,7 +5,7 @@ class UIChart: UITableViewCell {
     
     static let k: CGFloat = UIScreen.main.bounds.width / 375
 
-    var dataSource: ForecastDayDataSource!
+    var dataSource: ForecastDay!
     
     let chart: LineChartView = {
         let chart = LineChartView()
@@ -110,7 +110,7 @@ class UIChart: UITableViewCell {
         chart.data = chartData
     }
     
-    func loadChart(_ dataSource: ForecastDayDataSource){
+    func loadChart(_ dataSource: ForecastDay){
         var chartData: [ChartDataEntry] = []
         self.dataSource = dataSource
         

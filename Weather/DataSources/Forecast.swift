@@ -2,10 +2,10 @@ import UIKit
 
 struct Forecast {
     let cityName: String
-    let forecast: [ForecastDayDataSource]
+    let forecast: [ForecastDay]
 }
 
-struct ForecastDayDataSource {
+struct ForecastDay {
     let temperature: String
     let feelsLike: String
     let icon: [UIImage]

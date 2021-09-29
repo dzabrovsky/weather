@@ -63,8 +63,8 @@ fileprivate func createHour(_ hourItem: ForecastHourCodable) -> ForecastHourData
     )
 }
 
-fileprivate func createDay(_ dayItem: [ForecastHourCodable], hours: [ForecastHourDataSource]) -> ForecastDayDataSource{
-    return ForecastDayDataSource(
+fileprivate func createDay(_ dayItem: [ForecastHourCodable], hours: [ForecastHourDataSource]) -> ForecastDay{
+    return ForecastDay(
         temperature: formatTemperature(dayItem),
         feelsLike: formatTemperatureFeelsLike(dayItem),
         icon: getAverageImageSet(dayItem),
@@ -146,7 +146,7 @@ struct WindCodable: Codable {
 extension ForecastCodable {
     func convertToForecast() -> Forecast {
         
-        var days: [ForecastDayDataSource] = []
+        var days: [ForecastDay] = []
         for dayItem in groupForecastByDays(self) {
             var hours: [ForecastHourDataSource] = []
             for hourItem in dayItem {

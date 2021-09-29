@@ -3,7 +3,7 @@ import UIKit
 class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private static let k: CGFloat = UIScreen.main.bounds.width / 375
-    private var dataSource: ForecastDayDataSource!
+    private var dataSource: ForecastDay!
     
     public let weatherDayItem:UIView = {
         let view = UIView()
@@ -164,7 +164,7 @@ class UIWeatherDayCell: UIWeatherCell, UICollectionViewDelegate, UICollectionVie
         
     }
     
-    override func refresh(_ dataSource: ForecastDayDataSource) {
+    override func refresh(_ dataSource: ForecastDay) {
         
         self.dataSource = dataSource
         

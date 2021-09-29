@@ -9,7 +9,7 @@ import UIKit
 
 class UIDetails: UITableViewCell {
     
-    private var dataSource: ForecastDayDataSource!
+    private var dataSource: ForecastDay!
     
     var dateLabel:UILabel = {
         
@@ -139,7 +139,7 @@ class UIDetails: UITableViewCell {
         ])
     }
     
-    func refresh(_ dataSource: ForecastDayDataSource){
+    func refresh(_ dataSource: ForecastDay){
         self.dataSource = dataSource
         dateLabel.text = dataSource.date
         temperatureLabel.text = dataSource.temperature

@@ -3,7 +3,7 @@ import UIKit
 public class UITodayWeatherCell: UIWeatherCell {
     
     private static let k: CGFloat = UIScreen.main.bounds.width / 375
-    private var dataSource: ForecastDayDataSource!
+    private var dataSource: ForecastDay!
     
     var view:UIView = {
         let view = UIView()
@@ -147,7 +147,7 @@ public class UITodayWeatherCell: UIWeatherCell {
     }
     
     //MARK: - Refresh data with data parameter
-    override func refresh(_ dataSource: ForecastDayDataSource){
+    override func refresh(_ dataSource: ForecastDay){
         self.dataSource = dataSource
         todayLabel.text = "Сегодня, " + dataSource.date
         todayTemperatureLabel.text = dataSource.temperature

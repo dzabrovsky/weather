@@ -8,7 +8,7 @@ protocol GeneralDayPresenterProtocol: AnyObject {
     func onTapThemeButton()
     func onTapCityListButton()
     func onTapLocationButton()
-    func showDayDetails(_ dataSource: ForecastDayDataSource, cityName: String)
+    func showDayDetails(_ dataSource: ForecastDay, cityName: String)
     
 }
 

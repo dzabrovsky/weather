@@ -9,7 +9,7 @@ protocol GeneralDayViewProtocol: AnyObject {
 }
 
 protocol GeneralDayRouterProtocol {
-    func showDayDetails(_ dataSource: ForecastDayDataSource, cityName: String)
+    func showDayDetails(_ dataSource: ForecastDay, cityName: String)
     func showSearchView()
     func showMapView()
 }
@@ -63,7 +63,7 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
         }
     }
     
-    func showDayDetails(_ dataSource: ForecastDayDataSource, cityName: String) {
+    func showDayDetails(_ dataSource: ForecastDay, cityName: String) {
         router?.showDayDetails(dataSource, cityName: cityName)
     }
     
