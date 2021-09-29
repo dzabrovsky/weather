@@ -28,7 +28,7 @@ class MapModel {
         }
     }
     
-    func updateLocation(completion: @escaping (Coord) -> ()) {
+    func updateLocation(completion: @escaping (Coordindates) -> ()) {
         
         locationManagerFacade.getCurrentLocation{ result in
             completion(result)

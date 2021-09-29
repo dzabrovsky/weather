@@ -2,7 +2,7 @@ import Foundation
 import CoreLocation
 
 protocol LocationManagerFacadeProtocol {
-    func getCurrentLocation(completion: @escaping (Coord) -> ())
+    func getCurrentLocation(completion: @escaping (Coordindates) -> ())
 }
 
 class LocationManagerFacade: NSObject {
@@ -10,7 +10,7 @@ class LocationManagerFacade: NSObject {
     static let shared: LocationManagerFacadeProtocol = LocationManagerFacade()
     
     private var locationManager: CLLocationManager = CLLocationManager()
-    private var onUpdateLocation: ((Coord) -> ())!
+    private var onUpdateLocation: ((Coordindates) -> ())!
     
     private override init(){
         super.init()
@@ -19,7 +19,7 @@ class LocationManagerFacade: NSObject {
 
 extension LocationManagerFacade: LocationManagerFacadeProtocol {
     
-    func getCurrentLocation(completion: @escaping (Coord) -> ()) {
+    func getCurrentLocation(completion: @escaping (Coordindates) -> ()) {
         
         onUpdateLocation = { result in
             completion(result)
@@ -39,7 +39,7 @@ extension LocationManagerFacade: CLLocationManagerDelegate {
             locationManager.startUpdatingLocation()
             locationManager = CLLocationManager()
             
-            let coord = Coord(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
+            let coord = Coordindates(lat: location.coordinate.latitude, lon: location.coordinate.longitude)
             onUpdateLocation(coord)
         }
     }

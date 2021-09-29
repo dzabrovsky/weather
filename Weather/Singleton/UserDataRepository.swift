@@ -1,7 +1,7 @@
 import Foundation
 
 protocol UserDataRepositoryProtocol {
-    func getSavedCoordinates() -> Coord?
+    func getSavedCoordinates() -> Coordindates?
     func getSavedCityName() -> String?
     func saveCity(lat: Double, lon: Double)
     func saveCityName(name: String)
@@ -49,10 +49,10 @@ extension UserDataRepository: UserDataRepositoryProtocol {
         return APIKey
     }
     
-    func getSavedCoordinates() -> Coord? {
+    func getSavedCoordinates() -> Coordindates? {
         
         guard isKeyExists(key: coordKeyLat) else { return nil }
-        return Coord(
+        return Coordindates(
             lat: userDefaults.double(forKey: coordKeyLat),
             lon: userDefaults.double(forKey: coordKeyLon))
     }

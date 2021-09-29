@@ -20,7 +20,7 @@ class GeneralDayPresenter{
     var model: GeneralDayModel!
     var view: GeneralDayViewProtocol!
     
-    func updateWeatherData(_ data: Forecast) {
+    func updateWeatherData(_ data: ForecastCodable) {
         let dataSource = data.convertToForecast()
         UserDataRepository.shared.saveCityName(name: dataSource.cityName)
         self.view.refreshData(dataSource)
