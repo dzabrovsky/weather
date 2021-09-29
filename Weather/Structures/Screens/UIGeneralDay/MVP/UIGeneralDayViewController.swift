@@ -18,7 +18,7 @@ class UIGeneralDayViewController: UIViewController {
     
     var contentView: UIGeneralDayView = UIGeneralDayView()
     
-    private var dataSource: ForecastDataSource!
+    private var dataSource: Forecast!
     private var cellsCount: Int = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -134,7 +134,7 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
         self.contentView.header.title.text = name
     }
     
-    func refreshData(_ dataSource: ForecastDataSource){
+    func refreshData(_ dataSource: Forecast){
         
         self.dataSource = dataSource
         self.cellsCount = dataSource.forecast.count

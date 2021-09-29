@@ -1,6 +1,6 @@
 import UIKit
 
-struct ForecastDataSource {
+struct Forecast {
     let cityName: String
     let forecast: [ForecastDayDataSource]
 }

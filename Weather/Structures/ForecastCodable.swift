@@ -144,7 +144,7 @@ struct WindCodable: Codable {
     let speed: Double
 }
 extension ForecastCodable {
-    func convertToForecast() -> ForecastDataSource {
+    func convertToForecast() -> Forecast {
         
         var days: [ForecastDayDataSource] = []
         for dayItem in groupForecastByDays(self) {
@@ -156,6 +156,6 @@ extension ForecastCodable {
         }
         if days.count > 5 { days.removeLast() }
         
-        return ForecastDataSource(cityName: self.city.name, forecast: days)
+        return Forecast(cityName: self.city.name, forecast: days)
     }
 }

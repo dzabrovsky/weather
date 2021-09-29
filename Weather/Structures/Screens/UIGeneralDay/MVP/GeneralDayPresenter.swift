@@ -2,7 +2,7 @@ import Foundation
 
 protocol GeneralDayViewProtocol: AnyObject {
     
-    func refreshData(_ dataSource: ForecastDataSource)
+    func refreshData(_ dataSource: Forecast)
     func updateCityName(_ name: String)
     func switchTheme()
     
