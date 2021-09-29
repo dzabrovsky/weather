@@ -11,7 +11,7 @@ class ImageManager {
     
     private static func getImageSetByName(_ code: String) -> [UIImage] {
         var imageSet: [UIImage] = []
-        for i in 0...30 {
+        for i in 0...29 {
             guard let image = UIImage.init(named: code + "_" + String(i)) else { return [] }
             imageSet.append(image)
         }
