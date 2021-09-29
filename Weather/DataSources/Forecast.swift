@@ -23,4 +23,5 @@ struct ForecastHour {
     let feelsLike: String
     let icon: UIImage
     let hour: String
+    let hourValue: Int
 }

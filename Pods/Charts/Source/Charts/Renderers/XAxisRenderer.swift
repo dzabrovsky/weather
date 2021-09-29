@@ -219,11 +219,9 @@ open class XAxisRenderer: AxisRendererBase
             {
                 var label = (xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? "")
                 
-                if label == "24" {
+                if label == "24" || label.count > 2 {
                     label = ""
-                }else if label.count > 2 {
-                    label = ""
-                }else{
+                } else {
                     label += ":00"
                 }
                 

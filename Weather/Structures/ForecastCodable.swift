@@ -59,7 +59,8 @@ fileprivate func createHour(_ hourItem: ForecastHourCodable) -> ForecastHour {
         tempValue: Double(hourItem.main.temp),
         feelsLike: String( Int( hourItem.main.feelsLike ) ) + "°",
         icon: ImageManager.getIconByCode( hourItem.weather[0].icon ),
-        hour: String( returnHour(hourItem.dt) ) + ":00"
+        hour: String( returnHour(hourItem.dt) ) + ":00",
+        hourValue: returnHour(hourItem.dt)
     )
 }
 

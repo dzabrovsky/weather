@@ -114,12 +114,9 @@ class UIChart: UITableViewCell {
         var chartData: [ChartDataEntry] = []
         self.dataSource = dataSource
         
-        var i: Double = 8 - Double(dataSource.forecast.count)
-        
-        chartData.append(ChartDataEntry(x: 3 * (i - 1) + 0.1, y: dataSource.forecast[0].tempValue))
+        chartData.append(ChartDataEntry(x: -3.001 + Double(dataSource.forecast.count) * 3, y: dataSource.forecast[0].tempValue))
         for hour in dataSource.forecast {
-            chartData.append(ChartDataEntry(x: i, y: hour.tempValue))
-            i += 3
+            chartData.append(ChartDataEntry(x: Double(hour.hourValue), y: hour.tempValue))
         }
         chartData.append(ChartDataEntry(x: 24, y: dataSource.forecast[dataSource.forecast.count-1].tempValue))
         
@@ -151,10 +148,11 @@ class UIChart: UITableViewCell {
 
 extension UIChart: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        if entry.x >= 0 && entry.x <= 21 {
-            marker.tempLabel.text = dataSource.forecast[Int(entry.x) / 3].temperature
-            marker.feelsLikeLabel.text = dataSource.forecast[Int(entry.x) / 3].feelsLike
-            marker.weatherIcon.image = dataSource.forecast[Int(entry.x) / 3].icon
+        if entry.x > -3.001 + Double(dataSource.forecast.count) * 3 && entry.x < 24 {
+            let index = Int(entry.x) / 3 - (8 - dataSource.forecast.count)
+            marker.tempLabel.text = dataSource.forecast[index].temperature
+            marker.feelsLikeLabel.text = dataSource.forecast[index].feelsLike
+            marker.weatherIcon.image = dataSource.forecast[index].icon
         }
 
     }
