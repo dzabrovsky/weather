@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 
 protocol AlamofireFacadeProtocol {
-    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (Geonames) -> Void)
+    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (GeonamesCodable) -> Void)
     func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ())
     func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ())
     func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ())
@@ -20,7 +20,7 @@ class AlamofireFacade {
 }
 
 extension AlamofireFacade: AlamofireFacadeProtocol {
-    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (Geonames) -> Void){
+    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (GeonamesCodable) -> Void){
         
         guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {
             print("Cannot covert string to URL")
@@ -29,7 +29,7 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
         
         AF.request(url)
             .validate()
-            .responseDecodable(of: Geonames.self) { (response) in
+            .responseDecodable(of: GeonamesCodable.self) { (response) in
                 if let data = response.value {
                     completion(data)
                 }

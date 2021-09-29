@@ -17,7 +17,7 @@ class MapModel {
         }
     }
     
-    func updateCurrentDataInGeonames(_ geonames: Geonames, completion: @escaping (CityListItem) -> Void) {
+    func updateCurrentDataInGeonames(_ geonames: GeonamesCodable, completion: @escaping (CityListItem) -> Void) {
         
         for geoname in geonames.geonames {
             if let name = geoname.name {
