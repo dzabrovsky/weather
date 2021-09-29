@@ -48,13 +48,19 @@ class SearchModel{
                     completion(nil, .NotExists)
                     return
                 }
-                guard result.geonames.contains(where: { $0.name == name}) else{
+                guard result.geonames.contains(where: { $0.name == name || $0.toponymName == name}) else{
                     completion(nil, .NotExists)
                     return
                 }
                 self.alamofireFacade.getCurrentWeather(name) { data in
-                    self.coreDataFacade.insertCity(data.name, lat: data.lat, lon: data.lon){
-                        completion(data, .Succed)
+                    self.coreDataFacade.checkCityNameExists(data.name) { check in
+                        guard !check else{
+                            completion(nil, .AlreadyExists)
+                            return
+                        }
+                        self.coreDataFacade.insertCity(data.name, lat: data.lat, lon: data.lon){
+                            completion(data, .Succed)
+                        }
                     }
                 }
             }
