@@ -23,7 +23,6 @@ class UIChartMarker: MarkerView {
     let weatherIcon: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "Sun_120x120_00017")
         imageView.frame = CGRect(x: 0, y: 6 * k, width: 76 * k, height: 32 * k)
         
         return imageView
