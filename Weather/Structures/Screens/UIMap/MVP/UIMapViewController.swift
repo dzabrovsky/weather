@@ -19,7 +19,7 @@ class UIMapViewController: UIViewController {
     
     private var mapView = UIMapView()
     
-    private var dataSource: [GeonameDataSource] = []
+    private var dataSource: [Geoname] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ extension UIMapViewController: MapViewProtocol {
         mapView.map.removeAnnotations(mapView.map.annotations)
     }
     
-    func addMarker(_ data: GeonameDataSource) {
+    func addMarker(_ data: Geoname) {
         mapView.addAnnotationFromData(data)
         self.dataSource.append(data)
     }

@@ -26,8 +26,8 @@ struct CityListItem {
 }
 
 extension CityListItem {
-    func convertToGeonames() -> GeonameDataSource{
-        return GeonameDataSource(
+    func convertToGeonames() -> Geoname{
+        return Geoname(
             lat: self.lat,
             lon: self.lon,
             icon: ImageManager.getIconByCode(self.icon),
