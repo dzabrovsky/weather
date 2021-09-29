@@ -53,8 +53,8 @@ fileprivate func getDescription(_ dayItem: [ForecastHourCodable]) -> String{
         .first?.value[0].weather[0].weatherDescription ?? ""
 }
 
-fileprivate func createHour(_ hourItem: ForecastHourCodable) -> ForecastHourDataSource {
-    return ForecastHourDataSource(
+fileprivate func createHour(_ hourItem: ForecastHourCodable) -> ForecastHour {
+    return ForecastHour(
         temperature: String( Int( hourItem.main.temp ) ) + "°",
         tempValue: Double(hourItem.main.temp),
         feelsLike: String( Int( hourItem.main.feelsLike ) ) + "°",
@@ -63,7 +63,7 @@ fileprivate func createHour(_ hourItem: ForecastHourCodable) -> ForecastHourData
     )
 }
 
-fileprivate func createDay(_ dayItem: [ForecastHourCodable], hours: [ForecastHourDataSource]) -> ForecastDay{
+fileprivate func createDay(_ dayItem: [ForecastHourCodable], hours: [ForecastHour]) -> ForecastDay{
     return ForecastDay(
         temperature: formatTemperature(dayItem),
         feelsLike: formatTemperatureFeelsLike(dayItem),
@@ -148,7 +148,7 @@ extension ForecastCodable {
         
         var days: [ForecastDay] = []
         for dayItem in groupForecastByDays(self) {
-            var hours: [ForecastHourDataSource] = []
+            var hours: [ForecastHour] = []
             for hourItem in dayItem {
                 hours.append(createHour(hourItem))
             }

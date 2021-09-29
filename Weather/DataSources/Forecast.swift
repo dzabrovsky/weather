@@ -11,13 +11,13 @@ struct ForecastDay {
     let icon: [UIImage]
     let date: String
     let description: String
-    let forecast: [ForecastHourDataSource]
+    let forecast: [ForecastHour]
     let wind: String
     let humidity: String
     let precipitation: String
 }
 
-struct ForecastHourDataSource {
+struct ForecastHour {
     let temperature: String
     let tempValue: Double
     let feelsLike: String
