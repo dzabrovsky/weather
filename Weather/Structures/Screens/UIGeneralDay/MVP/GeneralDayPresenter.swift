@@ -21,7 +21,7 @@ class GeneralDayPresenter{
     var view: GeneralDayViewProtocol!
     
     func updateWeatherData(_ data: Forecast) {
-        let dataSource = ForecastAdapter.convertToForecast(from: data)
+        let dataSource = data.convertToForecast()
         UserDataRepository.shared.saveCityName(name: dataSource.cityName)
         self.view.refreshData(dataSource)
     }
@@ -34,11 +34,11 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
         if let coord = UserDataRepository.shared.getSavedCoordinates() {
             model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
                 UserDataRepository.shared.saveCityName(name: result.city.name)
-                self.view.refreshData(ForecastAdapter.convertToForecast(from: result))
+                self.view.refreshData(result.convertToForecast())
             }
         }else{
             model.updateDataByCityName("Moscow") { [unowned self] result in
-                self.view.refreshData(ForecastAdapter.convertToForecast(from: result))
+                self.view.refreshData(result.convertToForecast())
             }
         }
     }
@@ -58,7 +58,7 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     func updateDataByUser() {
         if let cityName = UserDataRepository.shared.getSavedCityName() {
             model.updateDataByCityName(cityName) { [unowned self] result in
-                self.view.refreshData(ForecastAdapter.convertToForecast(from: result))
+                self.view.refreshData(result.convertToForecast())
             }
         }
     }
