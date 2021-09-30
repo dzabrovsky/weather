@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let builder = Builder()
                     let router = Router(navigationController: navigationController, builder: builder)
                     
-                    router.initialGeneralDayView()
+                    router.showLaunchScreen()
                     window?.rootViewController = navigationController
                     window?.makeKeyAndVisible()
                 }
