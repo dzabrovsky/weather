@@ -111,14 +111,22 @@ class UIChart: UITableViewCell {
     }
     
     func loadChart(_ dataSource: ForecastDay){
+        chart.xAxis.valueFormatter = CustomValueFormatter()
         var chartData: [ChartDataEntry] = []
         self.dataSource = dataSource
         
-        chartData.append(ChartDataEntry(x: -3.001 + Double(dataSource.forecast.count) * 3, y: dataSource.forecast[0].tempValue))
+        chartData.append(ChartDataEntry(x: -1, y: dataSource.forecast[0].tempValue))
+        var i = 0
         for hour in dataSource.forecast {
-            chartData.append(ChartDataEntry(x: Double(hour.hourValue), y: hour.tempValue))
+            chartData.append(ChartDataEntry(x: Double(i), y: hour.tempValue))
+            i += 1
         }
-        chartData.append(ChartDataEntry(x: 24, y: dataSource.forecast[dataSource.forecast.count-1].tempValue))
+        chartData.append(
+            ChartDataEntry(
+                x: Double(dataSource.forecast.count),
+                y: dataSource.forecast[dataSource.forecast.count-1].tempValue
+            )
+        )
         
         let max: Double = dataSource.forecast.max(by: { a, b in a.tempValue < b.tempValue })?.tempValue ?? 1
         let min: Double = dataSource.forecast.min(by: { a, b in a.tempValue < b.tempValue })?.tempValue ?? 0

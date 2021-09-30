@@ -78,12 +78,13 @@ fileprivate func createDay(_ dayItem: [ForecastHourCodable], hours: [ForecastHou
     )
 }
 
-fileprivate func groupForecastByDays(_ forecast: ForecastCodable) -> [[ForecastHourCodable]] {
-    return Array(Dictionary(grouping: forecast.list, by: { dropTime($0.dt) } ).values)
+fileprivate func groupForecastByDays(_ forecast: [ForecastHourCodable]) -> [[ForecastHourCodable]] {
+    return Array(Dictionary(grouping: forecast, by: { dropTime($0.dt) } ).values)
         .sorted(by: { $0[0].dt < $1[0].dt } )
 }
 
 struct ForecastCodable: Codable {
+    var missing: [MissingForecastHourCodable]?
     let list: [ForecastHourCodable]
     let city: CityCodable
 }
@@ -142,13 +143,67 @@ struct WeatherCodable: Codable {
 }
 
 struct WindCodable: Codable {
-    let speed: Double
+    let speed: Float
 }
+
+struct MissingForecastCodable: Codable {
+    let hourly: [MissingForecastHourCodable]
+
+    enum CodingKeys: String, CodingKey {
+        case hourly
+    }
+}
+
+struct MissingForecastHourCodable: Codable {
+    let date: Int
+    let temperature: Float
+    let feelsLike: Float
+    let humidity: Int
+    let windSpeed: Float
+    let rain: Float?
+    let weather: [WeatherCodable]
+
+    enum CodingKeys: String, CodingKey {
+        case date = "dt"
+        case temperature = "temp"
+        case feelsLike = "feels_like"
+        case humidity = "humidity"
+        case windSpeed = "wind_speed"
+        case weather = "weather"
+        case rain = "rain"
+    }
+}
+
+extension MissingForecastHourCodable {
+    func convertToForecastHourCodable() -> ForecastHourCodable {
+        return ForecastHourCodable(
+            dt: self.date,
+            main: MainDetailsCodable(
+                temp: self.temperature,
+                feelsLike: self.feelsLike,
+                humidity: self.humidity
+            ),
+            weather: self.weather,
+            wind: WindCodable(speed: self.windSpeed),
+            rain: RainCodable(the3H: self.rain ?? 0)
+        )
+    }
+}
+
 extension ForecastCodable {
     func convertToForecast() -> Forecast {
         
         var days: [ForecastDay] = []
-        for dayItem in groupForecastByDays(self) {
+        
+        var hoursList: [ForecastHourCodable] = []
+        if let missingHours = self.missing {
+            for i in stride(from: 0, to: missingHours.count, by: 3) {
+                hoursList.append(missingHours[i].convertToForecastHourCodable())
+            }
+        }
+        hoursList += self.list
+        for dayItem in groupForecastByDays(hoursList) {
+            
             var hours: [ForecastHour] = []
             for hourItem in dayItem {
                 hours.append(createHour(hourItem))

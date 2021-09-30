@@ -17,6 +17,31 @@ class AlamofireFacade {
     private init(){
         
     }
+    
+    private func dropTime(_ dateTime: Int) -> Int {
+        return dateTime / 86400 * 86400
+    }
+    
+    private func getTodayMissingHours(lat: Double, lon: Double, completion: @escaping (MissingForecastCodable) -> ()) {
+        
+        let lang = UserDataRepository.shared.getLang()
+        let APIKey = UserDataRepository.shared.getAPIKey()
+        let units = UserDataRepository.shared.getUnits()
+        let time = dropTime(Int(Date().timeIntervalSince1970))
+        
+        let APIUrl = "http://api.openweathermap.org/data/2.5/onecall/timemachine?"
+        
+        guard let url = URL(string: ("\(APIUrl)lat=\(lat)&lon=\(lon)&dt=\(time)&units=\(units)&lang=\(lang)&appid=\(APIKey)").encodeUrl)
+        else { return }
+        
+        AF.request(url)
+            .validate()
+            .responseDecodable(of: MissingForecastCodable.self) { (response) in
+                if let data = response.value {
+                    completion(data)
+                }
+            }
+    }
 }
 
 extension AlamofireFacade: AlamofireFacadeProtocol {
@@ -47,13 +72,16 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
         guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl)
         else { return }
         
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: ForecastCodable.self) { (response) in
-                if let data = response.value {
-                    completion(data)
+        getTodayMissingHours(lat: lat, lon: lon) { result in
+            AF.request(url)
+                .validate()
+                .responseDecodable(of: ForecastCodable.self) { (response) in
+                    if var data = response.value {
+                        data.missing = result.hourly
+                        completion(data)
+                    }
                 }
-            }
+        }
     }
     
     func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ()) {
