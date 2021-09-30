@@ -1,6 +1,12 @@
 import UIKit
 import Charts
 
+protocol UIChartMarkerProtocol {
+    func hideSelf()
+    func showSelf()
+    func setValues(temperature: String, feelsLike: String, icon: UIImage)
+}
+
 class UIChart: UITableViewCell {
     
     static let k: CGFloat = UIScreen.main.bounds.width / 375
@@ -156,12 +162,17 @@ class UIChart: UITableViewCell {
 
 extension UIChart: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        if entry.x > -3.001 + Double(dataSource.forecast.count) * 3 && entry.x < 24 {
-            let index = Int(entry.x) / 3 - (8 - dataSource.forecast.count)
-            marker.tempLabel.text = dataSource.forecast[index].temperature
-            marker.feelsLikeLabel.text = dataSource.forecast[index].feelsLike
-            marker.weatherIcon.image = dataSource.forecast[index].icon
+        guard let marker = chartView.marker as? UIChartMarkerProtocol else { return }
+        guard entry.x >= 0 && entry.x <= 7 else{
+            marker.hideSelf()
+            return
         }
-
+        marker.showSelf()
+        let index = Int(entry.x)
+        marker.setValues(
+            temperature: dataSource.forecast[index].temperature,
+            feelsLike: dataSource.forecast[index].feelsLike,
+            icon: dataSource.forecast[index].icon
+        )
     }
 }

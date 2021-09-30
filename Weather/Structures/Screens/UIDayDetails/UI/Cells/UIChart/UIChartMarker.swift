@@ -69,7 +69,7 @@ class UIChartMarker: MarkerView {
     }
     
     private func drawMarker(context: CGContext, point: CGPoint) {
-        
+        guard self.alpha == 1 else { return }
         context.setFillColor(circleColor.cgColor)
         context.fillEllipse(in: CGRect(x: point.x-circleRadius, y: point.y-circleRadius, width: circleRadius*2, height: circleRadius*2))
         context.setFillColor(fillColor.cgColor)
@@ -79,5 +79,22 @@ class UIChartMarker: MarkerView {
     override func draw(context: CGContext, point: CGPoint) {
         super.draw(context: context, point: point)
         drawMarker(context: context, point: point)
+    }
+    
+}
+
+extension UIChartMarker: UIChartMarkerProtocol {
+    func setValues(temperature: String, feelsLike: String, icon: UIImage) {
+        self.tempLabel.text = temperature
+        self.feelsLikeLabel.text = feelsLike
+        self.weatherIcon.image = icon
+    }
+    
+    func hideSelf(){
+        self.alpha = 0
+    }
+    
+    func showSelf(){
+        self.alpha = 1
     }
 }
