@@ -4,7 +4,6 @@ import Alamofire
 protocol AlamofireFacadeProtocol {
     func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (GeonamesCodable) -> Void)
     func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ())
-    func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ())
     func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ())
     func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ())
     func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ())

@@ -11,11 +11,4 @@ class GeneralDayModel: GeneralDayModelProtocol {
             completion(result)
         }
     }
-
-    func updateDataByCityName(_ cityName: String, completion: @escaping (ForecastCodable) -> Void) {
-        
-        alamofireFacade.getForecast(cityName){ result in
-            completion(result)
-        }
-    }
 }
