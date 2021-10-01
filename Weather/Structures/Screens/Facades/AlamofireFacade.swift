@@ -184,6 +184,22 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
         }
     }
     
+    func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> ()){
+        
+        let lang = UserDataRepository.shared.getLang()
+        let APIUrl = "http://api.geonames.org/searchJSON?"
+        
+        guard let url = URL(string: ("\(APIUrl)name_startsWith=\(symbols)&username=ivan&style=MEDIUM&lang=\(lang)").encodeUrl)
+        else { return }
+        AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
+            if let data = response.value {
+                completion(data)
+            } else {
+                print(response.error ?? "")
+            }
+        }
+    }
+    
 }
 
 extension String{
