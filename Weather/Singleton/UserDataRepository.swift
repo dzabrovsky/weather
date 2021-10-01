@@ -9,11 +9,18 @@ protocol UserDataRepositoryProtocol {
     func getLang() -> String
     func getUnits() -> String
     func getAPIKey() -> String
+    
+    func getDefaultCoordinates() -> Coordindates
+    func getDefaultCityName() -> String
+    func setDefaultData()
 }
 
 private let cityKeyName = "WeatherApp_city_name"
 private let coordKeyLat = "WeatherApp_coordinates_latitude"
 private let coordKeyLon = "WeatherApp_coordinates_longtitude"
+
+private let defaultCityName = "Moscow"
+private let defaultCoordinates = Coordindates(lat: 55.751244, lon: 37.618423)
 
 class UserDataRepository {
     
@@ -36,6 +43,18 @@ class UserDataRepository {
 }
 
 extension UserDataRepository: UserDataRepositoryProtocol {
+    func setDefaultData() {
+        saveCity(lat: defaultCoordinates.lat, lon: defaultCoordinates.lon)
+        saveCityName(name: defaultCityName)
+    }
+    
+    func getDefaultCityName() -> String {
+        return defaultCityName
+    }
+    
+    func getDefaultCoordinates() -> Coordindates {
+        return defaultCoordinates
+    }
     
     func getLang() -> String {
         return lang
