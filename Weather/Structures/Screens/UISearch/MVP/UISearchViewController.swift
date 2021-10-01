@@ -6,6 +6,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func onTapThemeButton()
     func onTapAddCity()
     func onTapLocationButton()
+    func onAlertTextChanged(_ text: String?)
     
     func inputCityName(_ cityName: String)
     func updateDataSource()
