@@ -4,6 +4,8 @@ class UIInputCityName: UIViewController {
     
     private let k: CGFloat = UIScreen.main.bounds.width / 375
     
+    private var citiesCompletionData: SearchResults = SearchResults(totalResults: 0, results: [])
+    
     let completion: (String) -> Void
     
     let alert: UICustomAlert = {
