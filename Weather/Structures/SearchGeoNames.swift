@@ -9,11 +9,13 @@ struct SearchGeoName: Codable {
     let name: String
     let lat: String
     let lon: String
+    let population: Int?
 
     enum CodingKeys: String, CodingKey {
         case toponymName = "toponymName"
         case name = "name"
         case lat = "lat"
         case lon = "lng"
+        case population = "population"
     }
 }
