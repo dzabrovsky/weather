@@ -64,6 +64,10 @@ class UISearchViewController: UIViewController {
 }
 extension UISearchViewController: SearchViewProtocol{
     
+    func updateAutoCompletion(_ autoCompletion: SearchResults) {
+        inputCity.refreshAutoCompletion(autoCompletion)
+    }
+    
     func showAlertCityDoesNotExists() {
         let alert = UIAlertController(title: "Что-то пошло не так...", message: "Город с таким названием не найден!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil ))

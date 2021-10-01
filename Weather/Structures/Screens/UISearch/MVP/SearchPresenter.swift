@@ -4,6 +4,7 @@ protocol SearchViewProtocol: AnyObject {
     func switchTheme()
     func openAddCityAlert()
     func updateCityList(_ dataSource: CityWeather)
+    func updateAutoCompletion(_ autoCompletion: SearchResults)
     
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
