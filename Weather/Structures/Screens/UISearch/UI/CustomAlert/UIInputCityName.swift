@@ -65,6 +65,8 @@ class UIInputCityName: UIViewController {
     }
     
     private func setup() {
+        alert.citiesCollectionView.dataSource = self
+        alert.citiesCollectionView.delegate = self
         view.backgroundColor = UIColor.init(named: "background_alert")
         
         view.addSubview(alert)
@@ -75,5 +77,31 @@ class UIInputCityName: UIViewController {
             alert.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             alert.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    func refreshAutoCompletion(_ serachResults: SearchResults){
+        self.citiesCompletionData = serachResults
+        
+        alert.citiesCollectionView.reloadData()
+    }
+}
+
+extension UIInputCityName: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        alert.inputCityName.text = citiesCompletionData.results[indexPath.row]
+    }
+}
+
+extension UIInputCityName: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return citiesCompletionData.totalResults
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: "UICustomAlertCollectionViewCell",
+                for: indexPath) as! UICustomAlertCollectionViewCell
+        cell.text.text = citiesCompletionData.results[indexPath.row]
+        return cell
     }
 }

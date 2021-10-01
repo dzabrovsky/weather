@@ -20,6 +20,7 @@ class UISearchViewController: UIViewController {
     var presenter: SearchPresenterProtocol!
     
     var contentView: UISearchView = UISearchView()
+    var inputCity: UIInputCityName!
     
     override func viewDidLoad(){
         view = contentView
@@ -82,7 +83,7 @@ extension UISearchViewController: SearchViewProtocol{
     
     func openAddCityAlert() {
         
-        let inputCity = UIInputCityName(completion: { cityName in
+        inputCity = UIInputCityName(completion: { cityName in
             self.presenter.inputCityName(cityName)
         })
         inputCity.alert.inputCityName.addTarget(self, action: #selector(onAlertTextChanged(sender:)), for: .editingChanged)
