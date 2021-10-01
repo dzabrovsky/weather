@@ -70,7 +70,7 @@ extension MapPresenter: MapPresenterProtocol {
             west: centerLon - lonA/2,
             north: centerLat + latA/2,
             south: centerLat - latA/2
-        ){ [unowned self] result in
+        ){ result in
             let data = result.convertToGeonames()
             if let view = self.view {
                 view.addMarker(data)
