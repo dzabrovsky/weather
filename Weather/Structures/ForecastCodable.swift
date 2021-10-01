@@ -160,7 +160,7 @@ struct MissingForecastHourCodable: Codable {
     let feelsLike: Float
     let humidity: Int
     let windSpeed: Float
-    let rain: Float?
+    let rain: RainOneHourCodable?
     let weather: [WeatherCodable]
 
     enum CodingKeys: String, CodingKey {
@@ -171,6 +171,14 @@ struct MissingForecastHourCodable: Codable {
         case windSpeed = "wind_speed"
         case weather = "weather"
         case rain = "rain"
+    }
+}
+
+struct RainOneHourCodable: Codable {
+    let value: Float
+
+    enum CodingKeys: String, CodingKey {
+        case value = "1h"
     }
 }
 
@@ -185,7 +193,7 @@ extension MissingForecastHourCodable {
             ),
             weather: self.weather,
             wind: WindCodable(speed: self.windSpeed),
-            rain: RainCodable(the3H: self.rain ?? 0)
+            rain: RainCodable(the3H: self.rain?.value ?? 0)
         )
     }
 }
