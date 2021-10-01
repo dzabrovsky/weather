@@ -46,6 +46,10 @@ class UISearchViewController: UIViewController {
         presenter.onTapLocationButton()
     }
     
+    @objc private func onAlertTextChanged(sender: UITextField) {
+        presenter.onAlertTextChanged(sender.text)
+    }
+    
     func setup(){
         presenter.updateDataSource()
     }
@@ -75,10 +79,9 @@ extension UISearchViewController: SearchViewProtocol{
     func openAddCityAlert() {
         
         let inputCity = UIInputCityName(completion: { cityName in
-            DispatchQueue.main.async {
-                self.presenter.inputCityName(cityName)
-            }
+            self.presenter.inputCityName(cityName)
         })
+        inputCity.alert.inputCityName.addTarget(self, action: #selector(onAlertTextChanged(sender:)), for: .editingChanged)
         inputCity.modalPresentationStyle = .overCurrentContext
         inputCity.modalTransitionStyle = .crossDissolve
         
