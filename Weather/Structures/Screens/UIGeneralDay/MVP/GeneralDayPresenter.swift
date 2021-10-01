@@ -36,15 +36,13 @@ class GeneralDayPresenter{
 extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     
     func didGeneralDayScreenLoad() {
-        if let coord = UserDataRepository.shared.getSavedCoordinates() {
-            model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
-                UserDataRepository.shared.saveCityName(name: result.city.name)
-                self.view.refreshData(result.convertToForecast())
-            }
-        }else{
-            model.updateDataByCityName("Moscow") { [unowned self] result in
-                self.view.refreshData(result.convertToForecast())
-            }
+        if UserDataRepository.shared.getSavedCoordinates() == nil {
+            UserDataRepository.shared.setDefaultData()
+        }
+        guard let coord = UserDataRepository.shared.getSavedCoordinates() else { return }
+        model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
+            UserDataRepository.shared.saveCityName(name: result.city.name)
+            self.view.refreshData(result.convertToForecast())
         }
     }
     
@@ -61,10 +59,13 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     }
     
     func updateDataByUser() {
-        if let cityName = UserDataRepository.shared.getSavedCityName() {
-            model.updateDataByCityName(cityName) { [unowned self] result in
-                self.view.refreshData(result.convertToForecast())
-            }
+        if UserDataRepository.shared.getSavedCoordinates() == nil {
+            UserDataRepository.shared.setDefaultData()
+        }
+        guard let coord = UserDataRepository.shared.getSavedCoordinates() else { return }
+        model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
+            UserDataRepository.shared.saveCityName(name: result.city.name)
+            self.view.refreshData(result.convertToForecast())
         }
     }
     
