@@ -22,6 +22,16 @@ class SearchPresenter {
 }
 
 extension SearchPresenter: SearchPresenterProtocol {
+    func onAlertTextChanged(_ text: String?) {
+        guard let text = text else { return }
+        guard text.count >= 3 else {
+            self.view.updateAutoCompletion(SearchResults(totalResults: 0, results: []))
+            return
+        }
+        model.searchCity(text) { result in
+            self.view.updateAutoCompletion(result.convertToStringArray())
+        }
+    }
     
     func onTapLocationButton() {
         router.showMapView()
