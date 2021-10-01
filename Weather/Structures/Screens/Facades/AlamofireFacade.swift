@@ -7,6 +7,7 @@ protocol AlamofireFacadeProtocol {
     func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ())
     func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ())
     func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ())
+    func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> ())
 }
 
 class AlamofireFacade {
