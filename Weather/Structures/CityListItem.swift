@@ -4,17 +4,17 @@ struct CityListItem {
     var name: String = ""
     var lat: Double = 0
     var lon: Double = 0
-    var lastUse: Date = Date()
+    var index: Int = 0
     
     var icon: String = ""
     var temp: Float = 0
     var tempFeelsLike: Float = 0
     
-    init(name: String, lat: Double, lon: Double, lastUse: Date, icon: String, temp: Float, tempFeelsLike: Float) {
+    init(name: String, lat: Double, lon: Double, index: Int, icon: String, temp: Float, tempFeelsLike: Float) {
         self.name = name
         self.lat = lat
         self.lon = lon
-        self.lastUse = lastUse
+        self.index = index
         
         self.icon = icon
         self.temp = temp
@@ -41,7 +41,8 @@ extension CityListItem {
             name: self.name,
             temp: String( Int( self.temp ) ) + "°",
             feelsLike: String( Int( self.tempFeelsLike ) ) + "°",
-            icon: ImageManager.getIconByCode( self.icon )
+            icon: ImageManager.getIconByCode( self.icon ),
+            index: self.index
         )
     }
 }
