@@ -54,13 +54,14 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
     }
     
     func insertCity(_ name: String, lat: Double, lon: Double, completion: @escaping () -> ()) {
-        let city = Cities(context: context)
-        city.name = name
-        city.lat = lat
-        city.lon = lon
-        city.lastUse = Date()
         
         do {
+            guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else{ return }
+            let city = Cities(context: context)
+            city.name = name
+            city.lat = lat
+            city.lon = lon
+            city.index = cities.count
             try context.save()
             completion()
         }catch{

@@ -27,9 +27,9 @@ class SearchModel{
     
     func updateCityList(completion: @escaping (CityListItem) -> Void){
         guard var cities = coreDataFacade.getCities() else{ return }
-        cities.sort(by: { $0.lastUse! > $1.lastUse! })
+        cities.sort(by: { $0.index > $1.index })
         for item in cities {
-            print(item.lastUse!)
+            print(item.index)
             updateWeatherInCity(item.name) { result in
                 completion(result)
             }
