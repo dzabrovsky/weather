@@ -11,6 +11,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func inputCityName(_ cityName: String)
     func updateDataSource()
     func onRowSelected(_ cityName: String)
+    func onDeleteRow(_ index: Int)
 }
 
 class UISearchViewController: UIViewController {

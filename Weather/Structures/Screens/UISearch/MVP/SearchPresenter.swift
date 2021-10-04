@@ -77,4 +77,10 @@ extension SearchPresenter: SearchPresenterProtocol {
             }
         }
     }
+    
+    func onDeleteRow(_ index: Int) {
+        model.deleteCity(index) {
+            self.view.deleteRowAt(index)
+        }
+    }
 }
