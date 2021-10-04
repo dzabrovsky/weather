@@ -61,7 +61,7 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
             city.name = name
             city.lat = lat
             city.lon = lon
-            city.index = cities.count
+            city.index = (cities.max(by: { $0.index < $1.index })?.index ?? -1) + 1
             try context.save()
             completion()
         }catch{
