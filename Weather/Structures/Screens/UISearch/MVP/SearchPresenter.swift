@@ -8,6 +8,8 @@ protocol SearchViewProtocol: AnyObject {
     
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
+    
+    func deleteRowAt(_ index: Int)
 }
 
 protocol SearchRouterProtocol: AnotherRouterProtocol {

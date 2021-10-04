@@ -103,6 +103,10 @@ extension UISearchViewController: SearchViewProtocol{
         contentView.tableView.reloadData()
     }
     
+    func deleteRowAt(_ index: Int) {
+        contentView.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+    }
+    
 }
 extension UISearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
