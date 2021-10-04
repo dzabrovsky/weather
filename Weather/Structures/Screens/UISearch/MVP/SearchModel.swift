@@ -73,4 +73,9 @@ class SearchModel{
         }
     }
     
+    func searchCity(_ byName: String, completion: @escaping (SearchGeoNames) -> ()) {
+        alamofireFacade.searchCityBySymbols(byName) { result in
+            completion(result)
+        }
+    }
 }

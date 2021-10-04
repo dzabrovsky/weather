@@ -20,6 +20,7 @@ class UISearchViewController: UIViewController {
     var presenter: SearchPresenterProtocol!
     
     var contentView: UISearchView = UISearchView()
+    var inputCity: UIInputCityName!
     
     override func viewDidLoad(){
         view = contentView
@@ -64,6 +65,10 @@ class UISearchViewController: UIViewController {
 }
 extension UISearchViewController: SearchViewProtocol{
     
+    func updateAutoCompletion(_ autoCompletion: SearchResults) {
+        inputCity.refreshAutoCompletion(autoCompletion)
+    }
+    
     func showAlertCityDoesNotExists() {
         let alert = UIAlertController(title: "Что-то пошло не так...", message: "Город с таким названием не найден!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel, handler: nil ))
@@ -78,7 +83,7 @@ extension UISearchViewController: SearchViewProtocol{
     
     func openAddCityAlert() {
         
-        let inputCity = UIInputCityName(completion: { cityName in
+        inputCity = UIInputCityName(completion: { cityName in
             self.presenter.inputCityName(cityName)
         })
         inputCity.alert.inputCityName.addTarget(self, action: #selector(onAlertTextChanged(sender:)), for: .editingChanged)
