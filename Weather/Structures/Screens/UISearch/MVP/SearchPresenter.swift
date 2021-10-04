@@ -80,9 +80,9 @@ extension SearchPresenter: SearchPresenterProtocol {
         }
     }
     
-    func onDeleteRow(_ index: Int) {
+    func onDeleteRow(_ index: Int, row: Int) {
         model.deleteCity(index) {
-            self.view.deleteRowAt(index)
+            self.view.deleteRowAt(row)
         }
     }
 }
