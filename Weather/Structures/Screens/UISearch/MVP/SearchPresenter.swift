@@ -5,6 +5,7 @@ protocol SearchViewProtocol: AnyObject {
     func openAddCityAlert()
     func updateCityList(_ dataSource: CityWeather)
     func updateAutoCompletion(_ autoCompletion: SearchResults)
+    func reloadCityList()
     
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
@@ -74,8 +75,7 @@ extension SearchPresenter: SearchPresenterProtocol {
             case .NotExists:
                 self.view.showAlertCityDoesNotExists()
             case .Succed:
-                guard let result = result else{ return }
-                self.view.updateCityList(result.convertToCity())
+                self.view.reloadCityList()
             }
         }
     }
