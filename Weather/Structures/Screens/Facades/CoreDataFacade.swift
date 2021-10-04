@@ -7,7 +7,7 @@ protocol CoreDataFacadeProtocol {
     func getCityCoordinates(_ name: String, completion: @escaping (String, Double, Double) -> ())
     func getCityName(lat: Double, lon: Double, completion: @escaping (String, Double, Double) -> ())
     func getCities() -> [Cities]?
-    func deleteCityFromList(_ cityName: String, lat: Double, lon: Double, completion: @escaping () -> ())
+    func deleteCityFromList(_ index: Int, completion: @escaping () -> ())
 }
 
 class CoreDataFacade {
@@ -78,10 +78,10 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
         }
     }
     
-    func deleteCityFromList(_ cityName: String, lat: Double, lon: Double, completion: @escaping () -> ()) {
+    func deleteCityFromList(_ index: Int, completion: @escaping () -> ()) {
         do{
             guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else { return }
-            guard let cityToDelete = cities.first(where: { $0.name == cityName && $0.lat == lat && $0.lon == lon } ) else { return }
+            guard let cityToDelete = cities.first(where: { $0.index == index } ) else { return }
             context.delete(cityToDelete)
             try context.save()
             completion()
