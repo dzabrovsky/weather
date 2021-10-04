@@ -78,4 +78,10 @@ class SearchModel{
             completion(result)
         }
     }
+    
+    func deleteCity(_ index: Int, completion: @escaping () -> ()) {
+        coreDataFacade.deleteCityFromList(index) {
+            completion()
+        }
+    }
 }
