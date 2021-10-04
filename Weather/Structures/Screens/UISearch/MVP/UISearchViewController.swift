@@ -11,6 +11,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func inputCityName(_ cityName: String)
     func updateDataSource()
     func onRowSelected(_ cityName: String)
+    func onDeleteRow(_ index: Int, row: Int)
 }
 
 class UISearchViewController: UIViewController {
@@ -102,10 +103,19 @@ extension UISearchViewController: SearchViewProtocol{
         contentView.tableView.reloadData()
     }
     
+    func deleteRowAt(_ index: Int) {
+        dataSource.remove(at: index)
+        contentView.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+    }
+    
 }
 extension UISearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.onRowSelected( dataSource[indexPath.row].name)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        presenter.onDeleteRow(dataSource[indexPath.row].index, row: indexPath.row)
     }
 }
 

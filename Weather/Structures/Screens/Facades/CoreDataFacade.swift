@@ -7,6 +7,7 @@ protocol CoreDataFacadeProtocol {
     func getCityCoordinates(_ name: String, completion: @escaping (String, Double, Double) -> ())
     func getCityName(lat: Double, lon: Double, completion: @escaping (String, Double, Double) -> ())
     func getCities() -> [Cities]?
+    func deleteCityFromList(_ index: Int, completion: @escaping () -> ())
 }
 
 class CoreDataFacade {
@@ -53,13 +54,14 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
     }
     
     func insertCity(_ name: String, lat: Double, lon: Double, completion: @escaping () -> ()) {
-        let city = Cities(context: context)
-        city.name = name
-        city.lat = lat
-        city.lon = lon
-        city.lastUse = Date()
         
         do {
+            guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else{ return }
+            let city = Cities(context: context)
+            city.name = name
+            city.lat = lat
+            city.lon = lon
+            city.index = (cities.max(by: { $0.index < $1.index })?.index ?? -1) + 1
             try context.save()
             completion()
         }catch{
@@ -71,6 +73,18 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
         do{
             guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else{ return }
             completion(cities.first(where: { $0.name == name }) != nil)
+        }catch{
+            //error
+        }
+    }
+    
+    func deleteCityFromList(_ index: Int, completion: @escaping () -> ()) {
+        do{
+            guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else { return }
+            guard let cityToDelete = cities.first(where: { $0.index == index } ) else { return }
+            context.delete(cityToDelete)
+            try context.save()
+            completion()
         }catch{
             //error
         }

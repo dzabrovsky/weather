@@ -5,4 +5,5 @@ struct CityWeather {
     let temp: String
     let feelsLike: String
     let icon: UIImage
+    let index: Int
 }

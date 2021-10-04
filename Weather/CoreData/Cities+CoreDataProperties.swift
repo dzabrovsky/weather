@@ -19,7 +19,7 @@ extension Cities {
     @NSManaged public var name: String
     @NSManaged public var lat: Double
     @NSManaged public var lon: Double
-    @NSManaged public var lastUse: Date?
+    @NSManaged public var index: Int
 
 }
 
