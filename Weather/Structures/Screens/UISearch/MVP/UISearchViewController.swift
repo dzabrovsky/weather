@@ -12,6 +12,8 @@ protocol SearchPresenterProtocol: AnyObject {
     func updateDataSource()
     func onRowSelected(_ cityName: String)
     func onDeleteRow(_ index: Int, row: Int)
+    
+    func onMoveRow(at: Int, to: Int)
 }
 
 class UISearchViewController: UIViewController {
@@ -61,6 +63,14 @@ class UISearchViewController: UIViewController {
         contentView.header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchUpInside)
         contentView.addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchUpInside)
         contentView.getLocationButton.addTarget(self, action: #selector(onTapLocationButton(sender:)), for: .touchUpInside)
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(enableEditingTableView))
+        longPressGesture.minimumPressDuration = 1
+        self.contentView.tableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    @objc func enableEditingTableView() {
+        self.contentView.tableView.isEditing = true
     }
     
 }
@@ -105,7 +115,7 @@ extension UISearchViewController: SearchViewProtocol{
     
     func deleteRowAt(_ index: Int) {
         dataSource.remove(at: index)
-        contentView.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+        contentView.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .left)
     }
     
     func reloadCityList() {
@@ -120,6 +130,13 @@ extension UISearchViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         presenter.onDeleteRow(dataSource[indexPath.row].index, row: indexPath.row)
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        presenter.onMoveRow(at: sourceIndexPath.row, to: destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
     }
 }
 

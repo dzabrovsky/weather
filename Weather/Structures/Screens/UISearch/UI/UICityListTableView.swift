@@ -23,6 +23,7 @@ class UICityListTableView: UITableView {
         refreshControl = UIRefreshControl()
         register(UICityListTableViewCell.self, forCellReuseIdentifier: "UICityListTableViewCell")
         self.allowsSelection = true
+        self.allowsSelectionDuringEditing = false
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
         self.separatorStyle = .none

@@ -86,4 +86,10 @@ class SearchModel{
             completion()
         }
     }
+    
+    func swapCitiesInList(at: Int, to: Int, completion: @escaping () -> ()) {
+        coreDataFacade.swapCitiesInList(at: at, to: to) {
+            completion()
+        }
+    }
 }

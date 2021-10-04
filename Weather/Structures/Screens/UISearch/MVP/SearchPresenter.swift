@@ -85,4 +85,8 @@ extension SearchPresenter: SearchPresenterProtocol {
             self.view.deleteRowAt(row)
         }
     }
+    
+    func onMoveRow(at: Int, to: Int) {
+        model.swapCitiesInList(at: at, to: to, completion: {})
+    }
 }
