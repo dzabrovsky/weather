@@ -128,8 +128,6 @@ extension UISearchViewController: UITableViewDelegate{
         presenter.onRowSelected( dataSource[indexPath.row].name)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        presenter.onDeleteRow(dataSource[indexPath.row].index, row: indexPath.row)
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         presenter.onMoveRow(at: sourceIndexPath.row, to: destinationIndexPath.row)
     }
@@ -137,10 +135,17 @@ extension UISearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIDeleteCellAction(){
+                self.presenter.onDeleteRow(self.dataSource[indexPath.row].index, row: indexPath.row)
+            }
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
 extension UISearchViewController: UITableViewDataSource{
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
