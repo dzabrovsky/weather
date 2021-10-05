@@ -20,7 +20,6 @@ class UICityListTableView: UITableView {
     
     func setup(){
         self.backgroundColor = .clear
-        refreshControl = UIRefreshControl()
         register(UICityListTableViewCell.self, forCellReuseIdentifier: "UICityListTableViewCell")
         self.allowsSelection = true
         self.allowsSelectionDuringEditing = false
