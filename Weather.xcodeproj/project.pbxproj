@@ -16,6 +16,7 @@
 		54183E6726E64115002E135E /* UIDayDetailsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54183E6626E64115002E135E /* UIDayDetailsHeader.swift */; };
 		54183E6926E64B1E002E135E /* UIDetailsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54183E6826E64B1E002E135E /* UIDetailsInfo.swift */; };
 		5418BC36270C4C71007A10EB /* UIDeleteActionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5418BC35270C4C71007A10EB /* UIDeleteActionCell.swift */; };
+		5418BC39270C87DB007A10EB /* SwipeCellGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5418BC38270C87DB007A10EB /* SwipeCellGesture.swift */; };
 		541D1CB726D4DDEA003B1FEF /* UIWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541D1CB626D4DDEA003B1FEF /* UIWeatherCell.swift */; };
 		542FD2B926CBD45200AC4077 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542FD2B826CBD45200AC4077 /* AppDelegate.swift */; };
 		542FD2BB26CBD45200AC4077 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542FD2BA26CBD45200AC4077 /* SceneDelegate.swift */; };
@@ -94,6 +95,7 @@
 		54183E6626E64115002E135E /* UIDayDetailsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDayDetailsHeader.swift; path = Weather/Structures/Screens/UIDayDetails/UI/UIDayDetailsHeader.swift; sourceTree = SOURCE_ROOT; };
 		54183E6826E64B1E002E135E /* UIDetailsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDetailsInfo.swift; path = Weather/structures/Screens/UIDayDetails/UI/Cells/UIDetails/UIDetailsInfo.swift; sourceTree = SOURCE_ROOT; };
 		5418BC35270C4C71007A10EB /* UIDeleteActionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDeleteActionCell.swift; path = Weather/Structures/Screens/UISearch/UI/UIDeleteActionCell.swift; sourceTree = SOURCE_ROOT; };
+		5418BC38270C87DB007A10EB /* SwipeCellGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeCellGesture.swift; path = Weather/Structures/Screens/UISearch/UI/Gestures/SwipeCellGesture.swift; sourceTree = SOURCE_ROOT; };
 		541D1CB626D4DDEA003B1FEF /* UIWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWeatherCell.swift; sourceTree = "<group>"; };
 		542FD2B526CBD45200AC4077 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		542FD2B826CBD45200AC4077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +219,14 @@
 				54395B9226FDE49200F3A07B /* UIDetails */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		5418BC37270C87B0007A10EB /* Gestures */ = {
+			isa = PBXGroup;
+			children = (
+				5418BC38270C87DB007A10EB /* SwipeCellGesture.swift */,
+			);
+			path = Gestures;
 			sourceTree = "<group>";
 		};
 		542FD2AC26CBD45200AC4077 = {
@@ -387,6 +397,7 @@
 		54480D3B26E11115001698C3 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5418BC37270C87B0007A10EB /* Gestures */,
 				54C516AC26F37437006E585E /* CustomAlert */,
 				54FAECF726DE253200431E54 /* Alert */,
 				54480D4826E204C5001698C3 /* Cells */,
@@ -703,6 +714,7 @@
 				54708B3F2703125600431522 /* AlamofireFacade.swift in Sources */,
 				54480D4A26E204F8001698C3 /* UICityListTableViewCell.swift in Sources */,
 				54395B9126FCB76100F3A07B /* LaunchPresenter.swift in Sources */,
+				5418BC39270C87DB007A10EB /* SwipeCellGesture.swift in Sources */,
 				54708B41270312C100431522 /* LocationManagerFacade.swift in Sources */,
 				5466261E26EB5AA80024E38B /* Cities+CoreDataProperties.swift in Sources */,
 				546F1AF6270762D2004DB8A8 /* SearchResults.swift in Sources */,
