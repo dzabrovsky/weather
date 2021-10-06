@@ -112,8 +112,4 @@ class UICityListTableViewCell: UITableViewCell {
         ])
     }
     
-    public override func setSelected(_ selected: Bool, animated: Bool){
-        backgroundColor = .clear
-        contentView.backgroundColor = .clear
-    }
 }
