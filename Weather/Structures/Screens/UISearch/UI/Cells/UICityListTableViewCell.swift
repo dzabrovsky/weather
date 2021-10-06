@@ -53,6 +53,8 @@ class UICityListTableViewCell: UITableViewCell {
     
     func setup(){
         
+        self.selectionStyle = .none
+        
         self.backgroundColor = UIColor.init(named: "background")
         contentView.backgroundColor = UIColor.init(named: "background")
         
