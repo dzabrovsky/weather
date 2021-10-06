@@ -10,7 +10,7 @@ protocol SearchViewProtocol: AnyObject {
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
     
-    func deleteRowAt(_ index: Int)
+    func deleteRowAt(_ index: Int, isToLeft: Bool)
 }
 
 protocol SearchRouterProtocol: AnotherRouterProtocol {
@@ -80,9 +80,9 @@ extension SearchPresenter: SearchPresenterProtocol {
         }
     }
     
-    func onDeleteRow(_ index: Int, row: Int) {
+    func onDeleteRow(_ index: Int, row: Int, isToLeft: Bool) {
         model.deleteCity(index) {
-            self.view.deleteRowAt(row)
+            self.view.deleteRowAt(row, isToLeft: isToLeft)
         }
     }
     
