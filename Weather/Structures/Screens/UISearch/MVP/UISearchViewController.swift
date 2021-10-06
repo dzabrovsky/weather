@@ -63,14 +63,6 @@ class UISearchViewController: UIViewController {
         contentView.header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchUpInside)
         contentView.addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchUpInside)
         contentView.getLocationButton.addTarget(self, action: #selector(onTapLocationButton(sender:)), for: .touchUpInside)
-        
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(enableEditingTableView))
-        longPressGesture.minimumPressDuration = 1
-        self.contentView.tableView.addGestureRecognizer(longPressGesture)
-    }
-    
-    @objc func enableEditingTableView() {
-        self.contentView.tableView.isEditing = true
     }
 }
 extension UISearchViewController: SearchViewProtocol{
