@@ -16,9 +16,6 @@ protocol SearchPresenterProtocol: AnyObject {
     func onMoveRow(at: Int, to: Int)
 }
 
-fileprivate var snapshot: UIView?
-fileprivate var startLocation: CGFloat = 0
-
 class UISearchViewController: UIViewController {
     
     var dataSource: [CityWeather] = []
@@ -72,71 +69,8 @@ class UISearchViewController: UIViewController {
         self.contentView.tableView.addGestureRecognizer(longPressGesture)
     }
     
-    private func customSnapshotFromView(inputView: UIView) -> UIView? {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-        if let CurrentContext = UIGraphicsGetCurrentContext() {
-            inputView.layer.render(in: CurrentContext)
-        }
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
-            UIGraphicsEndImageContext()
-            return nil
-        }
-        
-        UIGraphicsEndImageContext()
-        let snapshot = UIImageView(image: image)
-        return snapshot
-    }
-    
     @objc func enableEditingTableView() {
         self.contentView.tableView.isEditing = true
-    }
-    
-    @IBAction func onSwipeCell(_ gestureRecognizer: UIGestureRecognizer){
-        guard let recognizer = gestureRecognizer as? SwipeCellGesture else { return }
-        let location = recognizer.location(in: self.contentView.tableView)
-        switch recognizer.state {
-        case .began:
-            snapshot = self.customSnapshotFromView(inputView: recognizer.cell)
-            guard  let snapshot = snapshot else { return }
-            let center = recognizer.cell.center
-            snapshot.center = recognizer.cell.center
-            snapshot.center = center
-            self.contentView.tableView.addSubview(snapshot)
-            recognizer.cell.isHidden = true
-            startLocation = location.x
-        case .changed:
-            guard let snapshot = snapshot else { return }
-            var center = snapshot.center
-            center.x = UIScreen.main.bounds.width/2 + location.x - startLocation
-            snapshot.center = center
-        case .ended:
-            guard let snapshot = snapshot else { return }
-            let distance = location.x - startLocation
-            if abs(distance) > UIScreen.main.bounds.width/4 {
-                snapshot.removeFromSuperview()
-                recognizer.cell.center = snapshot.center
-                recognizer.cell.isHidden = false
-                
-                presenter.onDeleteRow(recognizer.index, row: recognizer.row, isToLeft: distance < 0)
-            } else {
-                UIView.animate(
-                    withDuration: 0.3,
-                    delay: 0,
-                    usingSpringWithDamping: 0.3,
-                    initialSpringVelocity: 1,
-                    options: .curveEaseInOut,
-                    animations: {
-                        snapshot.center = recognizer.cell.center
-                    },
-                    completion: { _ in
-                        recognizer.cell.isHidden = false
-                        snapshot.removeFromSuperview()
-                    }
-                )
-            }
-        default:
-            print("another")
-        }
     }
 }
 extension UISearchViewController: SearchViewProtocol{
@@ -192,10 +126,6 @@ extension UISearchViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.onRowSelected( dataSource[indexPath.row].name)
     }
-    
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
 }
 
 extension UISearchViewController: UITableViewDataSource{
@@ -211,11 +141,12 @@ extension UISearchViewController: UITableViewDataSource{
         
         let swipeGesture = SwipeCellGesture(
             target: self,
-            action: #selector(onSwipeCell(_:)),
+            action: nil,
             index: dataSource[indexPath.row].index,
             row: indexPath.row,
             cell: cell
         )
+        swipeGesture.swipeDelegate = self
         
         cell.addGestureRecognizer(swipeGesture)
         cell.cityName.text = city.name
@@ -226,4 +157,33 @@ extension UISearchViewController: UITableViewDataSource{
         return cell
     }
     
+}
+
+extension UISearchViewController: SwipeCellGestureDelegate {
+    
+    func viewForLocation() -> UIView {
+        return contentView.tableView
+    }
+    
+    func onBegan(_ swipeGesture: SwipeCellGesture) {
+        guard let snapshot = swipeGesture.snapshot else { return }
+        snapshot.center = swipeGesture.cell.center
+        self.contentView.tableView.addSubview(snapshot)
+        swipeGesture.cell.isHidden = true
+    }
+    
+    func onChanged(_ swipeGesture: SwipeCellGesture) {
+        
+    }
+    
+    func onEnded(_ swipeGesture: SwipeCellGesture) {
+        guard let snapshot = swipeGesture.snapshot else { return }
+        if swipeGesture.isSwiped {
+            snapshot.removeFromSuperview()
+            swipeGesture.cell.center = snapshot.center
+            swipeGesture.cell.isHidden = false
+            snapshot.isHidden = true
+            presenter.onDeleteRow(swipeGesture.index, row: swipeGesture.row, isToLeft: swipeGesture.direction == .left)
+        }
+    }
 }
