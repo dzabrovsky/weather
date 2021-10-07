@@ -54,8 +54,15 @@ extension SearchPresenter: SearchPresenterProtocol {
     }
     
     func updateDataSource() {
-        model.updateCityList(){ result in
-            self.view.updateCityList(result.convertToCity())
+        var results = [CityWeather]()
+        model.updateCityList(){ result, count in
+            results.append(result.convertToCity())
+            print(results.count)
+            if results.count == count {
+                for item in results.sorted(by: { $0.index < $1.index} ) {
+                    self.view.updateCityList(item)
+                }
+            }
         }
     }
     
