@@ -1,5 +1,13 @@
 import UIKit
 
+protocol MoveCellGestureDelegate {
+    func viewForMoveLocation() -> UIView
+    func tableViewForLocation() -> UITableView
+    func onBegan(_ swipeGesture: MoveCellGesture)
+    func onSwapCells(source: IndexPath, destination: IndexPath)
+    func onEnded(_ swipeGesture: MoveCellGesture)
+}
+
 class MoveCellGesture: UILongPressGestureRecognizer {
     
     let index: Int
