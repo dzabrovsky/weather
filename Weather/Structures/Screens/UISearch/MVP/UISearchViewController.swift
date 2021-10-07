@@ -13,7 +13,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func onRowSelected(_ cityName: String)
     func onDeleteRow(_ index: Int, row: Int, isToLeft: Bool)
     
-    func onMoveRow(at: Int, to: Int)
+    func onMoveRow(source: Int, destination: Int)
 }
 
 class UISearchViewController: UIViewController {
@@ -139,9 +139,19 @@ extension UISearchViewController: UITableViewDataSource{
             cell: cell
         )
         swipeGesture.swipeDelegate = self
+        let moveGesture = MoveCellGesture(
+            target: self,
+            action: nil,
+            index: dataSource[indexPath.row].index,
+            row: indexPath.row,
+            cell: cell
+        )
+        moveGesture.moveDelegate = self
+        moveGesture.minimumPressDuration = 0.5
         
         cell.addGestureRecognizer(swipeGesture)
         cell.cityName.text = city.name
+        cell.addGestureRecognizer(moveGesture)
         cell.temp.text = city.temp
         cell.tempFeelsLike.text = city.feelsLike
         cell.icon.image = city.icon
@@ -177,5 +187,30 @@ extension UISearchViewController: SwipeCellGestureDelegate {
             snapshot.isHidden = true
             presenter.onDeleteRow(swipeGesture.index, row: swipeGesture.row, isToLeft: swipeGesture.direction == .left)
         }
+    }
+}
+
+extension UISearchViewController: MoveCellGestureDelegate {
+    
+    func tableViewForLocation() -> UITableView {
+        return self.contentView.tableView
+    }
+    
+    func viewForMoveLocation() -> UIView {
+        return self.contentView.tableView
+    }
+    
+    func onBegan(_ swipeGesture: MoveCellGesture) {
+        guard let snapshot = swipeGesture.snapshot else { return }
+        snapshot.center = swipeGesture.cell.center
+        self.contentView.tableView.addSubview(snapshot)
+        swipeGesture.cell.isHidden = true
+    }
+    
+    func onSwapCells(source: IndexPath, destination: IndexPath) {
+        presenter.onMoveRow(source: dataSource[source.row].index, destination: dataSource[destination.row].index)
+    }
+    
+    func onEnded(_ swipeGesture: MoveCellGesture) {
     }
 }
