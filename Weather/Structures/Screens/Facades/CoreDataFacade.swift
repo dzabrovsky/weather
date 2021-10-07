@@ -8,7 +8,7 @@ protocol CoreDataFacadeProtocol {
     func getCityName(lat: Double, lon: Double, completion: @escaping (String, Double, Double) -> ())
     func getCities() -> [Cities]?
     func deleteCityFromList(_ index: Int, completion: @escaping () -> ())
-    func swapCitiesInList(at: Int, to: Int, completion: @escaping () -> ())
+    func swapCitiesInList(source: Int, destination: Int)
 }
 
 class CoreDataFacade {
@@ -91,15 +91,14 @@ extension CoreDataFacade: CoreDataFacadeProtocol {
         }
     }
     
-    func swapCitiesInList(at: Int, to: Int, completion: @escaping () -> ()) {
+    func swapCitiesInList(source: Int, destination: Int) {
         do{
             guard let cities = (try context.fetch(Cities.fetchRequest())) as? [Cities] else { return }
-            guard let cityAt = cities.first(where: { $0.index == at } ) else { return }
-            guard let cityTo = cities.first(where: { $0.index == to } ) else { return }
-            cityAt.index = to
-            cityTo.index = at
+            guard let cityAt = cities.first(where: { $0.index == source } ) else { return }
+            guard let cityTo = cities.first(where: { $0.index == destination } ) else { return }
+            cityAt.index = destination
+            cityTo.index = source
             try context.save()
-            completion()
         }catch{
             //error
         }

@@ -25,15 +25,15 @@ class SearchModel{
         }
     }
     
-    func updateCityList(completion: @escaping (CityListItem) -> Void){
+    func updateCityList(completion: @escaping (CityListItem, Int) -> Void){
         guard var cities = coreDataFacade.getCities() else { return }
-        cities.sort(by: { $0.index > $1.index })
+        cities.sort(by: { $0.index < $1.index })
         for item in cities {
             print(item.index)
             updateWeatherInCity(item.name) { result in
                 var city = result
                 city.index = item.index
-                completion(city)
+                completion(city, cities.count)
             }
         }
     }
@@ -87,9 +87,7 @@ class SearchModel{
         }
     }
     
-    func swapCitiesInList(at: Int, to: Int, completion: @escaping () -> ()) {
-        coreDataFacade.swapCitiesInList(at: at, to: to) {
-            completion()
-        }
+    func swapCitiesInList(source: Int, destination: Int) {
+        coreDataFacade.swapCitiesInList(source: source, destination: destination)
     }
 }
