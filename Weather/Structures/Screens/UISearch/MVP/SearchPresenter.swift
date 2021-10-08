@@ -93,7 +93,7 @@ extension SearchPresenter: SearchPresenterProtocol {
         }
     }
     
-    func onMoveRow(source: Int, destination: Int) {
-        model.swapCitiesInList(source: source, destination: destination)
+    func onMoveRow(at source: Int, to destination: Int) {
+        model.swapCitiesInList(at: source, to: destination)
     }
 }

@@ -4,7 +4,7 @@ protocol MoveCellGestureDelegate {
     func viewForMoveLocation() -> UIView
     func tableViewForLocation() -> UITableView
     func onBegan(_ swipeGesture: MoveCellGesture)
-    func onSwapCells(source: IndexPath, destination: IndexPath)
+    func onSwapCells(at source: IndexPath, to destination: IndexPath)
     func onEnded(_ swipeGesture: MoveCellGesture)
 }
 
@@ -87,7 +87,7 @@ class MoveCellGesture: UILongPressGestureRecognizer {
         if sourcePath != destinatePath {
             guard let tableView = tableView else { return }
             tableView.moveRow(at: destinatePath, to: sourcePath)
-            moveDelegate.onSwapCells(source: sourcePath, destination: destinatePath)
+            moveDelegate.onSwapCells(at: sourcePath, to: destinatePath)
             sourceLocation = location
         }
         moveSnapshotBySwipe()

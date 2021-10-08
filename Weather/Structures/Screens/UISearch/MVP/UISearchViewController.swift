@@ -13,7 +13,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func onRowSelected(_ cityName: String)
     func onDeleteRow(_ index: Int, row: Int, isToLeft: Bool)
     
-    func onMoveRow(source: Int, destination: Int)
+    func onMoveRow(at source: Int, to destination: Int)
 }
 
 class UISearchViewController: UIViewController {
@@ -207,8 +207,8 @@ extension UISearchViewController: MoveCellGestureDelegate {
         swipeGesture.cell.isHidden = true
     }
     
-    func onSwapCells(source: IndexPath, destination: IndexPath) {
-        presenter.onMoveRow(source: dataSource[source.row].index, destination: dataSource[destination.row].index)
+    func onSwapCells(at source: IndexPath, to destination: IndexPath) {
+        presenter.onMoveRow(at: dataSource[source.row].index, to: dataSource[destination.row].index)
     }
     
     func onEnded(_ swipeGesture: MoveCellGesture) {
