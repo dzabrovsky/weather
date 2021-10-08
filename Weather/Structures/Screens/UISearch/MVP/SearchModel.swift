@@ -89,5 +89,6 @@ class SearchModel{
     
     func swapCitiesInList(source: Int, destination: Int) {
         coreDataFacade.swapCitiesInList(source: source, destination: destination)
+        coreDataFacade.swapCitiesInList(at: source, to: destination)
     }
 }
