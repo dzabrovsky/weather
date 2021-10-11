@@ -163,30 +163,6 @@ extension UISearchViewController: UITableViewDataSource{
 
 extension UISearchViewController: SwipeCellGestureDelegate {
     
-    func viewForLocation() -> UIView {
-        return contentView.tableView
-    }
-    
-    func onBegan(_ swipeGesture: SwipeCellGesture) {
-        guard let snapshot = swipeGesture.snapshot else { return }
-        snapshot.center = swipeGesture.cell.center
-        self.contentView.tableView.addSubview(snapshot)
-        swipeGesture.cell.isHidden = true
-    }
-    
-    func onChanged(_ swipeGesture: SwipeCellGesture) {
-        
-    }
-    
-    func onEnded(_ swipeGesture: SwipeCellGesture) {
-        guard let snapshot = swipeGesture.snapshot else { return }
-        if swipeGesture.isSwiped {
-            snapshot.removeFromSuperview()
-            swipeGesture.cell.center = snapshot.center
-            swipeGesture.cell.isHidden = false
-            snapshot.isHidden = true
-            presenter.onDeleteRow(swipeGesture.index, row: swipeGesture.row, isToLeft: swipeGesture.direction == .left)
-        }
     func onSwipe(_ swipeGesture: SwipeCellGesture) {
         presenter.onDeleteRow(swipeGesture.index, row: swipeGesture.row, isToLeft: swipeGesture.direction == .left)
     }

@@ -1,10 +1,6 @@
 import UIKit
 
 protocol SwipeCellGestureDelegate {
-    func viewForLocation() -> UIView
-    func onBegan(_ swipeGesture: SwipeCellGesture)
-    func onChanged(_ swipeGesture: SwipeCellGesture)
-    func onEnded(_ swipeGesture: SwipeCellGesture)
     func onSwipe(_ swipeGesture: SwipeCellGesture)
 }
 
@@ -14,21 +10,7 @@ class SwipeCellGesture: UISwipeGestureRecognizer {
     let row: Int
     let cell: UIView
     
-    var snapshot: UIView?
-    var isSwiped: Bool = false
-    var direction: UISwipeGestureRecognizer.Direction = .left
-    
-    private var viewForLocation: UIView?
-    
-    private var startLocation: CGFloat = 0
-    private var distance: CGFloat = 0
-    private var swipeDisctance: CGFloat = UIScreen.main.bounds.width/2
-    
-    var swipeDelegate: SwipeCellGestureDelegate? {
-        didSet{
-            self.viewForLocation = self.swipeDelegate?.viewForLocation()
-        }
-    }
+    var swipeDelegate: SwipeCellGestureDelegate?
     
     init(target: Any?, action: Selector?, index: Int, row: Int, cell: UIView) {
         self.cell = cell
