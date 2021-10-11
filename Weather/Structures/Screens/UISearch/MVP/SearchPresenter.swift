@@ -18,6 +18,15 @@ protocol SearchRouterProtocol: AnotherRouterProtocol {
     func showMapView()
 }
 
+protocol SearchModelProtocol {
+    func searchCity(_ byName: String, completion: @escaping (SearchGeoNames) -> ())
+    func updateCityList(completion: @escaping (CityListItem, Int) -> Void)
+    func getCityData(_ name: String, completion: @escaping (String, Double, Double) -> () )
+    func insertCity(_ name: String, completion: @escaping (CityListItem?, CheckResult) -> Void)
+    func deleteCity(_ index: Int, completion: @escaping () -> ())
+    func swapCitiesInList(at source: Int, to destination: Int)
+}
+
 class SearchPresenter {
     
     var router: SearchRouterProtocol!
