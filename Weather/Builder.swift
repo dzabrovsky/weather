@@ -5,6 +5,8 @@ class Builder: BuilderProtocol {
     func buildNavigationController() -> UINavigationController {
         let navigationController = UINavigationController()
         navigationController.isNavigationBarHidden = true
+        let router = Router(navigationController: navigationController, builder: self)
+        router.showLaunchScreen()
         return navigationController
     }
     
