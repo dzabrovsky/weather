@@ -30,7 +30,7 @@ protocol SearchModelProtocol {
 class SearchPresenter {
     
     var router: SearchRouterProtocol!
-    var model: SearchModel!
+    var model: SearchModelProtocol!
     var view: SearchViewProtocol!
 }
 
