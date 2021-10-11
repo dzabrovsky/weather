@@ -36,6 +36,12 @@ class MoveCellGesture: UILongPressGestureRecognizer {
         self.index = index
         self.row = row
         super.init(target: target, action: action)
+        
+        setup()
+    }
+    
+    private func setup(){
+        self.minimumPressDuration = 0.5
         addTarget(self, action: #selector(onPressCell))
     }
     

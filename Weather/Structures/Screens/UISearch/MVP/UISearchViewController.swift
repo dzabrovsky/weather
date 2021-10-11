@@ -147,7 +147,6 @@ extension UISearchViewController: UITableViewDataSource{
             cell: cell
         )
         moveGesture.moveDelegate = self
-        moveGesture.minimumPressDuration = 0.5
         
         cell.addGestureRecognizer(swipeGesture)
         cell.cityName.text = city.name
