@@ -18,9 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         
-        let navigationController = UINavigationController()
-        navigationController.isNavigationBarHidden = true
         let builder = Builder()
+        let navigationController = builder.buildNavigationController()
         let router = Router(navigationController: navigationController, builder: builder)
         
         router.showLaunchScreen()
