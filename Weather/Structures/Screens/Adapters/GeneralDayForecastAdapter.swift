@@ -1,9 +1,9 @@
 import UIKit
 
 class GeneralDayForecastAdapter: NSObject {
-    let data: Forecast
+    private var data: Forecast?
     
-    init(data: Forecast) {
+    func setData(_ data: Forecast) {
         self.data = data
     }
 }
@@ -14,11 +14,12 @@ extension GeneralDayForecastAdapter: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let data = data else { return 0 }
         return data.forecast.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+        guard let data = data else { return UITableViewCell() }
         if indexPath.row > 0{
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "UIWeatherDayCell", for: indexPath) as? UIWeatherDayCell else {

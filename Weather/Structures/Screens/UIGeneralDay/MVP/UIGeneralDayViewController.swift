@@ -8,8 +8,7 @@ protocol GeneralDayPresenterProtocol: AnyObject {
     func onTapThemeButton()
     func onTapCityListButton()
     func onTapLocationButton()
-    func showDayDetails(_ dataSource: ForecastDay, cityName: String)
-    
+    func showDayDetails(_ index: Int)
 }
 
 class UIGeneralDayViewController: UIViewController {
@@ -17,9 +16,6 @@ class UIGeneralDayViewController: UIViewController {
     var presenter: GeneralDayPresenterProtocol!
     
     var contentView: UIGeneralDayView = UIGeneralDayView()
-    
-    private var dataSource: Forecast!
-    private var cellsCount: Int = 0
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -63,7 +59,6 @@ class UIGeneralDayViewController: UIViewController {
     private func setup(){
         
         contentView.tableView.delegate = self
-        contentView.tableView.dataSource = self
         
         view = contentView
         ThemeManager.setLastTheme(sender: self)
@@ -76,51 +71,14 @@ class UIGeneralDayViewController: UIViewController {
         contentView.tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
         
     }
-    
 }
 
 extension UIGeneralDayViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showDayDetails(dataSource.forecast[indexPath.row], cityName: dataSource.cityName)
+        presenter.showDayDetails(indexPath.row)
     }
     
-}
-
-extension UIGeneralDayViewController: UITableViewDataSource{
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellsCount
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.row > 0{
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UIWeatherDayCell", for: indexPath) as? UIWeatherDayCell else {
-                assertionFailure()
-                return UITableViewCell()
-            }
-            cell.setupCell()
-            cell.refresh(dataSource.forecast[indexPath.row])
-            return cell
-            
-        }else{
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UITodayWeatherCell", for: indexPath) as? UITodayWeatherCell else {
-                assertionFailure()
-                return UITableViewCell()
-            }
-            cell.setupCell()
-            cell.refresh(dataSource.forecast[indexPath.row])
-            return cell
-            
-        }
-    }
 }
 
 extension UIGeneralDayViewController: GeneralDayViewProtocol {
@@ -134,13 +92,10 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
         self.contentView.header.title.text = name
     }
     
-    func refreshData(_ dataSource: Forecast){
+    func refreshData(_ data: Forecast){
         
-        self.dataSource = dataSource
-        self.cellsCount = dataSource.forecast.count
-        self.contentView.tableView.reloadData()
-        self.contentView.tableView.refreshControl?.endRefreshing()
-        self.updateCityName(dataSource.cityName)
+        self.contentView.refreshData(data)
+        self.updateCityName(data.cityName)
     }
     
     func updateCells() {
