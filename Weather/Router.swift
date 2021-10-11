@@ -20,18 +20,13 @@ class Router: RouterProtocol {
     
     private let navigationController: UINavigationController
     private let builder: BuilderProtocol
-    private var generalDayView: UIViewController!
-    
     init(navigationController: UINavigationController, builder: BuilderProtocol) {
         self.builder = builder
         self.navigationController = navigationController
     }
     
-    func initialGeneralDayView() {
-        generalDayView = builder.buildGeneralDayScreen(self)
-    }
-    
     func showGeneralDayView(){
+        let generalDayView = builder.buildGeneralDayScreen(self)
         navigationController.viewControllers = [generalDayView]
     }
     
