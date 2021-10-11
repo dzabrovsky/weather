@@ -5,9 +5,10 @@ protocol SwipeCellGestureDelegate {
     func onBegan(_ swipeGesture: SwipeCellGesture)
     func onChanged(_ swipeGesture: SwipeCellGesture)
     func onEnded(_ swipeGesture: SwipeCellGesture)
+    func onSwipe(_ swipeGesture: SwipeCellGesture)
 }
 
-class SwipeCellGesture: UIPanGestureRecognizer {
+class SwipeCellGesture: UISwipeGestureRecognizer {
     
     let index: Int
     let row: Int
@@ -34,6 +35,7 @@ class SwipeCellGesture: UIPanGestureRecognizer {
         self.index = index
         self.row = row
         super.init(target: target, action: action)
+        direction = .left
         addTarget(self, action: #selector(onSwipeCell))
     }
     
@@ -53,21 +55,9 @@ class SwipeCellGesture: UIPanGestureRecognizer {
     }
     
     @IBAction func onSwipeCell(){
+        guard state == .ended else { return }
         guard let swipeDelegate = swipeDelegate else { return }
-        switch self.state {
-        case .began:
-            self.onBegan()
-            swipeDelegate.onBegan(self)
-        case .changed:
-            self.onChanged()
-            swipeDelegate.onChanged(self)
-        case .ended:
-            self.onEnded()
-            swipeDelegate.onEnded(self)
-            startLocation = 0
-        default:
-            print("Another state")
-        }
+        swipeDelegate.onSwipe(self)
     }
     
     private func onBegan() {

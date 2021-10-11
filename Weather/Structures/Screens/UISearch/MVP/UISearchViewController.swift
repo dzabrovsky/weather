@@ -187,6 +187,8 @@ extension UISearchViewController: SwipeCellGestureDelegate {
             snapshot.isHidden = true
             presenter.onDeleteRow(swipeGesture.index, row: swipeGesture.row, isToLeft: swipeGesture.direction == .left)
         }
+    func onSwipe(_ swipeGesture: SwipeCellGesture) {
+        presenter.onDeleteRow(swipeGesture.index, row: swipeGesture.row, isToLeft: swipeGesture.direction == .left)
     }
 }
 
