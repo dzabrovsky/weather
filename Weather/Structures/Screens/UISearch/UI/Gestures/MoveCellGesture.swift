@@ -10,7 +10,6 @@ protocol MoveCellGestureDelegate {
 
 class MoveCellGesture: UILongPressGestureRecognizer {
     
-    let index: Int
     let row: Int
     let cell: UITableViewCell
     
@@ -24,23 +23,20 @@ class MoveCellGesture: UILongPressGestureRecognizer {
     
     private var startLocation: CGPoint = CGPoint(x: 0, y: 0)
     
-    var moveDelegate: MoveCellGestureDelegate? {
-        didSet{
-            self.tableView = self.moveDelegate?.tableViewForLocation()
-            self.viewForLocation = self.moveDelegate?.viewForMoveLocation()
-        }
-    }
+    let moveDelegate: MoveCellGestureDelegate
     
-    init(target: Any?, action: Selector?, index: Int, row: Int, cell: UITableViewCell) {
+    init(target: Any?, action: Selector?, row: Int, cell: UITableViewCell, moveDelegate: MoveCellGestureDelegate) {
         self.cell = cell
-        self.index = index
         self.row = row
+        self.moveDelegate = moveDelegate
         super.init(target: target, action: action)
         
         setup()
     }
     
     private func setup(){
+        self.tableView = self.moveDelegate.tableViewForLocation()
+        self.viewForLocation = self.moveDelegate.viewForMoveLocation()
         self.minimumPressDuration = 0.5
         addTarget(self, action: #selector(onPressCell))
     }
@@ -61,7 +57,6 @@ class MoveCellGesture: UILongPressGestureRecognizer {
     }
     
     @IBAction func onPressCell(){
-        guard let moveDelegate = moveDelegate else { return }
         switch self.state {
         case .began:
             self.onBegan()
@@ -85,7 +80,6 @@ class MoveCellGesture: UILongPressGestureRecognizer {
     }
     
     private func onChanged() {
-        guard let moveDelegate = moveDelegate else { return }
         let location = location(in: viewForLocation)
         destinateLocation = location
         guard let sourcePath = tableView?.indexPathForRow(at: sourceLocation) else { return }

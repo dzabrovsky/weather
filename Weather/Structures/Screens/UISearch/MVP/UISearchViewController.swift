@@ -142,11 +142,10 @@ extension UISearchViewController: UITableViewDataSource{
         let moveGesture = MoveCellGesture(
             target: self,
             action: nil,
-            index: dataSource[indexPath.row].index,
             row: indexPath.row,
-            cell: cell
+            cell: cell,
+            moveDelegate: self
         )
-        moveGesture.moveDelegate = self
         
         cell.addGestureRecognizer(swipeGesture)
         cell.cityName.text = city.name
