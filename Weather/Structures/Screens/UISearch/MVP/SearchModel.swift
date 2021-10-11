@@ -24,6 +24,9 @@ class SearchModel{
             completion(result)
         }
     }
+}
+
+extension SearchModel: SearchModelProtocol {
     
     func updateCityList(completion: @escaping (CityListItem, Int) -> Void){
         guard var cities = coreDataFacade.getCities() else { return }
