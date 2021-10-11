@@ -2,11 +2,14 @@ import UIKit
 
 class Builder: BuilderProtocol {
     
+    func buildRouter(_ navigationController: UINavigationController) -> Router {
+        let router = Router(navigationController: navigationController, builder: self)
+        return router
+    }
+    
     func buildNavigationController() -> UINavigationController {
         let navigationController = UINavigationController()
         navigationController.isNavigationBarHidden = true
-        let router = Router(navigationController: navigationController, builder: self)
-        router.showLaunchScreen()
         return navigationController
     }
     
