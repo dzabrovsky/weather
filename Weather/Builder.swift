@@ -2,6 +2,12 @@ import UIKit
 
 class Builder: BuilderProtocol {
     
+    func buildNavigationController() -> UINavigationController {
+        let navigationController = UINavigationController()
+        navigationController.isNavigationBarHidden = true
+        return navigationController
+    }
+    
     func buildLaunchScreen(_ router: LaunchRouterProtocol) -> UIViewController {
         let view = UILaunchScreen()
         let presenter = LaunchPresenter()
