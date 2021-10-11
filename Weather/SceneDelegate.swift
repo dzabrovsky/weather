@@ -19,8 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         
         let builder = Builder()
+        let navigationController = builder.buildNavigationController()
+        let router = builder.buildRouter(navigationController)
         
-        window?.rootViewController = builder.buildNavigationController()
+        router.showLaunchScreen()
+        
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
     
