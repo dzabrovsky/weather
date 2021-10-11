@@ -51,6 +51,8 @@ class UILaunchScreen: UIViewController {
     }()
     
     override func viewDidLoad() {
+        self.modalPresentationStyle = .fullScreen
+        self.modalTransitionStyle = .crossDissolve
         super.viewDidLoad()
     
         showLaunchScreen()

@@ -37,8 +37,6 @@ class Router: RouterProtocol {
     
     func showLaunchScreen() {
         let launchViewController = builder.buildLaunchScreen(self) as! UILaunchScreen
-        launchViewController.modalPresentationStyle = .fullScreen
-        launchViewController.modalTransitionStyle = .crossDissolve
         navigationController.pushViewController(launchViewController, animated: true)
     }
     
