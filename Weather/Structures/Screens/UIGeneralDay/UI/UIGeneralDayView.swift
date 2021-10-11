@@ -9,6 +9,8 @@ import UIKit
 
 class UIGeneralDayView: UIView {
     
+    private let adapter: GeneralDayForecastAdapter = GeneralDayForecastAdapter()
+    
     let header: UIGeneralDayHeader = {
         let header = UIGeneralDayHeader()
         header.title.text = "Тамбов"
@@ -34,6 +36,7 @@ class UIGeneralDayView: UIView {
         super.init(frame: CGRect())
         
         setup()
+        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -41,6 +44,10 @@ class UIGeneralDayView: UIView {
     }
     
     private func setup(){
+        tableView.dataSource = adapter
+    }
+    
+    private func layout() {
         
         self.backgroundColor = UIColor.init(named: "background")
         
@@ -58,6 +65,12 @@ class UIGeneralDayView: UIView {
             tableView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16),
             tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+    
+    func refreshData(_ data: Forecast) {
+        adapter.setData(data)
+        tableView.reloadData()
+        tableView.refreshControl?.endRefreshing()
     }
     
 }
