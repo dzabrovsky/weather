@@ -27,7 +27,7 @@ class Builder: BuilderProtocol {
         presenter.view = view
         presenter.model = model
         presenter.router = router
-        view.setPresenter(presenter)
+        view.presenter = presenter
         
         return view
     }

@@ -31,10 +31,6 @@ class UIGeneralDayViewController: UIViewController {
         
         setup()
         setActions()
-    }
-    
-    func setPresenter(_ presenter: GeneralDayPresenterProtocol){
-        self.presenter = presenter
         presenter.didGeneralDayScreenLoad()
     }
     
