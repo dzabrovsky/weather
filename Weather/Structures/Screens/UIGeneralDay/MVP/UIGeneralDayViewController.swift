@@ -27,7 +27,9 @@ class UIGeneralDayViewController: UIViewController {
     
     private func setup(){
         
-        contentView.tableView.delegate = self
+        contentView.onRowSelected() { row in
+            self.presenter.showDayDetails(row)
+        }
         view = contentView
     }
     
@@ -53,13 +55,6 @@ class UIGeneralDayViewController: UIViewController {
     
     @objc private func pullToRefresh(sender: UIRefreshControl){
         presenter.updateDataByUser()
-    }
-}
-
-extension UIGeneralDayViewController: UITableViewDelegate{
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.showDayDetails(indexPath.row)
     }
 }
 
