@@ -12,7 +12,6 @@ protocol UserDataRepositoryProtocol {
     
     func getDefaultCoordinates() -> Coordindates
     func getDefaultCityName() -> String
-    func setDefaultData()
 }
 
 private let cityKeyName = "WeatherApp_city_name"
@@ -70,14 +69,18 @@ extension UserDataRepository: UserDataRepositoryProtocol {
     
     func getSavedCoordinates() -> Coordindates? {
         
-        guard isKeyExists(key: coordKeyLat) else { return nil }
+        if !isKeyExists(key: coordKeyLat){
+            setDefaultData()
+        }
         return Coordindates(
             lat: userDefaults.double(forKey: coordKeyLat),
             lon: userDefaults.double(forKey: coordKeyLon))
     }
     
     func getSavedCityName() -> String? {
-        guard isKeyExists(key: cityKeyName) else { return nil }
+        if !isKeyExists(key: cityKeyName){
+            setDefaultData()
+        }
         return userDefaults.string(forKey: cityKeyName)
     }
     

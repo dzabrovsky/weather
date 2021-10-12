@@ -43,9 +43,6 @@ class GeneralDayPresenter{
 extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     
     func didGeneralDayScreenLoad() {
-        if userDataRepository.getSavedCoordinates() == nil {
-            userDataRepository.setDefaultData()
-        }
         guard let coord = userDataRepository.getSavedCoordinates() else { return }
         model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
             userDataRepository.saveCityName(name: result.city.name)
@@ -66,9 +63,6 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     }
     
     func updateDataByUser() {
-        if userDataRepository.getSavedCoordinates() == nil {
-            userDataRepository.setDefaultData()
-        }
         guard let coord = userDataRepository.getSavedCoordinates() else { return }
         model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { result in
             self.userDataRepository.saveCityName(name: result.city.name)
