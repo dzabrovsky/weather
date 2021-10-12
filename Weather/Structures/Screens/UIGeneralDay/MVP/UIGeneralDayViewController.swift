@@ -55,9 +55,7 @@ class UIGeneralDayViewController: UIViewController {
     private func setup(){
         
         contentView.tableView.delegate = self
-        
         view = contentView
-        ThemeManager.setLastTheme(sender: self)
     }
     
     private func setActions(){
