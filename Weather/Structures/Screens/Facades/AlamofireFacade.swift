@@ -24,14 +24,11 @@ class AlamofireFacade {
     
     private func getTodayMissingHours(lat: Double, lon: Double, completion: @escaping (MissingForecastCodable) -> ()) {
         
-        let lang = UserDataRepository.shared.getLang()
-        let APIKey = UserDataRepository.shared.getAPIKey()
-        let units = UserDataRepository.shared.getUnits()
         let time = dropTime(Int(Date().timeIntervalSince1970))
         
         let APIUrl = "http://api.openweathermap.org/data/2.5/onecall/timemachine?"
         
-        guard let url = URL(string: ("\(APIUrl)lat=\(lat)&lon=\(lon)&dt=\(time)&units=\(units)&lang=\(lang)&appid=\(APIKey)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)lat=\(lat)&lon=\(lon)&dt=\(time)&units=\(unitsConstant)&lang=\(langConstant)&appid=\(APIKeyConstant)").encodeUrl)
         else { return }
         
         AF.request(url)
@@ -63,13 +60,9 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     
     func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ()) {
         
-        let lang = UserDataRepository.shared.getLang()
-        let APIKey = UserDataRepository.shared.getAPIKey()
-        let units = UserDataRepository.shared.getUnits()
-        
         let APIUrl = "https://api.openweathermap.org/data/2.5/forecast"
         
-        guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
         else { return }
         
         getTodayMissingHours(lat: lat, lon: lon) { result in
@@ -86,13 +79,9 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     
     func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ()) {
         
-        let lang = UserDataRepository.shared.getLang()
-        let APIKey = UserDataRepository.shared.getAPIKey()
-        let units = UserDataRepository.shared.getUnits()
-        
         let APIUrl = "https://api.openweathermap.org/data/2.5/forecast"
         
-        guard let url = URL(string: ("\(APIUrl)?q=\(cityName)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)?q=\(cityName)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
         else { return }
         
         AF.request(url)
@@ -105,14 +94,10 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     }
     
     func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ()) {
-        
-        let lang = UserDataRepository.shared.getLang()
-        let APIKey = UserDataRepository.shared.getAPIKey()
-        let units = UserDataRepository.shared.getUnits()
-        
+
         let APIUrl = "https://api.openweathermap.org/data/2.5/weather"
         
-        guard let url = URL(string: ("\(APIUrl)?q=\(cityName)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)?q=\(cityName)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
         else { return }
         var result = CityListItem()
         
@@ -137,14 +122,10 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     }
     
     func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ()) {
-        
-        let lang = UserDataRepository.shared.getLang()
-        let APIKey = UserDataRepository.shared.getAPIKey()
-        let units = UserDataRepository.shared.getUnits()
-        
+
         let APIUrl = "https://api.openweathermap.org/data/2.5/weather"
         
-        guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKey)&lang=\(lang)&units=\(units)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
         else { return }
         var result = CityListItem()
         
@@ -170,10 +151,9 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     
     func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ()){
         
-        let lang = UserDataRepository.shared.getLang()
         let APIUrl = "http://api.geonames.org/searchJSON?"
         
-        guard let url = URL(string: ("\(APIUrl)q=\(cityName)&username=ivan&style=MEDIUM&lang=\(lang)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)q=\(cityName)&username=ivan&style=MEDIUM&lang=\(langConstant)").encodeUrl)
         else { return }
         print(url)
         AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
@@ -187,10 +167,9 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
     
     func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> ()){
         
-        let lang = UserDataRepository.shared.getLang()
         let APIUrl = "http://api.geonames.org/searchJSON?"
         
-        guard let url = URL(string: ("\(APIUrl)name_startsWith=\(symbols)&username=ivan&style=MEDIUM&lang=\(lang)").encodeUrl)
+        guard let url = URL(string: ("\(APIUrl)name_startsWith=\(symbols)&username=ivan&style=MEDIUM&lang=\(langConstant)").encodeUrl)
         else { return }
         AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
             if let data = response.value {

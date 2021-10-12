@@ -6,10 +6,6 @@ protocol UserDataRepositoryProtocol {
     func saveCity(lat: Double, lon: Double)
     func saveCityName(name: String)
     
-    func getLang() -> String
-    func getUnits() -> String
-    func getAPIKey() -> String
-    
     func getDefaultCoordinates() -> Coordindates
     func getDefaultCityName() -> String
 }
@@ -26,10 +22,6 @@ class UserDataRepository {
     static let shared: UserDataRepositoryProtocol = UserDataRepository()
     
     private let userDefaults = UserDefaults.standard
-    
-    let lang: String = "ru"
-    let units: String = "metric"
-    let APIKey:String = "830e252225a6214c4370ecfee9b1d912"
     
     private init(){
         
@@ -53,18 +45,6 @@ extension UserDataRepository: UserDataRepositoryProtocol {
     
     func getDefaultCoordinates() -> Coordindates {
         return defaultCoordinates
-    }
-    
-    func getLang() -> String {
-        return lang
-    }
-    
-    func getUnits() -> String {
-        return units
-    }
-    
-    func getAPIKey() -> String {
-        return APIKey
     }
     
     func getSavedCoordinates() -> Coordindates? {
