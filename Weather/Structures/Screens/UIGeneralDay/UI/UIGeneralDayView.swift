@@ -75,4 +75,7 @@ class UIGeneralDayView: UIView {
         tableView.refreshControl?.endRefreshing()
     }
     
+    func onRowSelected(handler: @escaping (Int) -> ()){
+        delegateAdapter.setDelegate(delegate: handler)
+    }
 }
