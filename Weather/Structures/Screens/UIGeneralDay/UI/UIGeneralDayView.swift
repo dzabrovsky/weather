@@ -10,6 +10,7 @@ import UIKit
 class UIGeneralDayView: UIView {
     
     private let adapter: GeneralDayForecastAdapter = GeneralDayForecastAdapter()
+    private let delegateAdapter: GeneralDayDelegateAdapter = GeneralDayDelegateAdapter()
     
     let header: UIGeneralDayHeader = {
         let header = UIGeneralDayHeader()
@@ -45,6 +46,7 @@ class UIGeneralDayView: UIView {
     
     private func setup(){
         tableView.dataSource = adapter
+        tableView.delegate = delegateAdapter
     }
     
     private func layout() {
