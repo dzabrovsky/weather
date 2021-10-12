@@ -64,10 +64,10 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
             UserDataRepository.shared.setDefaultData()
         }
         guard let coord = UserDataRepository.shared.getSavedCoordinates() else { return }
-        model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
+        model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { result in
             UserDataRepository.shared.saveCityName(name: result.city.name)
-            currentData = result.convertToForecast()
-            guard let currentData = currentData else { return }
+            self.currentData = result.convertToForecast()
+            guard let currentData = self.currentData else { return }
             self.view.refreshData(currentData)
         }
     }
