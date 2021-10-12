@@ -44,6 +44,7 @@ class Router: RouterProtocol {
         let searchViewController = builder.buildDayDetailsScreen(self, dataSource: dataSource, cityName: cityName)
         navigationController.pushViewController(searchViewController, animated: true)
     }
+    
     func showMapView(){
         let mapViewController = builder.buildMapScreen(self)
         navigationController.pushViewController(mapViewController, animated: true)
