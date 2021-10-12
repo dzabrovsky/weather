@@ -24,7 +24,13 @@ class GeneralDayPresenter{
     var model: GeneralDayModelProtocol!
     var view: GeneralDayViewProtocol!
     
+    let userDataRepository: UserDataRepositoryProtocol
+    
     var currentData: Forecast?
+    
+    init(userDataRepository: UserDataRepositoryProtocol) {
+        self.userDataRepository = userDataRepository
+    }
     
     func updateWeatherData(_ data: ForecastCodable) {
         let dataSource = data.convertToForecast()
@@ -37,12 +43,12 @@ class GeneralDayPresenter{
 extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     
     func didGeneralDayScreenLoad() {
-        if UserDataRepository.shared.getSavedCoordinates() == nil {
-            UserDataRepository.shared.setDefaultData()
+        if userDataRepository.getSavedCoordinates() == nil {
+            userDataRepository.setDefaultData()
         }
-        guard let coord = UserDataRepository.shared.getSavedCoordinates() else { return }
+        guard let coord = userDataRepository.getSavedCoordinates() else { return }
         model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { [unowned self] result in
-            UserDataRepository.shared.saveCityName(name: result.city.name)
+            userDataRepository.saveCityName(name: result.city.name)
             self.view.refreshData(result.convertToForecast())
         }
     }
@@ -60,12 +66,12 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     }
     
     func updateDataByUser() {
-        if UserDataRepository.shared.getSavedCoordinates() == nil {
-            UserDataRepository.shared.setDefaultData()
+        if userDataRepository.getSavedCoordinates() == nil {
+            userDataRepository.setDefaultData()
         }
-        guard let coord = UserDataRepository.shared.getSavedCoordinates() else { return }
+        guard let coord = userDataRepository.getSavedCoordinates() else { return }
         model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { result in
-            UserDataRepository.shared.saveCityName(name: result.city.name)
+            userDataRepository.saveCityName(name: result.city.name)
             self.currentData = result.convertToForecast()
             guard let currentData = self.currentData else { return }
             self.view.refreshData(currentData)
