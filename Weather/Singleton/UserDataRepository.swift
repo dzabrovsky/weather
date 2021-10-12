@@ -5,17 +5,11 @@ protocol UserDataRepositoryProtocol {
     func getSavedCityName() -> String?
     func saveCity(lat: Double, lon: Double)
     func saveCityName(name: String)
-    
-    func getDefaultCoordinates() -> Coordindates
-    func getDefaultCityName() -> String
 }
 
 private let cityKeyName = "WeatherApp_city_name"
 private let coordKeyLat = "WeatherApp_coordinates_latitude"
 private let coordKeyLon = "WeatherApp_coordinates_longtitude"
-
-private let defaultCityName = "Moscow"
-private let defaultCoordinates = Coordindates(lat: 55.751244, lon: 37.618423)
 
 class UserDataRepository {
     
