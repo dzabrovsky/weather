@@ -72,13 +72,5 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
     func refreshData(_ data: Forecast){
         self.contentView.refreshData(data)
     }
-    
-    func updateCells() {
-        
-        contentView.tableView.refreshControl?.beginRefreshing()
-        contentView.tableView.reloadData()
-        contentView.tableView.refreshControl?.endRefreshing()
-    }
-    
 }
 
