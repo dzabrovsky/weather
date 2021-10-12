@@ -43,11 +43,7 @@ class GeneralDayPresenter{
 extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     
     func didGeneralDayScreenLoad() {
-        guard let coord = userDataRepository.getSavedCoordinates() else { return }
-        model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { result in
-            userDataRepository.saveCityName(name: result.city.name)
-            self.view.refreshData(result.convertToForecast())
-        }
+        updateDataByUser()
     }
     
     func onTapCityListButton() {
