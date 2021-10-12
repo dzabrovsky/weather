@@ -10,6 +10,15 @@ class UILaunchScreen: UIViewController {
     
     let launchView: UILaunchView = UILaunchView()
     
+    init(presenter: LaunchPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         self.modalPresentationStyle = .fullScreen
         self.modalTransitionStyle = .crossDissolve
