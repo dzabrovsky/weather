@@ -17,21 +17,25 @@ class UIGeneralDayViewController: UIViewController {
     
     var contentView: UIGeneralDayView = UIGeneralDayView()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         
         setup()
         setActions()
         presenter.didGeneralDayScreenLoad()
+    }
+    
+    private func setup(){
+        
+        contentView.tableView.delegate = self
+        view = contentView
+    }
+    
+    private func setActions(){
+        contentView.header.openMapButton.addTarget(self, action: #selector(onTapGetLocationButton(sender:)), for: .touchUpInside)
+        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton), for: .touchUpInside)
+        contentView.header.cityListButton.addTarget(self, action: #selector(onTapCityListButton(sender:)), for: .touchUpInside)
+        contentView.tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
     }
     
     //Actions
@@ -50,21 +54,6 @@ class UIGeneralDayViewController: UIViewController {
     @objc private func pullToRefresh(sender: UIRefreshControl){
         presenter.updateDataByUser()
     }
-    
-    //Methods
-    private func setup(){
-        
-        contentView.tableView.delegate = self
-        view = contentView
-    }
-    
-    private func setActions(){
-        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton), for: .touchUpInside)
-        contentView.header.cityListButton.addTarget(self, action: #selector(onTapCityListButton(sender:)), for: .touchUpInside)
-        contentView.header.openMapButton.addTarget(self, action: #selector(onTapGetLocationButton(sender:)), for: .touchUpInside)
-        contentView.tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
-        
-    }
 }
 
 extension UIGeneralDayViewController: UITableViewDelegate{
@@ -72,7 +61,6 @@ extension UIGeneralDayViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presenter.showDayDetails(indexPath.row)
     }
-    
 }
 
 extension UIGeneralDayViewController: GeneralDayViewProtocol {
