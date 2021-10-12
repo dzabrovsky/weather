@@ -6,7 +6,11 @@ protocol LaunchRouterProtocol {
 
 class LaunchPresenter: LaunchPresenterProtocol {
     
-    var router: LaunchRouterProtocol!
+    var router: LaunchRouterProtocol
+    
+    init(router: LaunchRouterProtocol) {
+        self.router = router
+    }
     
     func onAnimationsComplete() {
         router.showGeneralDayView()

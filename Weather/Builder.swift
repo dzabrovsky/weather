@@ -15,8 +15,7 @@ class Builder: BuilderProtocol {
     
     func buildLaunchScreen(_ router: LaunchRouterProtocol) -> UIViewController {
         let view = UILaunchScreen()
-        let presenter = LaunchPresenter()
-        presenter.router = router
+        let presenter = LaunchPresenter(router: router)
         view.presenter = presenter
         return view
     }
