@@ -69,6 +69,7 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
             self.currentData = result.convertToForecast()
             guard let currentData = self.currentData else { return }
             self.view.refreshData(currentData)
+            self.view.updateCityName(currentData.cityName)
         }
     }
     

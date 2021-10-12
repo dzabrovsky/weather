@@ -70,9 +70,7 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
     }
     
     func refreshData(_ data: Forecast){
-        
         self.contentView.refreshData(data)
-        self.updateCityName(data.cityName)
     }
     
     func updateCells() {
