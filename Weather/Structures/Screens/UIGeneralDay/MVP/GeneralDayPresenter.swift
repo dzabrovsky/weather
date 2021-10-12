@@ -71,7 +71,7 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
         }
         guard let coord = userDataRepository.getSavedCoordinates() else { return }
         model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { result in
-            userDataRepository.saveCityName(name: result.city.name)
+            self.userDataRepository.saveCityName(name: result.city.name)
             self.currentData = result.convertToForecast()
             guard let currentData = self.currentData else { return }
             self.view.refreshData(currentData)
