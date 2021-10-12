@@ -19,16 +19,19 @@ class MapPresenter {
     private let model: MapModel
     weak var view: MapViewProtocol!
     
-    init(router: MapRouterProtocol, model: MapModel) {
+    let userDataRepository: UserDataRepositoryProtocol
+    
+    init(router: MapRouterProtocol, model: MapModel, userDataRepository: UserDataRepositoryProtocol) {
         self.router = router
         self.model = model
+        self.userDataRepository = userDataRepository
     }
 }
 
 extension MapPresenter: MapPresenterProtocol {
     
     func didMapScreenLoad() {
-        if let coord = UserDataRepository.shared.getSavedCoordinates(), let cityName = UserDataRepository.shared.getSavedCityName() {
+        if let coord = userDataRepository.getSavedCoordinates(), let cityName = userDataRepository.getSavedCityName() {
             view.setRegion(lat: coord.lat, lon: coord.lon, size: 100000)
             view.setCityName(cityName)
         }else{
@@ -55,8 +58,8 @@ extension MapPresenter: MapPresenterProtocol {
     func onTapAnnotation(lat: Double, lon: Double) {
         model.insertCity(lat: lat, lon: lon) { result, info in
             guard let data = result else { return }
-            UserDataRepository.shared.saveCity(lat: data.lat, lon: data.lon)
-            UserDataRepository.shared.saveCityName(name: data.name)
+            self.userDataRepository.saveCity(lat: data.lat, lon: data.lon)
+            self.userDataRepository.saveCityName(name: data.name)
             self.router.popToRootWithSelectedCity()
         }
     }

@@ -56,7 +56,7 @@ class Builder: BuilderProtocol {
     func buildMapScreen(_ router: MapRouterProtocol) -> UIViewController{
         let view = UIMapViewController()
         let model = MapModel()
-        let presenter = MapPresenter(router: router, model: model)
+        let presenter = MapPresenter(router: router, model: model, userDataRepository: UserDataRepository.shared)
         presenter.view = view
         view.presenter = presenter
         
