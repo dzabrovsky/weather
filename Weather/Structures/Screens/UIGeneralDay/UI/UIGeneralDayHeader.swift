@@ -5,24 +5,24 @@ class UIGeneralDayHeader: UIHeader {
     let openMapButton: UIHeaderButton = {
         let headerButton = UIHeaderButton(4)
         headerButton.translatesAutoresizingMaskIntoConstraints = false
-        headerButton.icon.image=#imageLiteral(resourceName: "outline_place_black_48pt")
-        headerButton.layer.cornerRadius = 8
+        headerButton.icon.image = #imageLiteral(resourceName: "outline_place_black_48pt")
+        headerButton.layer.cornerRadius = 8 * screenScale
         return headerButton
     }()
     
     let themeButton: UIHeaderButton = {
         let headerButton = UIHeaderButton(4)
         headerButton.translatesAutoresizingMaskIntoConstraints = false
-        headerButton.icon.image=#imageLiteral(resourceName: "outline_light_mode_black_48pt")
-        headerButton.layer.cornerRadius = 8
+        headerButton.icon.image = #imageLiteral(resourceName: "outline_light_mode_black_48pt")
+        headerButton.layer.cornerRadius = 8 * screenScale
         return headerButton
     }()
 
     let cityListButton: UIHeaderButton = {
         let headerButton = UIHeaderButton(4)
         headerButton.translatesAutoresizingMaskIntoConstraints = false
-        headerButton.icon.image=#imageLiteral(resourceName: "outline_search_black_48pt")
-        headerButton.layer.cornerRadius = 8
+        headerButton.icon.image = #imageLiteral(resourceName: "outline_search_black_48pt")
+        headerButton.layer.cornerRadius = 8 * screenScale
         return headerButton
     }()
     
@@ -49,12 +49,12 @@ class UIGeneralDayHeader: UIHeader {
         
         cityListButton.heightAnchor.constraint(equalTo: openMapButton.heightAnchor).isActive = true
         cityListButton.widthAnchor.constraint(equalTo: openMapButton.widthAnchor).isActive = true
-        cityListButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        cityListButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16 * screenScale).isActive = true
         cityListButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
         themeButton.heightAnchor.constraint(equalTo: openMapButton.heightAnchor).isActive = true
         themeButton.widthAnchor.constraint(equalTo: openMapButton.widthAnchor).isActive = true
-        themeButton.rightAnchor.constraint(equalTo: cityListButton.leftAnchor, constant: -16).isActive = true
+        themeButton.rightAnchor.constraint(equalTo: cityListButton.leftAnchor, constant: -8  * screenScale).isActive = true
         themeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         
     }
