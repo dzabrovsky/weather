@@ -14,21 +14,10 @@ class UIGeneralDayView: UIView {
     
     let header: UIGeneralDayHeader = {
         let header = UIGeneralDayHeader()
-        header.title.text = "Тамбов"
-        header.backgroundColor = UIColor.init(named: "background")
-        header.translatesAutoresizingMaskIntoConstraints = false
-        
         return header
     }()
     
-    let tableView: UIGeneralDayTable = {
-        let table = UIGeneralDayTable()
-        table.setup()
-        table.backgroundColor = UIColor.init(named: "background")
-        table.translatesAutoresizingMaskIntoConstraints = false
-        
-        return table
-    }()
+    let tableView = UIGeneralDayTable()
     
     var todayView = UITodayWeatherCell()
     
