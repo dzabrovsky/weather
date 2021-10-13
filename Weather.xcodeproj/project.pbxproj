@@ -195,6 +195,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5406EC922715B54E0072A41C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5406EC932715B5650072A41C /* UIViewExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5406EC952715B8860072A41C /* UIWeatherDayCell */ = {
+			isa = PBXGroup;
+			children = (
+				5406EC962715B8A00072A41C /* UIWeatherDayCellHeader.swift */,
+				542FD2F226CE658200AC4077 /* UIHourWeatherCell.swift */,
+				5406EC982715B8C00072A41C /* UIWeatherDayCellCollection.swift */,
+				54203707271701C10069A6FD /* UIDescriptionLabel.swift */,
+				54203709271702A20069A6FD /* UIIconImage.swift */,
+				5420370B271703200069A6FD /* UITemperatureLabel.swift */,
+				5420370D271703860069A6FD /* UIDateLabel.swift */,
+			);
+			path = UIWeatherDayCell;
+			sourceTree = "<group>";
+		};
 		54183E5026E628F8002E135E /* UIDayDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -353,7 +375,6 @@
 				541D1CB626D4DDEA003B1FEF /* UIWeatherCell.swift */,
 				542FD2EC26CCF45800AC4077 /* UIWeatherDayCell.swift */,
 				542FD2EE26CD111200AC4077 /* UITodayWeatherCell.swift */,
-				542FD2F226CE658200AC4077 /* UIHourWeatherCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
