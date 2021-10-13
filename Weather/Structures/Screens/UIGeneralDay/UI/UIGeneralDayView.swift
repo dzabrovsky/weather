@@ -24,7 +24,6 @@ class UIGeneralDayView: UIView {
     let tableView: UIGeneralDayTable = {
         let table = UIGeneralDayTable()
         table.setup()
-        table.separatorStyle = .none
         table.backgroundColor = UIColor.init(named: "background")
         table.translatesAutoresizingMaskIntoConstraints = false
         

@@ -7,6 +7,8 @@
 
 import UIKit
 
+fileprivate let k: CGFloat = UIScreen.main.bounds.width / 375
+
 class UIGeneralDayTable: UITableView {
     
     public func setup(){
@@ -16,5 +18,6 @@ class UIGeneralDayTable: UITableView {
         allowsMultipleSelection = false
         self.showsVerticalScrollIndicator = false
         self.showsHorizontalScrollIndicator = false
+        self.separatorStyle = .none
     }
 }
