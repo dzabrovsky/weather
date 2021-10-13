@@ -15,8 +15,6 @@ class UIGeneralDayView: UIView {
     let header = UIGeneralDayHeader()
     let tableView = UIGeneralDayTable()
     
-    var todayView = UITodayWeatherCell()
-    
     init(){
         super.init(frame: CGRect())
         
