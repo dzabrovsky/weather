@@ -12,11 +12,7 @@ class UIGeneralDayView: UIView {
     private let adapter: GeneralDayForecastAdapter = GeneralDayForecastAdapter()
     private let delegateAdapter: GeneralDayDelegateAdapter = GeneralDayDelegateAdapter()
     
-    let header: UIGeneralDayHeader = {
-        let header = UIGeneralDayHeader()
-        return header
-    }()
-    
+    let header = UIGeneralDayHeader()
     let tableView = UIGeneralDayTable()
     
     var todayView = UITodayWeatherCell()

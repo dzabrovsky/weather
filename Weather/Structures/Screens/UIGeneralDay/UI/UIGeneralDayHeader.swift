@@ -38,6 +38,9 @@ class UIGeneralDayHeader: UIHeader {
     
     private func setup(){
         
+        backgroundColor = UIColor.init(named: "background")
+        translatesAutoresizingMaskIntoConstraints = false
+        
         self.addSubview(openMapButton)
         self.addSubview(themeButton)
         self.addSubview(cityListButton)
