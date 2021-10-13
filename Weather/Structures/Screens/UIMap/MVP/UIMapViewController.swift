@@ -25,7 +25,6 @@ class UIMapViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        setActions()
         presenter.didMapScreenLoad()
     }
     
@@ -37,23 +36,7 @@ class UIMapViewController: UIViewController {
     
     private func setup() {
         mapView.map.delegate = self
-    }
-    
-    private func setActions() {
-        mapView.header.backButton.addTarget(self, action: #selector(onTapBackButton(sender:)), for: .touchUpInside)
-        mapView.header.locationButton.addTarget(self, action: #selector(onTapLocationButton(sender:)), for: .touchUpInside)
-    }
-    
-    @objc private func onTapBackButton(sender: UIHeaderButton){
-        presenter.onTapBackButton()
-    }
-    
-    @objc private func onTapByMyLocationButton(sender: UIHeaderButton){
-        presenter.onTapByMyLocationButton()
-    }
-    
-    @objc private func onTapLocationButton(sender: UIHeaderButton){
-        presenter.onTapLocationButton()
+        mapView.header.delegate = self
     }
     
     private func updateLocationOnMap(lat: Double, lon: Double) {
@@ -142,4 +125,17 @@ extension UIMapViewController: MKMapViewDelegate {
         return annotationView
     }
     
+}
+
+extension UIMapViewController: UIHeaderDelegate {
+    func buttonsForHeader() -> [HeaderButton]? {
+        var buttons = [HeaderButton]()
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_arrow_back_ios_black_48pt"), side: .left){
+            self.presenter.onTapBackButton()
+        })
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_place_black_48pt"), side: .right){
+            self.presenter.onTapLocationButton()
+        })
+        return buttons
+    }
 }

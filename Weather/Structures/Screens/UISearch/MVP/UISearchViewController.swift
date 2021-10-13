@@ -34,18 +34,10 @@ class UISearchViewController: UIViewController {
         setActions()
     }
     
-    @objc private func onTapThemeButton(sender: UIHeaderButton!) {
-        presenter.onTapThemeButton()
-    }
-    
     @objc private func onTapAddCity(sender: UIButton) {
         presenter.onTapAddCity()
     }
-    
-    @objc private func onTapBack(sender: UIHeaderButton!) {
-        presenter.onTapBack()
-    }
-    
+
     @objc private func onTapLocationButton(sender: UIButton) {
         presenter.onTapLocationButton()
     }
@@ -56,11 +48,10 @@ class UISearchViewController: UIViewController {
     
     func setup(){
         presenter.updateDataSource()
+        contentView.header.delegate = self
     }
     
     private func setActions(){
-        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton(sender:)), for: .touchUpInside)
-        contentView.header.backButton.addTarget(self, action: #selector(onTapBack(sender:)), for: .touchUpInside)
         contentView.addCityButton.addTarget(self, action: #selector(onTapAddCity(sender:)), for: .touchUpInside)
         contentView.getLocationButton.addTarget(self, action: #selector(onTapLocationButton(sender:)), for: .touchUpInside)
     }
@@ -157,6 +148,19 @@ extension UISearchViewController: UITableViewDataSource{
         return cell
     }
     
+}
+
+extension UISearchViewController: UIHeaderDelegate {
+    func buttonsForHeader() -> [HeaderButton]? {
+        var buttons = [HeaderButton]()
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_arrow_back_ios_black_48pt"), side: .left){
+            self.presenter.onTapBack()
+        })
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_light_mode_black_48pt"), side: .right){
+            self.presenter.onTapThemeButton()
+        })
+        return buttons
+    }
 }
 
 extension UISearchViewController: SwipeCellGestureDelegate {

@@ -11,10 +11,9 @@ class UISearchView: UIView {
     
     private static let k: CGFloat = UIScreen.main.bounds.width / 375
     
-    let header: UISearchHeader = {
-        let header = UISearchHeader()
+    let header: UIHeader = {
+        let header = UIHeader()
         header.title.text = "Мои города"
-        header.translatesAutoresizingMaskIntoConstraints = false
         return header
     }()
     
@@ -56,7 +55,7 @@ class UISearchView: UIView {
     }()
     
     let getLocationButton: UIHeaderButton = {
-        let button = UIHeaderButton(6)
+        let button = UIHeaderButton(6, side: .right)
         button.icon.image = #imageLiteral(resourceName: "outline_place_black_48pt")
         button.layer.cornerRadius = 12
         button.translatesAutoresizingMaskIntoConstraints = false

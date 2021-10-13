@@ -2,14 +2,7 @@ import UIKit
 
 class UIDayDetailsView: UIView {
     
-    let header: UIDayDetailsHeader = {
-        let header = UIDayDetailsHeader()
-        header.title.text = "City name"
-        header.backgroundColor = UIColor.init(named: "background")
-        header.translatesAutoresizingMaskIntoConstraints = false
-        
-        return header
-    }()
+    let header = UIHeader()
     
     let tableView: UIDayDetailsTableView = {
         let tableView = UIDayDetailsTableView()

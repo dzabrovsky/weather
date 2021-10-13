@@ -12,11 +12,9 @@ class UIMapView: UIView {
         return map
     }()
     
-    let header: UIMapViewHeader = {
-        let header = UIMapViewHeader()
+    let header: UIHeader = {
+        let header = UIHeader()
         header.backgroundColor = .clear
-        header.translatesAutoresizingMaskIntoConstraints = false
-        
         return header
     }()
     

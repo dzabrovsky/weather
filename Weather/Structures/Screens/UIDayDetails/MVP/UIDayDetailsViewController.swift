@@ -22,23 +22,17 @@ class UIDayDetailsViewController: UIViewController{
     @objc private func onTapCityListButton(sender: UIHeaderButton!){
         presenter.onTapCityListButton()
     }
+    
     @objc private func onTapBackButton(sender: UIHeaderButton!){
         presenter.onTapBackButton()
-    }
-    
-    private func setActions(){
-        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton(sender:)), for: .touchUpInside)
-        contentView.header.backButton.addTarget(self, action: #selector(onTapBackButton(sender:)), for: .touchUpInside)
-        contentView.header.cityListButton.addTarget(self, action: #selector(onTapCityListButton(sender:)), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view = contentView
-        contentView.tableView.delegate = self
+        contentView.header.delegate = self
         contentView.tableView.dataSource = self
-        setActions()
         presenter.onViewDidLoad()
     }
     
@@ -55,19 +49,23 @@ extension UIDayDetailsViewController: UIDayDetailsViewControllerProtocol{
     }
 }
 
-extension UIDayDetailsViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+extension UIDayDetailsViewController: UIHeaderDelegate {
+    func buttonsForHeader() -> [HeaderButton]? {
+        var buttons = [HeaderButton]()
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_arrow_back_ios_black_48pt"), side: .left){
+            self.presenter.onTapBackButton()
+        })
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_search_black_48pt"), side: .right){
+            self.presenter.onTapCityListButton()
+        })
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_light_mode_black_48pt"), side: .right){
+            self.presenter.onTapThemeButton()
+        })
+        return buttons
     }
-    
 }
 
 extension UIDayDetailsViewController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView(frame: CGRect(x:0,y:0,width: 1, height: 20))
-    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2

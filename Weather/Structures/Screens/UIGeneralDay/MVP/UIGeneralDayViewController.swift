@@ -31,30 +31,31 @@ class UIGeneralDayViewController: UIViewController {
             self.presenter.showDayDetails(row)
         }
         view = contentView
+        contentView.header.delegate = self
     }
     
     private func setActions(){
-        contentView.header.openMapButton.addTarget(self, action: #selector(onTapGetLocationButton(sender:)), for: .touchUpInside)
-        contentView.header.themeButton.addTarget(self, action: #selector(onTapThemeButton), for: .touchUpInside)
-        contentView.header.cityListButton.addTarget(self, action: #selector(onTapCityListButton(sender:)), for: .touchUpInside)
         contentView.tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
-    }
-    
-    //Actions
-    @objc private func onTapGetLocationButton(sender: UIHeaderButton!){
-        presenter.onTapLocationButton()
-    }
-    
-    @objc private func onTapThemeButton(sender: UIHeaderButton!){
-        presenter.onTapThemeButton()
-    }
-    
-    @objc private func onTapCityListButton(sender: UIHeaderButton!){
-        presenter.onTapCityListButton()
     }
     
     @objc private func pullToRefresh(sender: UIRefreshControl){
         presenter.updateDataByUser()
+    }
+}
+
+extension UIGeneralDayViewController: UIHeaderDelegate {
+    func buttonsForHeader() -> [HeaderButton]? {
+        var buttons = [HeaderButton]()
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_search_black_48pt"), side: .right){
+            self.presenter.onTapCityListButton()
+        })
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_place_black_48pt"), side: .left){
+            self.presenter.onTapLocationButton()
+        })
+        buttons.append(HeaderButton(icon: #imageLiteral(resourceName: "outline_light_mode_black_48pt"), side: .right){
+            self.presenter.onTapThemeButton()
+        })
+        return buttons
     }
 }
 
