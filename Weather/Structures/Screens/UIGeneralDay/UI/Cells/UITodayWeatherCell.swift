@@ -1,6 +1,6 @@
 import UIKit
 
-public class UITodayWeatherCell: UITableViewCell {
+class UITodayWeatherCell: UITableViewCellWithWaiter {
     
     var dataSource: ForecastDay!
     
@@ -29,6 +29,10 @@ public class UITodayWeatherCell: UITableViewCell {
     }
     
     func setup() {
+        
+        waiterBackgroundColor = .clear
+        waiterColor = #colorLiteral(red: 0.9215686275, green: 0.9215686275, blue: 0.9215686275, alpha: 1)
+        waiterAlphaColor = #colorLiteral(red: 0.2770359516, green: 0.6326140761, blue: 0.9882352941, alpha: 0)
         selectionStyle = .none
         contentView.layer.cornerRadius = 24 * screenScale
         backgroundColor = .clear
@@ -86,6 +90,7 @@ public class UITodayWeatherCell: UITableViewCell {
     }
     
     func refresh(_ dataSource: ForecastDay){
+        isWaiterActive = false
         self.dataSource = dataSource
         dateLabel.text = "Сегодня, " + dataSource.date
         temperatureLabel.text = dataSource.temperature
@@ -95,5 +100,15 @@ public class UITodayWeatherCell: UITableViewCell {
         iconImage.animationDuration = 1.0
         iconImage.animationRepeatCount = 0
         iconImage.startAnimating()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if isWaiterActive {
+            drawWaiter(bounds: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 20 * screenScale), cornerRadius: contentView.layer.cornerRadius)
+        }else{
+            hideWaiter()
+        }
     }
 }

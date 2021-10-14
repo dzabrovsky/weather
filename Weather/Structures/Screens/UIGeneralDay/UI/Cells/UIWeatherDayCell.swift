@@ -1,6 +1,6 @@
 import UIKit
 
-class UIWeatherDayCell: UITableViewCell {
+class UIWeatherDayCell: UITableViewCellWithWaiter {
     
     private let adapter: GeneralDayForecastDayAdapter = GeneralDayForecastDayAdapter()
     
@@ -82,9 +82,19 @@ class UIWeatherDayCell: UITableViewCell {
     }
     
     func refresh(_ data: ForecastDay) {
+        isWaiterActive = false
         adapter.setData(data)
         header.reloadData()
         collectionView.reloadData()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if isWaiterActive {
+            drawWaiter(bounds: CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - 8 * screenScale), cornerRadius: contentView.layer.cornerRadius)
+        }else{
+            hideWaiter()
+        }
+    }
 }
