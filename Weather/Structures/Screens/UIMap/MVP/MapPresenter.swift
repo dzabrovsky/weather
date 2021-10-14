@@ -12,6 +12,9 @@ protocol MapViewProtocol: AnyObject {
     func setCityName(_ name: String)
     func addMarker(_ data: Geoname)
     func removeMarkers()
+    
+    func showAlertNoConnection()
+    func showAlertError()
 }
 
 class MapPresenter {
