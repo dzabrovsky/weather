@@ -29,6 +29,7 @@
 		5420370E271703860069A6FD /* UIDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420370D271703860069A6FD /* UIDateLabel.swift */; };
 		542037122717322D0069A6FD /* UILabelWithWaiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542037112717322D0069A6FD /* UILabelWithWaiter.swift */; };
 		5420371427182AFF0069A6FD /* UITableViewCellWithWaiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420371327182AFF0069A6FD /* UITableViewCellWithWaiter.swift */; };
+		5420371E271872B30069A6FD /* UIErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420371D271872B30069A6FD /* UIErrorAlert.swift */; };
 		542FD2B926CBD45200AC4077 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542FD2B826CBD45200AC4077 /* AppDelegate.swift */; };
 		542FD2BB26CBD45200AC4077 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542FD2BA26CBD45200AC4077 /* SceneDelegate.swift */; };
 		542FD2C226CBD45700AC4077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 542FD2C126CBD45700AC4077 /* Assets.xcassets */; };
@@ -118,6 +119,7 @@
 		5420370D271703860069A6FD /* UIDateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDateLabel.swift; path = Weather/Structures/Screens/UIGeneralDay/UI/Cells/UIWeatherDayCell/UIDateLabel.swift; sourceTree = SOURCE_ROOT; };
 		542037112717322D0069A6FD /* UILabelWithWaiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UILabelWithWaiter.swift; path = Weather/Structures/Screens/UI/UILabelWithWaiter.swift; sourceTree = SOURCE_ROOT; };
 		5420371327182AFF0069A6FD /* UITableViewCellWithWaiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITableViewCellWithWaiter.swift; path = Weather/Structures/Screens/UI/UITableViewCellWithWaiter.swift; sourceTree = SOURCE_ROOT; };
+		5420371D271872B30069A6FD /* UIErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIErrorAlert.swift; path = Weather/Structures/Screens/UI/Alerts/UIErrorAlert.swift; sourceTree = SOURCE_ROOT; };
 		542FD2B526CBD45200AC4077 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		542FD2B826CBD45200AC4077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		542FD2BA26CBD45200AC4077 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,6 +271,14 @@
 				5418BC3C270DDD7B007A10EB /* MoveCellGesture.swift */,
 			);
 			path = Gestures;
+			sourceTree = "<group>";
+		};
+		5420371A2718727E0069A6FD /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				5420371D271872B30069A6FD /* UIErrorAlert.swift */,
+			);
+			path = Alerts;
 			sourceTree = "<group>";
 		};
 		542FD2AC26CBD45200AC4077 = {
@@ -473,6 +483,7 @@
 		5466262426EF84520024E38B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				5420371A2718727E0069A6FD /* Alerts */,
 				54480D1326DFB3DC001698C3 /* UIHeader.swift */,
 				542FD2CD26CBD6C300AC4077 /* UIHeaderButton.swift */,
 				5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */,
@@ -749,6 +760,7 @@
 				54480D3526E10735001698C3 /* UISearchViewController.swift in Sources */,
 				54480D4E26E23F6F001698C3 /* Current.swift in Sources */,
 				542FD2BB26CBD45200AC4077 /* SceneDelegate.swift in Sources */,
+				5420371E271872B30069A6FD /* UIErrorAlert.swift in Sources */,
 				542FD2ED26CCF45800AC4077 /* UIWeatherDayCell.swift in Sources */,
 				5466262C26F0A6DE0024E38B /* UIAnnotationView.swift in Sources */,
 				54708B432703410600431522 /* CoreDataFacade.swift in Sources */,
