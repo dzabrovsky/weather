@@ -27,6 +27,7 @@
 		5420370A271702A20069A6FD /* UIIconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54203709271702A20069A6FD /* UIIconImage.swift */; };
 		5420370C271703200069A6FD /* UITemperatureLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420370B271703200069A6FD /* UITemperatureLabel.swift */; };
 		5420370E271703860069A6FD /* UIDateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420370D271703860069A6FD /* UIDateLabel.swift */; };
+		542037122717322D0069A6FD /* UILabelWithWaiter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542037112717322D0069A6FD /* UILabelWithWaiter.swift */; };
 		542FD2B926CBD45200AC4077 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542FD2B826CBD45200AC4077 /* AppDelegate.swift */; };
 		542FD2BB26CBD45200AC4077 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542FD2BA26CBD45200AC4077 /* SceneDelegate.swift */; };
 		542FD2C226CBD45700AC4077 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 542FD2C126CBD45700AC4077 /* Assets.xcassets */; };
@@ -114,6 +115,7 @@
 		54203709271702A20069A6FD /* UIIconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIIconImage.swift; path = Weather/Structures/Screens/UIGeneralDay/UI/Cells/UIWeatherDayCell/UIIconImage.swift; sourceTree = SOURCE_ROOT; };
 		5420370B271703200069A6FD /* UITemperatureLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UITemperatureLabel.swift; path = Weather/Structures/Screens/UIGeneralDay/UI/Cells/UIWeatherDayCell/UITemperatureLabel.swift; sourceTree = SOURCE_ROOT; };
 		5420370D271703860069A6FD /* UIDateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIDateLabel.swift; path = Weather/Structures/Screens/UIGeneralDay/UI/Cells/UIWeatherDayCell/UIDateLabel.swift; sourceTree = SOURCE_ROOT; };
+		542037112717322D0069A6FD /* UILabelWithWaiter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UILabelWithWaiter.swift; path = Weather/Structures/Screens/UI/UILabelWithWaiter.swift; sourceTree = SOURCE_ROOT; };
 		542FD2B526CBD45200AC4077 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		542FD2B826CBD45200AC4077 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		542FD2BA26CBD45200AC4077 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				54480D1326DFB3DC001698C3 /* UIHeader.swift */,
 				542FD2CD26CBD6C300AC4077 /* UIHeaderButton.swift */,
 				5466262B26F0A6DE0024E38B /* UIAnnotationView.swift */,
+				542037112717322D0069A6FD /* UILabelWithWaiter.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -758,6 +761,7 @@
 				5466262826EF8D960024E38B /* UIMapView.swift in Sources */,
 				54BA58B326F8D71600996AF1 /* UIMapViewController.swift in Sources */,
 				54BA58B926F9CA1B00996AF1 /* Geoname.swift in Sources */,
+				542037122717322D0069A6FD /* UILabelWithWaiter.swift in Sources */,
 				54480D3D26E11250001698C3 /* SearchPresenter.swift in Sources */,
 				54480D2D26E0DFD1001698C3 /* UICustomAlertCollectionView.swift in Sources */,
 				5466262026EF5B490024E38B /* ImageManager.swift in Sources */,
