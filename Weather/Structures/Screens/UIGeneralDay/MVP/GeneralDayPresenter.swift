@@ -6,6 +6,9 @@ protocol GeneralDayViewProtocol: AnyObject {
     func updateCityName(_ name: String)
     func switchTheme()
     
+    func showAlertNoConnection()
+    func showAlertError()
+    
 }
 
 protocol GeneralDayRouterProtocol {

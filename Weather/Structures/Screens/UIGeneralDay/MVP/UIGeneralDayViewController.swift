@@ -73,5 +73,15 @@ extension UIGeneralDayViewController: GeneralDayViewProtocol {
     func refreshData(_ data: Forecast){
         self.contentView.refreshData(data)
     }
+    
+    func showAlertNoConnection() {
+        let alert = UIAlertController(title: "Что-то пошло не так...", message: "Проверьте свое интернет соединение", preferredStyle: .alert)
+        self.present(alert, animated: true)
+    }
+    
+    func showAlertError() {
+        let alert = UIAlertController(title: "Что-то пошло не так...", message: "Неизвестная ошибка!", preferredStyle: .alert)
+        self.present(alert, animated: true)
+    }
 }
 
