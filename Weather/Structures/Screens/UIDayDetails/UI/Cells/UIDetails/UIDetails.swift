@@ -19,7 +19,7 @@ class UIDetails: UITodayWeatherCell {
         NSLayoutConstraint.activate([
             shapeView.topAnchor.constraint(equalTo: contentView.topAnchor),
             shapeView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            shapeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            shapeView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20 * k),
             shapeView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             shapeView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             shapeView.heightAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 386/343)
