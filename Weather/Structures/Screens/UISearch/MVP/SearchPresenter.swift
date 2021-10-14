@@ -10,6 +10,9 @@ protocol SearchViewProtocol: AnyObject {
     func showAlertCityDoesNotExists()
     func showAlertCityAlreadyExists()
     
+    func showAlertNoConnection()
+    func showAlertError()
+    
     func deleteRowAt(_ index: Int, isToLeft: Bool)
 }
 
