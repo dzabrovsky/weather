@@ -1,6 +1,12 @@
 import Foundation
 import Alamofire
 
+enum AlamofireStatus {
+    case success
+    case noNetwork
+    case error
+}
+
 protocol AlamofireFacadeProtocol {
     func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (GeonamesCodable) -> Void)
     func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ())
