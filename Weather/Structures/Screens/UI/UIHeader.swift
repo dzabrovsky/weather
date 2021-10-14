@@ -29,10 +29,10 @@ class UIHeader: UIView {
         }
     }
     
-    let title: UILabel = {
-        let label = UILabel()
-        label.text = "title"
+    let title: UILabelWithWaiter = {
+        let label = UILabelWithWaiter()
         label.backgroundColor = .clear
+        label.textAlignment = .center
         label.font = UIFont.init(name: "Manrope-ExtraBold", size: 18 * screenScale)
         label.textColor = UIColor.init(named: "black_text")
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,9 +60,10 @@ class UIHeader: UIView {
         
         self.addSubview(title)
         NSLayoutConstraint.activate([
-        title.centerYAnchor.constraint(equalTo: centerYAnchor),
-        title.centerXAnchor.constraint(equalTo: centerXAnchor),
-        title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 30/64)
+            title.centerYAnchor.constraint(equalTo: centerYAnchor),
+            title.centerXAnchor.constraint(equalTo: centerXAnchor),
+            title.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 30/64),
+            title.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3)
         ])
     }
     
