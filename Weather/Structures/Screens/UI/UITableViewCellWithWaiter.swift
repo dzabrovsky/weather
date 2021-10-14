@@ -4,7 +4,7 @@ class UITableViewCellWithWaiter: UITableViewCell {
 
     var isWaiterActive: Bool = true
     
-    var waiterColor = UIColor.init(named: "background") ?? .white {
+    var waiterColor = UIColor.init(named: "waiter_color") ?? .white{
         didSet{
             setupWaiter()
         }
@@ -30,7 +30,7 @@ class UITableViewCellWithWaiter: UITableViewCell {
     private let waiterLayer: CAGradientLayer = {
         let waiterLayer = CAGradientLayer()
         waiterLayer.startPoint = CGPoint(x: 0, y: 0)
-        waiterLayer.endPoint = CGPoint(x: 1, y: 0.1)
+        waiterLayer.endPoint = CGPoint(x: 1, y: 0.2)
         waiterLayer.locations = [0,0.1,0.2]
         return waiterLayer
     }()
@@ -58,9 +58,9 @@ class UITableViewCellWithWaiter: UITableViewCell {
     
     private func getAnimation() -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "locations")
-        animation.fromValue = [0,0.1,0.2]
-        animation.toValue = [0.8,0.9,1]
-        animation.duration = 0.7
+        animation.fromValue = [0,0.05,0.1]
+        animation.toValue = [0.9,0.95,1]
+        animation.duration = 0.5
         animation.repeatCount = .infinity
         return animation
     }

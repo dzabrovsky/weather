@@ -10,7 +10,7 @@ class UILabelWithWaiter: UILabel {
     
     private let waiterLayer: CAGradientLayer = {
         let waiterLayer = CAGradientLayer()
-        let color = UIColor.init(named: "background") ?? .white
+        let color = UIColor.init(named: "waiter_color") ?? .white
         let alphaColor = UIColor.init(named: "cv_cell_background") ?? .white
         waiterLayer.colors = [ alphaColor.cgColor, color.cgColor, alphaColor.cgColor]
         waiterLayer.startPoint = CGPoint(x: 0, y: 0)
