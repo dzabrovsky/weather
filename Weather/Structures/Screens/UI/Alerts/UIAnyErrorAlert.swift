@@ -1,6 +1,6 @@
 import UIKit
 
-class UINoConnectionAlert: UIErrorAlert {
+class UIAnyErrorAlert: UIErrorAlert {
     
     private let contentView: UIErrorAlertView = UIErrorAlertView()
     
@@ -26,6 +26,6 @@ class UINoConnectionAlert: UIErrorAlert {
         self.modalTransitionStyle = .crossDissolve
         view = contentView
         contentView.setTitle("Что-то пошло не так...")
-        contentView.setMessage("Возникли проблемы с интернет соединением. Проверьте своё подключение к интернету.")
+        contentView.setMessage("Возникли проблемы при загрузке данных.")
     }
 }
