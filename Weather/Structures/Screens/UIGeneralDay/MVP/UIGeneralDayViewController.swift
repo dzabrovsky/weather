@@ -13,9 +13,18 @@ protocol GeneralDayPresenterProtocol: AnyObject {
 
 class UIGeneralDayViewController: UIViewController {
     
-    var presenter: GeneralDayPresenterProtocol!
+    let presenter: GeneralDayPresenterProtocol
     
-    var contentView: UIGeneralDayView = UIGeneralDayView()
+    private let contentView: UIGeneralDayView = UIGeneralDayView()
+    
+    init(_ presenter: GeneralDayPresenterProtocol) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,20 +35,19 @@ class UIGeneralDayViewController: UIViewController {
     }
     
     private func setup(){
-        
-        contentView.onRowSelected() { row in
-            self.presenter.showDayDetails(row)
-        }
         view = contentView
         contentView.header.delegate = self
     }
     
     private func setActions(){
+        contentView.onRowSelected() { row in
+            self.presenter.showDayDetails(row)
+        }
         contentView.tableView.refreshControl?.addTarget(self, action: #selector(pullToRefresh(sender:)), for: .valueChanged)
     }
     
     @objc private func pullToRefresh(sender: UIRefreshControl){
-        presenter.updateDataByUser()
+        self.presenter.updateDataByUser()
     }
 }
 
@@ -62,7 +70,6 @@ extension UIGeneralDayViewController: UIHeaderDelegate {
 extension UIGeneralDayViewController: GeneralDayViewProtocol {
     
     func switchTheme() {
-        
         ThemeManager.switchTheme(sender: self)
     }
     
