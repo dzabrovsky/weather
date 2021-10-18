@@ -22,10 +22,10 @@ protocol SearchRouterProtocol: AnotherRouterProtocol {
 }
 
 protocol SearchModelProtocol {
-    func searchCity(_ byName: String, completion: @escaping (SearchGeoNames) -> ())
-    func updateCityList(completion: @escaping (CityListItem, Int) -> Void)
-    func getCityData(_ name: String, completion: @escaping (String, Double, Double) -> () )
-    func insertCity(_ name: String, completion: @escaping (CityListItem?, CheckResult) -> Void)
+    func searchCity(_ byName: String, completion: @escaping (SearchGeoNames) -> (), error: @escaping (AlamofireStatus) -> ())
+    func updateCityList(completion: @escaping (CityListItem, Int) -> Void, error: @escaping (AlamofireStatus) -> Void)
+    func getCityData(_ name: String, completion: @escaping (String, Double, Double) -> (), error: @escaping (AlamofireStatus) -> Void)
+    func insertCity(_ name: String, completion: @escaping (CityListItem?, CheckResult) -> Void, error: @escaping (AlamofireStatus) -> Void)
     func deleteCity(_ index: Int, completion: @escaping () -> ())
     func swapCitiesInList(at source: Int, to destination: Int)
 }
@@ -38,15 +38,29 @@ class SearchPresenter {
 }
 
 extension SearchPresenter: SearchPresenterProtocol {
+    
     func onAlertTextChanged(_ text: String?) {
         guard let text = text else { return }
         guard text.count >= 3 else {
             self.view.updateAutoCompletion(SearchResults(totalResults: 0, results: []))
             return
         }
-        model.searchCity(text) { result in
-            self.view.updateAutoCompletion(result.convertToStringArray())
-        }
+        model.searchCity(
+            text,
+            completion: { result in
+                self.view.updateAutoCompletion(result.convertToStringArray())
+            },
+            error: { result in
+                switch result{
+                case .error:
+                    self.view.showAlertError()
+                case .noNetwork:
+                    self.view.showAlertNoConnection()
+                default:
+                    self.view.showAlertError()
+                }
+            }
+        )
     }
     
     func onTapLocationButton() {
@@ -67,36 +81,74 @@ extension SearchPresenter: SearchPresenterProtocol {
     
     func updateDataSource() {
         var results = [CityWeather]()
-        model.updateCityList(){ result, count in
-            results.append(result.convertToCity())
-            print(results.count)
-            if results.count == count {
-                for item in results.sorted(by: { $0.index < $1.index} ) {
-                    self.view.updateCityList(item)
+        model.updateCityList(
+            completion: { result, count in
+                results.append(result.convertToCity())
+                print(results.count)
+                if results.count == count {
+                    for item in results.sorted(by: { $0.index < $1.index} ) {
+                        self.view.updateCityList(item)
+                    }
+                }
+            },
+            error: { result in
+                switch result{
+                case .error:
+                    self.view.showAlertError()
+                case .noNetwork:
+                    self.view.showAlertNoConnection()
+                default:
+                    self.view.showAlertError()
                 }
             }
-        }
+        )
     }
     
     func onRowSelected(_ cityName: String) {
-        model.getCityData(cityName){ name, lat, lon in
-            UserDataRepository.shared.saveCityName(name: name)
-            UserDataRepository.shared.saveCity(lat: lat, lon: lon)
-            self.router.popToRootWithSelectedCity()
-        }
+        model.getCityData(
+            cityName,
+            completion: { name, lat, lon in
+                UserDataRepository.shared.saveCityName(name: name)
+                UserDataRepository.shared.saveCity(lat: lat, lon: lon)
+                self.router.popToRootWithSelectedCity()
+            },
+            error: { result in
+                switch result{
+                case .error:
+                    self.view.showAlertError()
+                case .noNetwork:
+                    self.view.showAlertNoConnection()
+                default:
+                    self.view.showAlertError()
+                }
+            }
+        )
     }
     
     func inputCityName(_ cityName: String) {
-        model.insertCity(cityName){ result, info in
-            switch info {
-            case .AlreadyExists:
-                self.view.showAlertCityAlreadyExists()
-            case .NotExists:
-                self.view.showAlertCityDoesNotExists()
-            case .Succed:
-                self.view.reloadCityList()
+        model.insertCity(
+            cityName,
+            completion: { result, info in
+                switch info {
+                case .AlreadyExists:
+                    self.view.showAlertCityAlreadyExists()
+                case .NotExists:
+                    self.view.showAlertCityDoesNotExists()
+                case .Succed:
+                    self.view.reloadCityList()
+                }
+            },
+            error: { result in
+                switch result{
+                case .error:
+                    self.view.showAlertError()
+                case .noNetwork:
+                    self.view.showAlertNoConnection()
+                default:
+                    self.view.showAlertError()
+                }
             }
-        }
+        )
     }
     
     func onDeleteRow(_ index: Int, row: Int, isToLeft: Bool) {

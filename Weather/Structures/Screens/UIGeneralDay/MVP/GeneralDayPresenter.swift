@@ -18,7 +18,7 @@ protocol GeneralDayRouterProtocol {
 }
 
 protocol GeneralDayModelProtocol {
-    func updateDataByLocation(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> Void)
+    func updateDataByLocation(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> Void, error: @escaping (AlamofireStatus) -> Void)
 }
 
 class GeneralDayPresenter{
@@ -63,13 +63,20 @@ extension GeneralDayPresenter: GeneralDayPresenterProtocol {
     
     func updateDataByUser() {
         guard let coord = userDataRepository.getSavedCoordinates() else { return }
-        model.updateDataByLocation(lat: coord.lat, lon: coord.lon) { result in
-            self.userDataRepository.saveCityName(name: result.city.name)
-            self.currentData = result.convertToForecast()
-            guard let currentData = self.currentData else { return }
-            self.view.refreshData(currentData)
-            self.view.updateCityName(currentData.cityName)
-        }
+        model.updateDataByLocation(
+            lat: coord.lat,
+            lon: coord.lon,
+            completion: { result in
+                self.userDataRepository.saveCityName(name: result.city.name)
+                self.currentData = result.convertToForecast()
+                guard let currentData = self.currentData else { return }
+                self.view.refreshData(currentData)
+                self.view.updateCityName(currentData.cityName)
+            },
+            error: { error in
+                self.view.showAlertNoConnection()
+            }
+        )
     }
     
     func showDayDetails(_ index: Int) {

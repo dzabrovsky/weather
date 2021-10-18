@@ -10,9 +10,7 @@ class GeneralDayModel: GeneralDayModelProtocol {
         self.alamofireFacade = alamofireFacade
     }
     
-    func updateDataByLocation(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> Void){
-        alamofireFacade.getForecast(lat: lat, lon: lon){ result in
-            completion(result)
-        }
+    func updateDataByLocation(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> Void, error: @escaping (AlamofireStatus) -> Void){
+        alamofireFacade.getForecast(lat: lat, lon: lon, completion: completion, error: error)
     }
 }

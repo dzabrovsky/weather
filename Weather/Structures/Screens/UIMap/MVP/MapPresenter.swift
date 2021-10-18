@@ -64,6 +64,15 @@ extension MapPresenter: MapPresenterProtocol {
             self.userDataRepository.saveCity(lat: data.lat, lon: data.lon)
             self.userDataRepository.saveCityName(name: data.name)
             self.router.popToRootWithSelectedCity()
+        } error: { result in
+            switch result{
+            case .error:
+                self.view.showAlertError()
+            case .noNetwork:
+                self.view.showAlertNoConnection()
+            default:
+                self.view.showAlertError()
+            }
         }
     }
     
@@ -80,6 +89,15 @@ extension MapPresenter: MapPresenterProtocol {
             let data = result.convertToGeonames()
             if let view = self.view {
                 view.addMarker(data)
+            }
+        } error: { result in
+            switch result{
+            case .error:
+                self.view.showAlertError()
+            case .noNetwork:
+                self.view.showAlertNoConnection()
+            default:
+                self.view.showAlertError()
             }
         }
     }

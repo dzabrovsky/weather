@@ -8,17 +8,19 @@ enum AlamofireStatus {
 }
 
 protocol AlamofireFacadeProtocol {
-    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (GeonamesCodable) -> Void)
-    func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ())
-    func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ())
-    func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ())
-    func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ())
-    func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> ())
+    func getCities(s south: Double, n north: Double, w west: Double, e east: Double, completion: @escaping (GeonamesCodable) -> Void, error: @escaping (AlamofireStatus) -> ())
+    func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> (), error: @escaping (AlamofireStatus) -> ())
+    func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> (), error: @escaping (AlamofireStatus) -> ())
+    func getCurrentWeather(_ name: String, completion: @escaping (CityListItem) -> (), error: @escaping (AlamofireStatus) -> ())
+    func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> (), error: @escaping (AlamofireStatus) -> ())
+    func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> (), error: @escaping (AlamofireStatus) -> ())
 }
 
 class AlamofireFacade {
     
     static let shared: AlamofireFacadeProtocol = AlamofireFacade()
+    
+    typealias Parameters = [String:String]
     
     private init(){
         
@@ -28,173 +30,180 @@ class AlamofireFacade {
         return dateTime / 86400 * 86400
     }
     
-    private func getTodayMissingHours(lat: Double, lon: Double, completion: @escaping (MissingForecastCodable) -> ()) {
-        
+    private func timemachineParameters(lat: Double, lon: Double) -> Parameters{
         let time = dropTime(Int(Date().timeIntervalSince1970))
-        
-        let APIUrl = "http://api.openweathermap.org/data/2.5/onecall/timemachine?"
-        
-        guard let url = URL(string: ("\(APIUrl)lat=\(lat)&lon=\(lon)&dt=\(time)&units=\(unitsConstant)&lang=\(langConstant)&appid=\(APIKeyConstant)").encodeUrl)
-        else { return }
-        
-        AF.request(url)
+        return [
+            "lat":String(lat),
+            "lon":String(lon),
+            "dt":String(time),
+            "units":unitsConstant,
+            "lang":langConstant,
+            "appid":APIKeyConstant
+        ]
+    }
+    
+    private func citiesJSONURLParameters(s south: Double, n north: Double, w west: Double, e east: Double) -> Parameters {
+        return [
+            "username":APIUserNameConstant,
+            "south":String(south),
+            "north":String(north),
+            "west":String(west),
+            "east":String(east)
+        ]
+    }
+    
+    private func searchCityParameters(_ cityName: String) -> Parameters {
+        return [
+            "q":cityName,
+            "username":APIUserNameConstant,
+            "style":"MEDIUM",
+            "lang":langConstant
+        ]
+    }
+    
+    private func searchCityBySymbols(_ startsWith: String) -> Parameters {
+        return [
+            "name_startsWith":startsWith,
+            "username":APIUserNameConstant,
+            "style":"MEDIUM",
+            "lang":langConstant
+        ]
+    }
+    
+    private func weatherParameters(lat: Double, lon: Double) -> Parameters {
+        return [
+            "lat":String(lat),
+            "lon":String(lon),
+            "units":unitsConstant,
+            "lang":langConstant,
+            "appid":APIKeyConstant
+        ]
+    }
+    
+    private func weatherCityNameParameters(_ cityName: String) -> Parameters {
+        return [
+            "q":cityName,
+            "units":unitsConstant,
+            "lang":langConstant,
+            "appid":APIKeyConstant
+        ]
+    }
+    
+    private func getResponse<T: Decodable>(
+        of type: T.Type = T.self,
+        url: String,
+        parameters: Parameters,
+        completion: @escaping (T) -> (),
+        error: @escaping (AlamofireStatus) -> ()
+    ){
+        let af = AF.request(url, parameters: parameters)
             .validate()
-            .responseDecodable(of: MissingForecastCodable.self) { (response) in
-                if let data = response.value {
-                    completion(data)
+            .responseDecodable(of: type.self){ response in
+                guard let data = response.value else {
+                    error(.error)
+                    return
                 }
+                completion(data)
             }
+        guard af.error != nil else { return }
+        error(.error)
+    }
+    
+    private func getTodayMissingHours(lat: Double, lon: Double, completion: @escaping (MissingForecastCodable) -> (), error: @escaping (AlamofireStatus) -> ()) {
+        
+        getResponse(
+            of: MissingForecastCodable.self,
+            url: timemachineURL,
+            parameters: timemachineParameters(lat: lat, lon: lon),
+            completion: completion,
+            error: error
+        )
     }
 }
 
 extension AlamofireFacade: AlamofireFacadeProtocol {
-    func getCities(east: Double, west: Double, north: Double, south: Double, completion: @escaping (GeonamesCodable) -> Void){
+    func getCities(s south: Double, n north: Double, w west: Double, e east: Double, completion: @escaping (GeonamesCodable) -> Void, error: @escaping (AlamofireStatus) -> ()){
         
-        guard let url = URL(string: ("http://api.geonames.org/citiesJSON?username=ivan&south=\(south)&north=\(north)&west=\(west)&east=\(east)").encodeUrl) else {
-            print("Cannot covert string to URL")
-            return
-        }
-        
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: GeonamesCodable.self) { (response) in
-                if let data = response.value {
-                    completion(data)
-                }
-            }
+        getResponse(
+            of: GeonamesCodable.self, url: citiesJSONURL,
+            parameters: citiesJSONURLParameters(s: south, n: north, w: west, e: east),
+            completion: completion,
+            error: error
+        )
     }
     
-    func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> ()) {
+    func getForecast(lat: Double, lon: Double, completion: @escaping (ForecastCodable) -> (), error: @escaping (AlamofireStatus) -> ()) {
         
-        let APIUrl = "https://api.openweathermap.org/data/2.5/forecast"
-        
-        guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
-        else { return }
-        
-        getTodayMissingHours(lat: lat, lon: lon) { result in
-            AF.request(url)
-                .validate()
-                .responseDecodable(of: ForecastCodable.self) { (response) in
-                    if var data = response.value {
-                        data.missing = result.hourly
-                        completion(data)
-                    }
-                }
-        }
+        getResponse(
+            of: ForecastCodable.self, url: forecastURL,
+            parameters: weatherParameters(lat: lat, lon: lon),
+            completion: completion,
+            error: error
+        )
     }
     
-    func getForecast(_ cityName: String, completion: @escaping (ForecastCodable) -> ()) {
+    func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> (), error: @escaping (AlamofireStatus) -> ()) {
         
-        let APIUrl = "https://api.openweathermap.org/data/2.5/forecast"
+        var data = CityListItem()
         
-        guard let url = URL(string: ("\(APIUrl)?q=\(cityName)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
-        else { return }
-        
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: ForecastCodable.self) { (response) in
-                if let data = response.value {
-                    completion(data)
-                }
-            }
-    }
-    
-    func getCurrentWeather(_ cityName: String, completion: @escaping (CityListItem) -> ()) {
-
-        let APIUrl = "https://api.openweathermap.org/data/2.5/weather"
-        
-        guard let url = URL(string: ("\(APIUrl)?q=\(cityName)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
-        else { return }
-        var result = CityListItem()
-        
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: Current.self) { (response) in
-                switch response.result {
-                case .success(let data):
-                    
-                    result.lat = data.coord.lat
-                    result.lon = data.coord.lon
-                    result.name = data.name
-                    result.temp = data.main.temp
-                    result.tempFeelsLike = data.main.feelsLike
-                    result.icon = data.weather[0].icon
-                    
-                    completion(result)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-    }
-    
-    func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> ()) {
-
-        let APIUrl = "https://api.openweathermap.org/data/2.5/weather"
-        
-        guard let url = URL(string: ("\(APIUrl)?lat=\(lat)&lon=\(lon)&appid=\(APIKeyConstant)&lang=\(langConstant)&units=\(unitsConstant)").encodeUrl)
-        else { return }
-        var result = CityListItem()
-        
-        AF.request(url)
-            .validate()
-            .responseDecodable(of: Current.self) { (response) in
-                switch response.result {
-                case .success(let data):
-                    
-                    result.lat = data.coord.lat
-                    result.lon = data.coord.lon
-                    result.name = data.name
-                    result.temp = data.main.temp
-                    result.tempFeelsLike = data.main.feelsLike
-                    result.icon = data.weather[0].icon
-                    
-                    completion(result)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-    }
-    
-    func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> ()){
-        
-        let APIUrl = "http://api.geonames.org/searchJSON?"
-        
-        guard let url = URL(string: ("\(APIUrl)q=\(cityName)&username=ivan&style=MEDIUM&lang=\(langConstant)").encodeUrl)
-        else { return }
-        print(url)
-        AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
-            if let data = response.value {
+        getResponse(
+            of: Current.self, url: forecastURL,
+            parameters: weatherCityNameParameters(cityName),
+            completion: { result in
+                
+                data.lat = result.coord.lat
+                data.lon = result.coord.lon
+                data.name = result.name
+                data.temp = result.main.temp
+                data.tempFeelsLike = result.main.feelsLike
+                data.icon = result.weather[0].icon
+                
                 completion(data)
-            } else {
-                print(response.error ?? "")
-            }
-        }
+            },
+            error: error
+        )
     }
     
-    func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> ()){
+    func getCurrentWeather(lat: Double, lon: Double, completion: @escaping (CityListItem) -> (), error: @escaping (AlamofireStatus) -> ()) {
         
-        let APIUrl = "http://api.geonames.org/searchJSON?"
+        var data = CityListItem()
         
-        guard let url = URL(string: ("\(APIUrl)name_startsWith=\(symbols)&username=ivan&style=MEDIUM&lang=\(langConstant)").encodeUrl)
-        else { return }
-        AF.request(url).validate().responseDecodable(of: SearchGeoNames.self) { (response) in
-            if let data = response.value {
+        getResponse(
+            of: Current.self, url: currentWeatherURL,
+            parameters: weatherParameters(lat: lat, lon: lon),
+            completion: { result in
+                
+                data.lat = result.coord.lat
+                data.lon = result.coord.lon
+                data.name = result.name
+                data.temp = result.main.temp
+                data.tempFeelsLike = result.main.feelsLike
+                data.icon = result.weather[0].icon
+                
                 completion(data)
-            } else {
-                print(response.error ?? "")
-            }
-        }
+            },
+            error: error
+        )
     }
     
-}
-
-extension String{
-    var encodeUrl : String
-    {
-        return self.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    func searchCity(_ cityName: String, completion: @escaping (SearchGeoNames) -> (), error: @escaping (AlamofireStatus) -> ()){
+        
+        getResponse(
+            of: SearchGeoNames.self, url: searchJSONURL,
+            parameters: searchCityParameters(cityName),
+            completion: completion,
+            error: error
+        )
     }
-    var decodeUrl : String
-    {
-        return self.removingPercentEncoding!
+    
+    func searchCityBySymbols(_ symbols: String, completion: @escaping (SearchGeoNames) -> (), error: @escaping (AlamofireStatus) -> ()){
+        
+        getResponse(
+            of: SearchGeoNames.self, url: searchJSONURL,
+            parameters: searchCityBySymbols(symbols),
+            completion: completion,
+            error: error
+        )
     }
+    
 }
