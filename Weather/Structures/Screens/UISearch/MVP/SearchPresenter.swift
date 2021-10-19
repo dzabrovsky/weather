@@ -32,13 +32,14 @@ protocol SearchModelProtocol {
 
 class SearchPresenter {
     
+    private var data: [CityWeather] = []
+    
     var router: SearchRouterProtocol!
     var model: SearchModelProtocol!
     var view: SearchViewProtocol!
 }
 
 extension SearchPresenter: SearchPresenterProtocol {
-    
     func onAlertTextChanged(_ text: String?) {
         guard let text = text else { return }
         guard text.count >= 3 else {
@@ -87,6 +88,7 @@ extension SearchPresenter: SearchPresenterProtocol {
                 print(results.count)
                 if results.count == count {
                     for item in results.sorted(by: { $0.index < $1.index} ) {
+                        self.data.append(item)
                         self.view.updateCityList(item)
                     }
                 }
@@ -104,9 +106,9 @@ extension SearchPresenter: SearchPresenterProtocol {
         )
     }
     
-    func onRowSelected(_ cityName: String) {
+    func onRowSelected(_ index: Int) {
         model.getCityData(
-            cityName,
+            data[index].name,
             completion: { name, lat, lon in
                 UserDataRepository.shared.saveCityName(name: name)
                 UserDataRepository.shared.saveCity(lat: lat, lon: lon)
@@ -158,6 +160,6 @@ extension SearchPresenter: SearchPresenterProtocol {
     }
     
     func onMoveRow(at source: Int, to destination: Int) {
-        model.swapCitiesInList(at: source, to: destination)
+        model.swapCitiesInList(at: data[source].index, to: data[destination].index)
     }
 }

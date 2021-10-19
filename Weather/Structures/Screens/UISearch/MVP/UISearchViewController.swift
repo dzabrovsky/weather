@@ -10,7 +10,7 @@ protocol SearchPresenterProtocol: AnyObject {
     
     func inputCityName(_ cityName: String)
     func updateDataSource()
-    func onRowSelected(_ cityName: String)
+    func onRowSelected(_ index: Int)
     func onDeleteRow(_ index: Int, row: Int, isToLeft: Bool)
     
     func onMoveRow(at source: Int, to destination: Int)
@@ -18,17 +18,19 @@ protocol SearchPresenterProtocol: AnyObject {
 
 class UISearchViewController: UIViewController {
     
-    var dataSource: [CityWeather] = []
-    
     var presenter: SearchPresenterProtocol!
+    
+    private let cityListAdapter: CityListAdapter = CityListAdapter()
     
     var contentView: UISearchView = UISearchView()
     var inputCity: UIInputCityName!
     
     override func viewDidLoad(){
         view = contentView
-        contentView.tableView.delegate = self
-        contentView.tableView.dataSource = self
+        contentView.tableView.dataSource = cityListAdapter
+        cityListAdapter.tapDelegate = self
+        cityListAdapter.swipeDelegate = self
+        cityListAdapter.moveDelegate = self
         
         setup()
         setActions()
@@ -48,6 +50,8 @@ class UISearchViewController: UIViewController {
     
     func setup(){
         presenter.updateDataSource()
+        cityListAdapter.moveDelegate = self
+        cityListAdapter.swipeDelegate = self
         contentView.header.delegate = self
     }
     
@@ -90,64 +94,21 @@ extension UISearchViewController: SearchViewProtocol{
         ThemeManager.switchTheme(sender: self)
         contentView.drawGradient()
     }
-    func updateCityList(_ dataSource: CityWeather) {
-        self.dataSource.append(dataSource)
+    func updateCityList(_ data: CityWeather) {
+        cityListAdapter.addData(data)
         contentView.tableView.reloadData()
     }
     
     func deleteRowAt(_ index: Int, isToLeft: Bool) {
-        dataSource.remove(at: index)
+        cityListAdapter.removeCityAt(index: index)
         contentView.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: isToLeft ? .left:.right)
     }
     
     func reloadCityList() {
-        dataSource.removeAll()
+        cityListAdapter.removeCityList()
+        contentView.tableView.reloadData()
         presenter.updateDataSource()
     }
-}
-extension UISearchViewController: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.onRowSelected( dataSource[indexPath.row].name)
-    }
-}
-
-extension UISearchViewController: UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UICityListTableViewCell", for: indexPath) as! UICityListTableViewCell
-        
-        let city = dataSource[indexPath.row]
-        
-        let swipeGesture = SwipeCellGesture(
-            target: self,
-            action: nil,
-            index: dataSource[indexPath.row].index,
-            row: indexPath.row,
-            cell: cell
-        )
-        swipeGesture.swipeDelegate = self
-        let moveGesture = MoveCellGesture(
-            target: self,
-            action: nil,
-            row: indexPath.row,
-            cell: cell,
-            moveDelegate: self
-        )
-        
-        cell.addGestureRecognizer(swipeGesture)
-        cell.cityName.text = city.name
-        cell.addGestureRecognizer(moveGesture)
-        cell.temp.text = city.temp
-        cell.tempFeelsLike.text = city.feelsLike
-        cell.icon.image = city.icon
-        
-        return cell
-    }
-    
 }
 
 extension UISearchViewController: UIHeaderDelegate {
@@ -188,9 +149,15 @@ extension UISearchViewController: MoveCellGestureDelegate {
     }
     
     func onSwapCells(at source: IndexPath, to destination: IndexPath) {
-        presenter.onMoveRow(at: dataSource[source.row].index, to: dataSource[destination.row].index)
+        presenter.onMoveRow(at: source.row, to: destination.row)
     }
     
     func onEnded(_ swipeGesture: MoveCellGesture) {
+    }
+}
+
+extension UISearchViewController: TapCellGestureDelegate {
+    func onTap(_ tapGesture: TapCellGesture) {
+        presenter.onRowSelected(tapGesture.row)
     }
 }
