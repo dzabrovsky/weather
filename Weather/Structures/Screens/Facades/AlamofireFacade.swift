@@ -147,7 +147,7 @@ extension AlamofireFacade: AlamofireFacadeProtocol {
         var data = CityListItem()
         
         getResponse(
-            of: Current.self, url: forecastURL,
+            of: Current.self, url: currentWeatherURL,
             parameters: weatherCityNameParameters(cityName),
             completion: { result in
                 
