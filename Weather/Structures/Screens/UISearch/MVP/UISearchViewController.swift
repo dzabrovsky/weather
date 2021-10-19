@@ -21,17 +21,11 @@ class UISearchViewController: UIViewController {
     var presenter: SearchPresenterProtocol!
     
     private let cityListAdapter: CityListAdapter = CityListAdapter()
+    private var autoCompletionCityNameAdapter: AutoCompletionCityNameAdapter?
     
     var contentView: UISearchView = UISearchView()
-    var inputCity: UIInputCityName!
     
     override func viewDidLoad(){
-        view = contentView
-        contentView.tableView.dataSource = cityListAdapter
-        cityListAdapter.tapDelegate = self
-        cityListAdapter.swipeDelegate = self
-        cityListAdapter.moveDelegate = self
-        
         setup()
         setActions()
     }
@@ -49,10 +43,13 @@ class UISearchViewController: UIViewController {
     }
     
     func setup(){
-        presenter.updateDataSource()
-        cityListAdapter.moveDelegate = self
+        view = contentView
+        contentView.tableView.dataSource = cityListAdapter
+        cityListAdapter.tapDelegate = self
         cityListAdapter.swipeDelegate = self
+        cityListAdapter.moveDelegate = self
         contentView.header.delegate = self
+        presenter.updateDataSource()
     }
     
     private func setActions(){
@@ -63,7 +60,8 @@ class UISearchViewController: UIViewController {
 extension UISearchViewController: SearchViewProtocol{
     
     func updateAutoCompletion(_ autoCompletion: SearchResults) {
-        inputCity.refreshAutoCompletion(autoCompletion)
+        guard let autoCompletionCityNameAdapter = autoCompletionCityNameAdapter else { return }
+        autoCompletionCityNameAdapter.refreshData(autoCompletion)
     }
     
     func showAlertCityDoesNotExists() {
@@ -80,12 +78,13 @@ extension UISearchViewController: SearchViewProtocol{
     
     func openAddCityAlert() {
         
-        inputCity = UIInputCityName(completion: { cityName in
+        let inputCity = UIInputCityName(completion: { cityName in
             self.presenter.inputCityName(cityName)
         })
+        autoCompletionCityNameAdapter = AutoCompletionCityNameAdapter(textField: inputCity.alert.inputCityName, collectionView: inputCity.alert.citiesCollectionView)
+        inputCity.alert.citiesCollectionView.dataSource = autoCompletionCityNameAdapter
+        inputCity.alert.citiesCollectionView.delegate = autoCompletionCityNameAdapter
         inputCity.alert.inputCityName.addTarget(self, action: #selector(onAlertTextChanged(sender:)), for: .editingChanged)
-        inputCity.modalPresentationStyle = .overCurrentContext
-        inputCity.modalTransitionStyle = .crossDissolve
         
         self.present(inputCity, animated: true, completion: nil)
     }
