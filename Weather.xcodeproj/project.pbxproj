@@ -100,6 +100,7 @@
 		54FAE29B271D968D002FC403 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE29A271D968D002FC403 /* UIViewControllerExtension.swift */; };
 		54FAE29E271DA7EC002FC403 /* CityListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE29D271DA7EC002FC403 /* CityListAdapter.swift */; };
 		54FAE2A0271F17D4002FC403 /* TapCellGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE29F271F17D4002FC403 /* TapCellGesture.swift */; };
+		54FAE2A2271F2FFD002FC403 /* AutoCompletionCityNameAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE2A1271F2FFD002FC403 /* AutoCompletionCityNameAdapter.swift */; };
 		54FAECF226DCD09000431E54 /* GeneralDayPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAECF126DCD09000431E54 /* GeneralDayPresenter.swift */; };
 		54FAECF926DE255C00431E54 /* UICustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAECF826DE255C00431E54 /* UICustomTextField.swift */; };
 /* End PBXBuildFile section */
@@ -199,6 +200,7 @@
 		54FAE29A271D968D002FC403 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		54FAE29D271DA7EC002FC403 /* CityListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CityListAdapter.swift; path = Weather/Structures/Screens/UISearch/Adapters/CityListAdapter.swift; sourceTree = SOURCE_ROOT; };
 		54FAE29F271F17D4002FC403 /* TapCellGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TapCellGesture.swift; path = Weather/Structures/Screens/UISearch/UI/Gestures/TapCellGesture.swift; sourceTree = SOURCE_ROOT; };
+		54FAE2A1271F2FFD002FC403 /* AutoCompletionCityNameAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AutoCompletionCityNameAdapter.swift; path = Weather/Structures/Screens/UISearch/Adapters/AutoCompletionCityNameAdapter.swift; sourceTree = SOURCE_ROOT; };
 		54FAECF126DCD09000431E54 /* GeneralDayPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralDayPresenter.swift; sourceTree = "<group>"; };
 		54FAECF826DE255C00431E54 /* UICustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICustomTextField.swift; sourceTree = "<group>"; };
 		82221A62F31AADEE81670B91 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				54FAE29D271DA7EC002FC403 /* CityListAdapter.swift */,
+				54FAE2A1271F2FFD002FC403 /* AutoCompletionCityNameAdapter.swift */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				54480D3D26E11250001698C3 /* SearchPresenter.swift in Sources */,
 				54480D2D26E0DFD1001698C3 /* UICustomAlertCollectionView.swift in Sources */,
 				5466262026EF5B490024E38B /* ImageManager.swift in Sources */,
+				54FAE2A2271F2FFD002FC403 /* AutoCompletionCityNameAdapter.swift in Sources */,
 				5466261A26EB53620024E38B /* CityListItem.swift in Sources */,
 				5418BC36270C4C71007A10EB /* UIDeleteActionCell.swift in Sources */,
 				54480D4726E20495001698C3 /* UICityListTableView.swift in Sources */,
