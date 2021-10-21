@@ -8,5 +8,6 @@ target 'Weather' do
   # Pods for Weather
   pod 'Charts'
   pod 'Alamofire'
+  pod 'NeedleFoundation'
 
 end
