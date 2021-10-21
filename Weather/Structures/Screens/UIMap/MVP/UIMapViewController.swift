@@ -16,10 +16,8 @@ protocol MapPresenterProtocol {
 class UIMapViewController: UIViewController {
     
     var presenter: MapPresenterProtocol!
-    
+    private let mapAdapter: MapMarkersAdapter = MapMarkersAdapter()
     private var mapView = UIMapView()
-    
-    private var dataSource: [Geoname] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +33,13 @@ class UIMapViewController: UIViewController {
     }
     
     private func setup() {
-        mapView.map.delegate = self
+        mapView.map.delegate = mapAdapter
+        mapAdapter.onTapMarker = { lat, lon in
+            self.presenter.onTapAnnotation(lat: lat, lon: lon)
+        }
+        mapAdapter.onFinishLoadingMap = { lon, lat, latA, lonA in
+            self.presenter.mapViewDidFinishLoadingMap(centerLon: lon, centerLat: lat, latA: latA, lonA: lonA)
+        }
         mapView.header.delegate = self
     }
     
@@ -51,8 +55,8 @@ extension UIMapViewController: MapViewProtocol {
     }
     
     func addMarker(_ data: Geoname) {
+        mapAdapter.addData(data)
         mapView.addAnnotationFromData(data)
-        self.dataSource.append(data)
     }
     
     func setCityName(_ name: String) {
@@ -89,42 +93,6 @@ extension UIMapViewController: MapViewProtocol {
             }
         )
     }
-}
-
-extension UIMapViewController: MKMapViewDelegate {
-    
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        if let annotation = view.annotation {
-            presenter.onTapAnnotation(
-                lat: annotation.coordinate.latitude,
-                lon: annotation.coordinate.longitude
-            )
-        }
-    }
-    
-    func mapViewDidFinishLoadingMap(_ mapView: MKMapView) {
-        presenter.mapViewDidFinishLoadingMap(
-            centerLon: mapView.region.center.longitude,
-            centerLat: mapView.region.center.latitude,
-            latA: mapView.region.span.latitudeDelta,
-            lonA: mapView.region.span.longitudeDelta)
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "UIAnnotationView") as! UIAnnotationView
-        
-        if let data = dataSource.first(
-            where: {
-                $0.lat == annotation.coordinate.latitude && $0.lon == annotation.coordinate.longitude
-            }
-        ) {
-            annotationView.setValues(icon: data.icon, temperature: data.temperature, feelsLike: data.feelsLike)
-        }
-        return annotationView
-    }
-    
 }
 
 extension UIMapViewController: UIHeaderDelegate {
