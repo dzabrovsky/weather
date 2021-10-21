@@ -86,6 +86,7 @@
 		5485183127147E6500BC8C7F /* GeneralDayForecastAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5485183027147E6500BC8C7F /* GeneralDayForecastAdapter.swift */; };
 		549956322719BB4D00F466B8 /* UIErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549956312719BB4D00F466B8 /* UIErrorAlertView.swift */; };
 		549956342719BBF000F466B8 /* UIErrorAlertContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549956332719BBF000F466B8 /* UIErrorAlertContainer.swift */; };
+		54A1337F2720128200B80EA1 /* MapMarkersAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54A1337E2720128200B80EA1 /* MapMarkersAdapter.swift */; };
 		54BA58AA26F8835800996AF1 /* SearchGeoNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58A926F8835800996AF1 /* SearchGeoNames.swift */; };
 		54BA58B326F8D71600996AF1 /* UIMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B226F8D71600996AF1 /* UIMapViewController.swift */; };
 		54BA58B526F8D93C00996AF1 /* MapModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BA58B426F8D93C00996AF1 /* MapModel.swift */; };
@@ -186,6 +187,7 @@
 		5485183027147E6500BC8C7F /* GeneralDayForecastAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeneralDayForecastAdapter.swift; path = Weather/Structures/Screens/Adapters/GeneralDayForecastAdapter.swift; sourceTree = SOURCE_ROOT; };
 		549956312719BB4D00F466B8 /* UIErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIErrorAlertView.swift; path = Weather/Structures/Screens/UI/Alerts/UIErrorAlert/UIErrorAlertView.swift; sourceTree = SOURCE_ROOT; };
 		549956332719BBF000F466B8 /* UIErrorAlertContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIErrorAlertContainer.swift; path = Weather/Structures/Screens/UI/Alerts/UIErrorAlert/UIErrorAlertContainer.swift; sourceTree = SOURCE_ROOT; };
+		54A1337E2720128200B80EA1 /* MapMarkersAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapMarkersAdapter.swift; path = Weather/Structures/Screens/Adapters/MapMarkersAdapter.swift; sourceTree = SOURCE_ROOT; };
 		54BA58A926F8835800996AF1 /* SearchGeoNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGeoNames.swift; sourceTree = "<group>"; };
 		54BA58B226F8D71600996AF1 /* UIMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIMapViewController.swift; path = Weather/Structures/Screens/UIMap/MVP/UIMapViewController.swift; sourceTree = SOURCE_ROOT; };
 		54BA58B426F8D93C00996AF1 /* MapModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapModel.swift; path = Weather/Structures/Screens/UIMap/MVP/MapModel.swift; sourceTree = SOURCE_ROOT; };
@@ -539,6 +541,7 @@
 				5485183027147E6500BC8C7F /* GeneralDayForecastAdapter.swift */,
 				5406EC8C27159F030072A41C /* GenerlDayDelegateAdapter.swift */,
 				5406EC902715B3920072A41C /* GeneralDayForecastDayAdapter.swift */,
+				54A1337E2720128200B80EA1 /* MapMarkersAdapter.swift */,
 			);
 			path = Adapters;
 			sourceTree = "<group>";
@@ -823,6 +826,7 @@
 				54480D3D26E11250001698C3 /* SearchPresenter.swift in Sources */,
 				54480D2D26E0DFD1001698C3 /* UICustomAlertCollectionView.swift in Sources */,
 				5466262026EF5B490024E38B /* ImageManager.swift in Sources */,
+				54A1337F2720128200B80EA1 /* MapMarkersAdapter.swift in Sources */,
 				54FAE2A2271F2FFD002FC403 /* AutoCompletionCityNameAdapter.swift in Sources */,
 				5466261A26EB53620024E38B /* CityListItem.swift in Sources */,
 				5418BC36270C4C71007A10EB /* UIDeleteActionCell.swift in Sources */,
