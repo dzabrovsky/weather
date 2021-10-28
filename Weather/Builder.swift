@@ -23,7 +23,8 @@ class Builder: BuilderProtocol {
     func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController {
         let model = GeneralDayModel(alamofireFacade: AlamofireFacade.shared)
         let presenter = GeneralDayPresenter(userDataRepository: UserDataRepository.shared)
-        let view = UIGeneralDayViewController(presenter)
+        let view = UIGeneralDayViewController()
+        view.presenter = presenter
         presenter.view = view
         presenter.model = model
         presenter.router = router
