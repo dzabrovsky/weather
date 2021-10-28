@@ -102,6 +102,7 @@
 		54C516A626F21EA3006E585E /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C516A526F21EA3006E585E /* ThemeManager.swift */; };
 		54C516AE26F3745C006E585E /* UIInputCityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C516AD26F3745C006E585E /* UIInputCityName.swift */; };
 		54C516B026F37E5F006E585E /* UICustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C516AF26F37E5F006E585E /* UICustomAlert.swift */; };
+		54E895082729A773001F59AB /* NeedleGenerated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54E895072729A773001F59AB /* NeedleGenerated.swift */; };
 		54FAE299271D94DC002FC403 /* UIAnyErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE298271D94DC002FC403 /* UIAnyErrorAlert.swift */; };
 		54FAE29B271D968D002FC403 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE29A271D968D002FC403 /* UIViewControllerExtension.swift */; };
 		54FAE29E271DA7EC002FC403 /* CityListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FAE29D271DA7EC002FC403 /* CityListAdapter.swift */; };
@@ -208,6 +209,7 @@
 		54C516A526F21EA3006E585E /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ThemeManager.swift; path = Weather/Structures/Screens/ThemeManager.swift; sourceTree = SOURCE_ROOT; };
 		54C516AD26F3745C006E585E /* UIInputCityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIInputCityName.swift; path = Weather/Structures/Screens/UISearch/UI/CustomAlert/UIInputCityName.swift; sourceTree = SOURCE_ROOT; };
 		54C516AF26F37E5F006E585E /* UICustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UICustomAlert.swift; path = Weather/Structures/Screens/UISearch/UI/CustomAlert/UICustomAlert.swift; sourceTree = SOURCE_ROOT; };
+		54E895072729A773001F59AB /* NeedleGenerated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeedleGenerated.swift; sourceTree = "<group>"; };
 		54FAE298271D94DC002FC403 /* UIAnyErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIAnyErrorAlert.swift; path = Weather/Structures/Screens/UI/Alerts/UIAnyErrorAlert.swift; sourceTree = SOURCE_ROOT; };
 		54FAE29A271D968D002FC403 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		54FAE29D271DA7EC002FC403 /* CityListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CityListAdapter.swift; path = Weather/Structures/Screens/UISearch/Adapters/CityListAdapter.swift; sourceTree = SOURCE_ROOT; };
@@ -818,6 +820,7 @@
 			files = (
 				54203708271701C10069A6FD /* UIDescriptionLabel.swift in Sources */,
 				54BA58BE26F9CF1800996AF1 /* UserDataRepository.swift in Sources */,
+				54E895082729A773001F59AB /* NeedleGenerated.swift in Sources */,
 				54395B8D26FC7B0200F3A07B /* UILaunchScreen.swift in Sources */,
 				5406EC912715B3920072A41C /* GeneralDayForecastDayAdapter.swift in Sources */,
 				5418BC3D270DDD7B007A10EB /* MoveCellGesture.swift in Sources */,
