@@ -18,15 +18,13 @@ protocol MapViewProtocol: AnyObject {
 }
 
 class MapPresenter {
-    private let router: MapRouterProtocol
-    private let model: MapModel
+    var router: MapRouterProtocol!
+    var model: MapModel!
     weak var view: MapViewProtocol!
     
     let userDataRepository: UserDataRepositoryProtocol
     
-    init(router: MapRouterProtocol, model: MapModel, userDataRepository: UserDataRepositoryProtocol) {
-        self.router = router
-        self.model = model
+    init(userDataRepository: UserDataRepositoryProtocol) {
         self.userDataRepository = userDataRepository
     }
 }

@@ -27,4 +27,7 @@ class RootComponent: BootstrapComponent {
         return SearchComponent(parent: self)
     }
     
+    var mapComponent: MapComponent{
+        return MapComponent(parent: self)
+    }
 }

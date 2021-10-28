@@ -8,9 +8,15 @@ enum CheckCityStatus {
 
 class MapModel {
     
-    private let locationManagerFacade = LocationManagerFacade.shared
-    private let alamofireFacade = AlamofireFacade.shared
-    private let coreDataFacade = CoreDataFacade.shared
+    private let locationManagerFacade: LocationManagerFacadeProtocol
+    private let alamofireFacade: AlamofireFacadeProtocol
+    private let coreDataFacade: CoreDataFacadeProtocol
+    
+    init(alamofireFacade: AlamofireFacadeProtocol, coreDataFacade: CoreDataFacadeProtocol, locationManagerFacade: LocationManagerFacadeProtocol) {
+        self.alamofireFacade = alamofireFacade
+        self.coreDataFacade = coreDataFacade
+        self.locationManagerFacade = locationManagerFacade
+    }
     
     func updateGeonames(east: Double, west: Double, north: Double, south: Double, completion: @escaping (CityListItem) -> Void, error: @escaping (AlamofireStatus) -> Void){
         

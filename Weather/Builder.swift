@@ -6,10 +6,12 @@ class Builder: BuilderProtocol {
     let rootComponent: RootComponent = RootComponent()
     var generalDayComponent: GeneralDayBuilder
     var searchComponent: SearchBuilder
+    var mapComponent: MapBuilder
     
     init() {
         generalDayComponent = rootComponent.generalDayComponent
         searchComponent = rootComponent.searchComponent
+        mapComponent = rootComponent.mapComponent
     }
     
     func buildRouter(_ navigationController: UINavigationController) -> Router {
@@ -64,11 +66,13 @@ class Builder: BuilderProtocol {
         return view
     }
     func buildMapScreen(_ router: MapRouterProtocol) -> UIViewController{
-        let view = UIMapViewController()
-        let model = MapModel()
-        let presenter = MapPresenter(router: router, model: model, userDataRepository: UserDataRepository.shared)
-        presenter.view = view
+        let model = mapComponent.model
+        let presenter = mapComponent.presenter
+        let view = mapComponent.view
         view.presenter = presenter
+        presenter.view = view
+        presenter.model = model
+        presenter.router = router
         
         return view
     }

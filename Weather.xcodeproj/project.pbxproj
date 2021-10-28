@@ -85,6 +85,7 @@
 		54708B49270460A300431522 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54708B48270460A300431522 /* Coordinates.swift */; };
 		54708B4F2705E87100431522 /* CustomValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54708B4E2705E87100431522 /* CustomValueFormatter.swift */; };
 		547A5C27272AA880005EE56F /* SearchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A5C26272AA880005EE56F /* SearchComponent.swift */; };
+		547A5C29272AAB0C005EE56F /* MapComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547A5C28272AAB0C005EE56F /* MapComponent.swift */; };
 		5485182E2714697300BC8C7F /* UILaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5485182D2714697300BC8C7F /* UILaunchView.swift */; };
 		5485183127147E6500BC8C7F /* GeneralDayForecastAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5485183027147E6500BC8C7F /* GeneralDayForecastAdapter.swift */; };
 		549956322719BB4D00F466B8 /* UIErrorAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549956312719BB4D00F466B8 /* UIErrorAlertView.swift */; };
@@ -190,6 +191,7 @@
 		54708B48270460A300431522 /* Coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		54708B4E2705E87100431522 /* CustomValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomValueFormatter.swift; path = Weather/Structures/Screens/UIDayDetails/UI/Cells/UIChart/CustomValueFormatter.swift; sourceTree = SOURCE_ROOT; };
 		547A5C26272AA880005EE56F /* SearchComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchComponent.swift; sourceTree = "<group>"; };
+		547A5C28272AAB0C005EE56F /* MapComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponent.swift; sourceTree = "<group>"; };
 		5485182D2714697300BC8C7F /* UILaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UILaunchView.swift; path = Weather/Structures/Screens/LaunchScreen/UI/UILaunchView.swift; sourceTree = SOURCE_ROOT; };
 		5485183027147E6500BC8C7F /* GeneralDayForecastAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GeneralDayForecastAdapter.swift; path = Weather/Structures/Screens/Adapters/GeneralDayForecastAdapter.swift; sourceTree = SOURCE_ROOT; };
 		549956312719BB4D00F466B8 /* UIErrorAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIErrorAlertView.swift; path = Weather/Structures/Screens/UI/Alerts/UIErrorAlert/UIErrorAlertView.swift; sourceTree = SOURCE_ROOT; };
@@ -878,6 +880,7 @@
 				542FD2CE26CBD6C300AC4077 /* UIHeaderButton.swift in Sources */,
 				54480D2326DFD21C001698C3 /* UIGeneralDayView.swift in Sources */,
 				542FD2F326CE658200AC4077 /* UIHourWeatherCell.swift in Sources */,
+				547A5C29272AAB0C005EE56F /* MapComponent.swift in Sources */,
 				54FAE2A0271F17D4002FC403 /* TapCellGesture.swift in Sources */,
 				5420370E271703860069A6FD /* UIDateLabel.swift in Sources */,
 				54395B8026FB4C5400F3A07B /* CityWeather.swift in Sources */,
