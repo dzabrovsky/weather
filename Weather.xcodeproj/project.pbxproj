@@ -662,6 +662,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 542FD2C926CBD45700AC4077 /* Build configuration list for PBXNativeTarget "Weather" */;
 			buildPhases = (
+				54E894FC2728542B001F59AB /* ShellScript */,
 				1041772A4F3E91A3673F5C83 /* [CP] Check Pods Manifest.lock */,
 				542FD2B126CBD45200AC4077 /* Sources */,
 				542FD2B226CBD45200AC4077 /* Frameworks */,
@@ -752,6 +753,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		54E894FC2728542B001F59AB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "needle generate Weather/Needle/NeedleGenerated.swift Weather/Needle/\n";
 		};
 		F0132063CB21CCDB2D731DB9 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
