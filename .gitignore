@@ -51,3 +51,4 @@ Thumbs.db
 Weather.xcworkspace/xcuserdata
 Weather.xcodeproj/xcuserdata
 Pods
+Weather/Needle/NeedleGenerated.swift
