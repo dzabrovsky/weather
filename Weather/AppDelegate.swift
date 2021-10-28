@@ -5,6 +5,7 @@
 //  Created by Denis Zabrovsky on 17.08.2021.
 //
 
+import NeedleFoundation
 import UIKit
 import CoreData
 
@@ -20,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if #available(iOS 13, *) {
                     // do only pure app launch stuff, not interface stuff
                 } else {
+                    registerProviderFactories()
                     window = UIWindow()
                     
                     let navigationController = UINavigationController()

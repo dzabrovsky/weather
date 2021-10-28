@@ -18,4 +18,9 @@ class RootComponent: BootstrapComponent {
     var userDataRepository: UserDataRepositoryProtocol {
         return UserDataRepository.shared
     }
+    
+    var generalDayComponent: GeneralDayComponent{
+        return GeneralDayComponent(parent: self)
+    }
+    
 }

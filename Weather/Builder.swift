@@ -1,6 +1,14 @@
 import UIKit
+import NeedleFoundation
 
 class Builder: BuilderProtocol {
+    
+    let rootComponent: RootComponent = RootComponent()
+    var generalDayComponent: GeneralDayBuilder
+    
+    init() {
+        generalDayComponent = rootComponent.generalDayComponent
+    }
     
     func buildRouter(_ navigationController: UINavigationController) -> Router {
         let router = Router(navigationController: navigationController, builder: self)
@@ -21,8 +29,8 @@ class Builder: BuilderProtocol {
     }
     
     func buildGeneralDayScreen(_ router: GeneralDayRouterProtocol ) -> UIViewController {
-        let model = GeneralDayModel(alamofireFacade: AlamofireFacade.shared)
-        let presenter = GeneralDayPresenter(userDataRepository: UserDataRepository.shared)
+        let model = generalDayComponent.model
+        let presenter = generalDayComponent.presenter
         let view = UIGeneralDayViewController()
         view.presenter = presenter
         presenter.view = view
