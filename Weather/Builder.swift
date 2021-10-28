@@ -5,9 +5,11 @@ class Builder: BuilderProtocol {
     
     let rootComponent: RootComponent = RootComponent()
     var generalDayComponent: GeneralDayBuilder
+    var searchComponent: SearchBuilder
     
     init() {
         generalDayComponent = rootComponent.generalDayComponent
+        searchComponent = rootComponent.searchComponent
     }
     
     func buildRouter(_ navigationController: UINavigationController) -> Router {
@@ -40,9 +42,9 @@ class Builder: BuilderProtocol {
         return view
     }
     func buildSearchScreen(_ router: SearchRouterProtocol ) -> UIViewController {
-        let model = SearchModel()
-        let view = UISearchViewController()
-        let presenter = SearchPresenter()
+        let model = searchComponent.model
+        let view = searchComponent.view
+        let presenter = searchComponent.presenter
         view.presenter = presenter
         presenter.view = view
         presenter.model = model

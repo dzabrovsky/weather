@@ -23,4 +23,8 @@ class RootComponent: BootstrapComponent {
         return GeneralDayComponent(parent: self)
     }
     
+    var searchComponent: SearchComponent{
+        return SearchComponent(parent: self)
+    }
+    
 }

@@ -37,6 +37,12 @@ class SearchPresenter {
     var router: SearchRouterProtocol!
     var model: SearchModelProtocol!
     var view: SearchViewProtocol!
+    
+    private let userDataRepository: UserDataRepositoryProtocol
+    
+    init(userDataRepository: UserDataRepositoryProtocol){
+        self.userDataRepository = userDataRepository
+    }
 }
 
 extension SearchPresenter: SearchPresenterProtocol {
@@ -110,8 +116,8 @@ extension SearchPresenter: SearchPresenterProtocol {
         model.getCityData(
             data[index].name,
             completion: { name, lat, lon in
-                UserDataRepository.shared.saveCityName(name: name)
-                UserDataRepository.shared.saveCity(lat: lat, lon: lon)
+                self.userDataRepository.saveCityName(name: name)
+                self.userDataRepository.saveCity(lat: lat, lon: lon)
                 self.router.popToRootWithSelectedCity()
             },
             error: { result in

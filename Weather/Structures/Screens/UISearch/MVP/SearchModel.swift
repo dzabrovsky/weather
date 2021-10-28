@@ -16,8 +16,13 @@ enum CheckResult {
 
 class SearchModel{
     
-    private let alamofireFacade = AlamofireFacade.shared
-    private let coreDataFacade = CoreDataFacade.shared
+    private let alamofireFacade: AlamofireFacadeProtocol
+    private let coreDataFacade: CoreDataFacadeProtocol
+    
+    init(alamofireFacade: AlamofireFacadeProtocol, coreDataFacade: CoreDataFacadeProtocol){
+        self.alamofireFacade = alamofireFacade
+        self.coreDataFacade = coreDataFacade
+    }
     
     func updateWeatherInCity(_ city: Cities, completion: @escaping (CityListItem) -> Void, error: @escaping (AlamofireStatus) -> Void) {
         alamofireFacade.getCurrentWeather(lat: city.lat, lon: city.lon, completion: completion, error: error)
